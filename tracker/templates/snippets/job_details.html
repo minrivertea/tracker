@@ -1,0 +1,9 @@
+<div class="right-buttons">
+    <a id="done" {% if job.completed %}class="done"{% endif %} href="{% url job_done job.hashkey %}">Done</a>
+    <a id="paid" {% if job.paid %}class="done"{% endif %} href="{% url job_paid job.hashkey %}">Paid</a>
+</div>
+
+<div class="left-content">
+    <h4>{{ job.name }}</h4>
+    
+</div>

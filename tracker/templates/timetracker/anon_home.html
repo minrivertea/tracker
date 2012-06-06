@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load django_static %}
+
+
+{% block extrajs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="super">
+    <h1>Timetracker</h1>
+    <p>Time tracker is a simple time tracking tool built specifically for people who work by the hour.</p>
+    
+    <p>It lets you keep track of work you have done, been paid for, or have coming up.</p>
+    
+    <p>Adding jobs, removing them, and checking your financial position is easier than ever.</p>
+    
+    <p><a href="{% url auth_login %}">Login</a> if you already have an account, or <a href="{% url registration_register %}">register</a> if you don't.</p>
+    <br/><br/>
+    
+    <p>If you're testing this tool, <a href="">login as an anonymous user</a> and try it out</p>
+
+</div>
+
+
+{% endblock %}

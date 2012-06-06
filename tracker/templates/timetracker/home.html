@@ -1,0 +1,363 @@
+{% extends 'base.html' %}
+
+{% load django_static %}
+
+
+{% block extrajs %}
+<script type="text/javascript">
+
+function addJob() {
+   clearAll();
+   var date = $(this).attr('id');   
+   if ($(this).hasClass('selected')) {
+      $('#add-form').css({'display': 'none', 'top': '0' });
+      $(this).removeClass('selected');
+   } else {
+      $('td').removeClass('selected');
+      $(this).addClass('selected');
+      $('#add-form').css({'display': 'block', 'top': '40%', 'left': '35%'});
+      $('#add-form input#id_start_date').val(date);
+   }    
+}
+
+function getDetails(e) {
+   
+   var posX = e.pageX;
+   var posY = e.pageY;
+   var height = $(window).height();
+   var width = $(window).width();
+   var cssClass = 'popout-inner';
+   if ((width-posX) < 400) {
+      cssClass += ' left';
+   }
+   if ((height-posY) < 300) {
+      cssClass += ' top';
+   } 
+   
+   if ($(this).hasClass('selected')) {
+        $('.popout').remove();
+        $('td span.link').removeClass('selected');
+   } else {
+        clearAll();
+        $(this).addClass('selected');
+        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="{{ static_url }}images/loading.gif"></div></div>');
+        $.ajax({
+            url: $(this).attr('href'),
+            cache: false,
+            success: function(data) {
+               $('.popout-inner').html(data);
+               $('#loading').css('display', 'none');
+               jobDone();
+               jobPaid();
+            }
+        });
+   }
+   e.preventDefault();
+   e.stopPropagation();
+   e.stopImmediatePropagation();    
+}
+
+function clearAll() {
+  $('.popout').remove();
+  $('#add-form').css({'display': 'none', 'top': '0' });
+  $('.selected').removeClass('selected'); 
+}
+
+
+function jobDone() {
+    $('a#done').click( function() {
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function(data) {
+                if (data == 'true') {$('#done').addClass('done');}   
+            }
+        });
+        return false;
+    });
+}
+
+function jobPaid() {
+    $('a#paid').click( function() {
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function(data) {
+                if (data == 'true') {$('#paid').addClass('done');}   
+            }
+        });
+        return false;
+    });
+}
+
+
+$(document).ready( function() {
+    $('table.month td').not('.noday').bind('click', addJob);
+    $('table.month td span.link').bind('click', getDetails);
+});
+
+
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+
+table.month {
+  margin: 0px auto;   
+}
+
+table.month th {
+  color: #fff;
+  font-size: 12px;
+  padding-top: 5px;   
+}
+
+table.month td {
+    width:190px;
+    height: 135px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px dotted #f1f1f1;
+    border-width: 0px 0px 2px 2px;
+    position: relative;
+}
+
+table.month tr td:first-child {
+  border-left: 0;   
+}
+
+table.month tr:last-child td {
+   border-bottom: 0   
+}
+
+table.month td.selected {
+  border-color: red;
+  border: 1px solid red;   
+}
+
+td div.inner {
+  width: 190px;
+  height: 135px;
+  position: relative;
+  padding: 0;
+  margin: 0;   
+}
+
+td ul {
+  list-style-type: none;
+  font-size: 12px;
+  font-weight:normal;
+  color: #333;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+  text-align: left;   
+}
+
+table.month td span.inner_day {
+    color: #F1F1F1;
+    font-size: 70px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    top: 15%;
+    width: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+table.month td:hover span.inner_day {
+  color: #c5d8ae;   
+}
+
+table.month td.today {
+  background: #f3ffe4;   
+}
+
+table.month td.today span.inner_day {
+  color: #aacb7d;   
+}
+
+.month td:hover {
+  cursor: pointer;   
+}
+
+.month .noday {
+  border-right: none;   
+}
+
+.month .noday:hover {
+  background-color: #fff;
+  cursor: default;   
+}
+
+#add-form {
+ position: absolute;
+ top: 0;
+ left: 0;
+ display: none; 
+ padding: 20px;
+ background: #fff;
+ box-shadow: 0 1px 30px #333;
+ border-radius: 10px;  
+}
+
+#add-form input {
+  width: 300px;   
+}
+
+#add-form input.submit {
+  width: 50px;   
+}
+
+td span.link {
+  color: #0088CC;
+  text-decoration: underline;   
+}
+
+td span.link:hover {
+  cursor: pointer;
+  color: #005580;   
+}
+
+td .popout {
+  position: relative;
+  display: block;
+  color: #333;
+}
+
+.popout-inner {
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 5px #E1E1E1;
+    height: 160px;
+    left: 0px;
+    position: absolute;
+    top: 40px;
+    width: 460px;
+    z-index: 20;
+    border: 1px solid #d1d1d1;
+    padding: 20px;
+}
+
+.popout-inner.left {
+    left: -400px;
+}
+
+.popout-inner.top {
+     top: -230px;   
+}
+
+/* this is the background of the arrow */
+.popout-inner:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid #e1e1e1;         
+        border-top: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        position: absolute;
+        top: -21px;
+        left: 29px;
+        z-index: 1;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.popout-inner:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid #fff;     
+        border-top: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        position: absolute;
+        top: -19px;
+        left: 30px;
+        z-index: 2;
+        margin-left: -1px;
+}
+
+.popout-inner.top:before {
+  border-bottom: 0;
+  border-top: 20px solid #fff;
+  top: 199px 
+}
+
+.popout-inner.top:after {
+  border-bottom: 0;
+  border-top: 20px solid #e1e1e1; 
+  top: 201px; 
+}
+
+.popout-inner.left:before {
+  left: 420px;   
+}
+
+.popout-inner.left:after {
+  left: 419px;   
+}
+
+.popout #loading {
+    left: 45%;
+    position: absolute;
+    top: 40%;   
+}
+
+
+.popout-inner .right-buttons {
+  width: 100px;
+  float: right;   
+}
+
+.popout-inner .right-buttons a {
+  background-color: #f1f1f1;
+  height: 45px;
+  padding-top: 25px;
+  width: 80px;
+  margin-bottom: 10px;
+  float: left; 
+  text-align: center; 
+  vertical-align: text-bottom;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none; 
+}
+
+.popout-inner .left-content {
+  float:left;
+  width: 360px;   
+}
+
+.popout-inner .right-buttons a.done {
+  background-color: green; 
+  color: #fff;  
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{{ cal|safe }}
+<form id="add-form" action="{% url addjob %}" method="post">
+    {% csrf_token %}
+    <input type="text" value="" title="Type details of the job here" name="details" id="id_details"/>
+    <input type="submit" value="Save" class="submit"/>
+    <input type="hidden" id="id_start_date" name="start_date" value=""/>
+</form>
+
+
+
+{% endblock %}

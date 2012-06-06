@@ -1,0 +1,183 @@
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+
+
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+
+q:before,q:after{content:'';}
+
+abbr,acronym{border:0;font-variant:normal;}
+
+sup{vertical-align:text-top;}
+
+sub{vertical-align:text-bottom;}
+
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}del,ins{text-decoration:none;}
+
+
+html {
+  border: none;
+  margin: none;
+  padding: none;
+  background-color: #fff;	
+}
+
+body {
+  font-weight: 0.9em;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;	
+  margin: 0;
+  padding: 0;
+}
+
+/* links */
+
+a img {
+  border: none;	
+}
+
+a img:hover {
+  opacity: 0.8;	
+}
+
+a {
+  text-decoration: underline;	
+}
+
+a:link, a:visited {
+  color: #0088CC;
+}
+
+a:hover, a:active, #navigation li a:hover {
+  color: #005580;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  margin: 0; 
+  line-height: 1em;  
+}
+
+.button, a.button, input.button {
+	background-color: #0088CC;
+	color: #fff;   
+	border:none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: center; 	
+}
+
+.button:hover {
+  background-color: #005580;
+  cursor: pointer;
+}
+
+.button.right {
+  float: right;	
+}
+
+/* end links */
+
+p {
+  font-size: 16px;
+  line-height: 1.6em;	
+}
+
+p.introduction {
+  color: #666;
+  font-size: 20px;	
+}
+
+h1 {
+  font-size:44px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin: 0 0 30px 0;	
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;	
+  letter-spacing: -1px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  font-family: Helvetica, Arial sans-serif;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;	
+}
+
+input:focus {
+  border-color: green;
+  background-color: #f9f9f9;	
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.2em;
+  position: relative;
+  top: 5px;	
+}
+
+
+/* main divs */
+
+.super {
+  width: 960px;
+  margin: 60px auto;  	
+}
+
+
+
+/* footer and header divs */
+
+#footer, #header {
+  position: fixed;
+  bottom: 0px;
+  height: 40px;
+  background: #333;
+  width: 100%;
+  color: #fff;   
+}
+
+#header {
+    top: 0;
+    z-index: 30;
+}
+
+#header a {
+  color: #fff;
+  font-size: 12px;   
+}
+
+#header #logout {
+  float: right;
+}
+
+#footer .inner, #header .inner {
+ width: 90%;
+ margin: 10px auto;   
+}
+
+#footer #inner ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;   
+}
+
+#footer #inner ul li {
+  float: left;
+  margin-right: 30px;
+  font-size: 13px;   
+}
+

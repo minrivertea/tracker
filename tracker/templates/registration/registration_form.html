@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Register{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+$('#id_name').blur( function() {
+    $.ajax({  
+        type: "GET",  
+        data: $('#id_name').serialize(),  
+        url: "",  
+        cache: false,  
+        dataType: "html",  
+        success: function(data) {
+            if (data == "success") {
+            	$('#id_name').attr('style', 'border-color: #9acd9c; background-color: #def2df;');
+                $('#username_status .ok').toggle();
+                $('#username_status .notok').css('display', 'none');		
+            }
+            else {
+            	$('#id_name').attr('style', 'border-color: red; background-color: #f3dbdb;');
+                $('#username_status .ok').css('display', 'none');
+                $('#username_status .notok').toggle();	
+            }
+        },  
+        error: function (XMLHttpRequest, textStatus, errorThrown) {  
+            alert('error'); 
+        }  
+    }); 
+});
+
+
+
+</script>
+{% endblock %}
+
+
+{% block extracss %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/registration.css">
+
+<style type="text/css">
+
+
+div#left input.register {
+  float: left;
+  width: 280px;	
+  margin: 20px 20px 0px 280px;
+  font-size: 20px;
+}
+
+p.description {
+    float: right;
+    font-size: 19px;
+    margin: 20px 20px 10px;
+    width: 290px;
+    border-bottom: none;
+}
+
+#rightbar {
+  width: 310px;	
+}
+
+#username_status {
+  float: right;
+  height: 40px;
+  width: 290px;	
+  margin: 27px 0 20px 0;
+  display: none;
+}
+
+#username_status .ok, #username_status .notok {
+    border-radius: 0 5px 5px 0;
+    display: none;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    height: 19px;
+    left: -108px;
+    padding: 12px 15px 10px;
+    position: relative;
+    width: 50px;
+}
+
+#username_status .ok {
+  background-color: #2e9e33;
+  color: #fff;
+  width: 87px;
+  left: -145px;	
+  padding: 8px 15px 14px 15px;
+}
+
+#username_status .notok {
+  background-color: red;
+  color: #fff;	
+  width: 123px;
+  left: -182px;
+  padding: 8px 15px 14px 15px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="super">
+<h1>Signup</h1>
+
+<div id="username_status">
+	<div class="ok"><img src="/images/username_tick.png" style="float: left; margin-right: 10px;"/>Username available</div>
+	<div class="notok"><img src="/images/username_cross.png" style="float: left; margin: 2px 10px 0 0;"/>Username taken (choose another)</div>
+</div>
+
+
+{{ form.errors }}
+
+<form method="post" action=".">
+	{% csrf_token %}
+  <p id="username">{{ form.username }}<label>Choose a username <span>(your display name on the site)</span></label></p>
+  <p>{{ form.email }}<label>Your email address <span>(will never be made public)</span></label></p>
+  <p>{{ form.password1 }}<label>Choose a password</label></p>
+  <p>{{ form.password2 }}<label>Confirm your password</label></p>
+
+<img style="float:left; position: relative; top: 0px; margin-right: 20px;" src="/images/lock-large.png"/>
+<p class="spam">We will <strong>never</strong> pass on your private information to any other individual or company. Your information is stored securely, your password encrypted, and your email will never be displayed publicly. We hate spam just as much as you do!</p>
+<br clear="all"/>
+  
+  <input type="submit" value="Register" class="register button" />
+</form>
+
+
+</div>
+{% endblock %}

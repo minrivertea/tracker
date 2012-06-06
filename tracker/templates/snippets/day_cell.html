@@ -1,0 +1,6 @@
+<td id="{{ year }}{{ month }}{{ day }}" class="{{ cssclass }}">
+  <div class="inner">
+    <span class="inner_day">{{ day|safe }}</span>
+    {% if body %}<span class="jobs">{{ body|safe }}</span>{% endif %}
+  </div>   
+</td>

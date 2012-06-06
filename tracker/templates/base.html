@@ -1,0 +1,82 @@
+{% load django_static %}
+
+
+{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% endblock %}
+
+<head>
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="en-gb" http-equiv="Content-Language" />
+	<meta content="{% block metadescription %}{% endblock %}" name="description" />
+	
+	<meta name="msvalidate.01" content="D72BD43A6F271B73C8F653A920B8C23C" />
+	<meta name="google-site-verification" content="obu9NY_4FNbUQMNlrvWOk59ABZ9gROs37zTql__Lglo" />
+	<META name="y_key" content="cfd80b8d388be931" />
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="generator" content="Django - http://www.djangoproject.com" />
+	<meta name="DC.format" content="text/html" />
+	<meta name="DC.type" content="Django Site" />
+	<meta name="robots" content="ALL" />
+	
+	<title>{% block pagetitle %}{% endblock %} TimeTracker</title>
+	<link rel="shortcut icon" href="{% staticfile '/images/favicon.ico' %}" type="image/x-icon">
+	{% block canonical %}{% endblock %}
+	
+	{% block extra-head %}{% endblock %}
+	
+    <link rel="stylesheet" href="{{ static_url }}css/styles.css" />
+
+	    
+	<script type="text/javascript" src="{{ static_url }}js/jquery-1.6.min.js"></script>
+	{% if ga_is_on %}
+		<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	{% else %}
+		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
+	{% endif %}
+	   
+
+	{% block extracss %}{% endblock %}
+
+
+</head>
+
+
+
+<body>
+    
+    <div id="header">
+      <div class="inner">
+        {% if request.user.is_authenticated %}<a id="logout" href="{% url auth_logout %}">Logout</a>{% endif %}
+      </div>
+    </div>
+    
+    <div id="container">
+	{% block content %}{% endblock %}
+	</div>
+	
+	<div id="footer">
+	  <div class="inner">
+	   <ul>
+            {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
+            {% if total_jobs %}<li><strong>Total jobs:</strong> {{ total_jobs }}</li>{% endif %}
+            {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
+            {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
+	   </ul>
+	  </div>
+	</div>
+
+
+<script type="text/javascript">
+
+</script>
+{% block extrajs %}{% endblock %}
+
+</body>
+
+</html>
