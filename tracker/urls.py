@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^job/(?P<hashkey>[\w-]+)/$', job, name="job"),
     #url(r'^url/(?P<hashkey>[\w-]+)/$', views.url, name="url"),
     url(r'^add-job/$', addjob, name="addjob"),
+    url(r'^anonymous-login/$', anonymous_login, name="anonymous_login"),
     
     url(r'^accounts/register/$', register,
         {'backend': 'tracker.regbackend.RegBackend',},        

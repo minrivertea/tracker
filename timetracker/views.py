@@ -5,11 +5,14 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from django.contrib import auth
 
 import datetime
 import calendar
 import time
 import uuid
+from random import randint
 
 from timetracker.forms import AddForm
 from timetracker.models import JobsCalendar, Job, Currency
@@ -44,7 +47,7 @@ def home(request):
         year = datetime.datetime.now().year
         month = datetime.datetime.now().month
         my_jobs = Job.objects.order_by('start_date_time').filter(
-            start_date_time__year=year, start_date_time__month=month
+            start_date_time__year=year, start_date_time__month=month, owner=request.user
         )
         
         cal = JobsCalendar(my_jobs).formatmonth(year, month)
@@ -171,6 +174,32 @@ def job(request, hashkey):
         return HttpResponse(text)
     
     return render(request, 'timetracker/job.html', locals())
+
+
+def anonymous_login(request):
+    
+    creation_args = {
+        'username': str(randint(100, 999)),
+        'email': 'nothing@nothing.com',
+        'password': uuid.uuid1().hex,
+    }
+    
+    this_user = User.objects.create(**creation_args)
+    this_user.first_name = ''
+    this_user.last_name = ''
+    this_user.save()
+    
+    # we'll secretly log the user in now
+    from django.contrib.auth import load_backend, login
+    for backend in settings.AUTHENTICATION_BACKENDS:
+        if this_user == load_backend(backend).get_user(this_user.pk):
+            this_user.backend = backend
+    if hasattr(this_user, 'backend'):
+        login(request, this_user)
+    
+    url = reverse('home')
+    return HttpResponseRedirect(url)
+
 
 def mark_job_as_done(request, hashkey):
     job = get_object_or_404(Job, hashkey=hashkey)
