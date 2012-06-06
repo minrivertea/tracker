@@ -167,9 +167,7 @@ def job(request, hashkey):
     job = get_object_or_404(Job, hashkey=hashkey)
     
     if request.is_ajax():
-        
         text = render_to_string('snippets/job_details.html', {'job': job})
-        
         return HttpResponse(text)
     
     return render(request, 'timetracker/job.html', locals())
@@ -194,3 +192,14 @@ def mark_job_as_paid(request, hashkey):
         return HttpResponse('true')
     
     return render(request, 'timetracker/job.html', locals())
+    
+def delete_job(request, hashkey):
+    job = get_object_or_404(Job, hashkey=hashkey)
+    job.delete()
+    
+    if request.is_ajax(): 
+        return HttpResponse('true')
+    
+    url = reverse('home')
+    return HttpResponseRedirect(url)
+    

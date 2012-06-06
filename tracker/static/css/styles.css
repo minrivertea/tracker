@@ -169,13 +169,13 @@ label {
  margin: 10px auto;   
 }
 
-#footer #inner ul {
+#footer .inner ul {
   list-style-type: none;
   margin: 0;
   padding: 0;   
 }
 
-#footer #inner ul li {
+#footer .inner ul li {
   float: left;
   margin-right: 30px;
   font-size: 13px;   
