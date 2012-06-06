@@ -88,14 +88,27 @@ table.month td span.inner_day {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    transition:  400ms;
+    -moz-transition:  400ms; /* Firefox 4 */
+    -moz-transition:  400ms; /* Firefox 4 */
+    -webkit-transition:  400ms; /* Safari and Chrome */
+    -o-transition:  400ms; /* Opera */ 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none; 
 }
 
 table.month td:hover span.inner_day {
-  color: #c5d8ae;   
+  color: #c5d8ae;
+  
 }
 
 table.month td.today {
-  background: #f3ffe4;   
+  color: #c5d8ae;   
 }
 
 table.month td.today span.inner_day {

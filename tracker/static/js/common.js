@@ -32,7 +32,7 @@ function getDetails(e) {
    } else {
         clearAll();
         $(this).addClass('selected');
-        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="{{ static_url }}images/loading.gif"></div></div>');
+        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
         $.ajax({
             url: $(this).attr('href'),
             cache: false,
