@@ -44,8 +44,19 @@ def login_as_anonymous(request):
 def home(request):
     
     if request.user.is_authenticated():
-        year = datetime.datetime.now().year
-        month = datetime.datetime.now().month
+        
+        try:
+            year = int(request.GET['year'])
+            month = int(request.GET['month'])
+            print month
+        except:
+            year = datetime.datetime.now().year
+            month = datetime.datetime.now().month
+        
+        
+        next_month = int(month)+1
+        prev_month = int(month)-1
+            
         my_jobs = Job.objects.order_by('start_date_time').filter(
             start_date_time__year=year, start_date_time__month=month, owner=request.user
         )
@@ -63,8 +74,10 @@ def home(request):
                 paid += job.get_total()
             
             total_money += job.get_total()
+            
     else:
         return render(request, 'timetracker/anon_home.html', locals())
+
 
     return render(request, 'timetracker/home.html', locals())
     
@@ -179,7 +192,7 @@ def job(request, hashkey):
 def anonymous_login(request):
     
     creation_args = {
-        'username': str(randint(100, 999)),
+        'username': ("%s%s" % ('anonymous', str(randint(100, 999)))),
         'email': 'nothing@nothing.com',
         'password': uuid.uuid1().hex,
     }
@@ -196,6 +209,8 @@ def anonymous_login(request):
             this_user.backend = backend
     if hasattr(this_user, 'backend'):
         login(request, this_user)
+    
+    request.session['firsttime'] = 1
     
     url = reverse('home')
     return HttpResponseRedirect(url)

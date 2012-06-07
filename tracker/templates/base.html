@@ -51,9 +51,23 @@
 
 <body>
     
-    <div id="header">
+    <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
       <div class="inner">
+        {% if firsttime %}
+        <span id="firsttime"><span>First time?</span> Click on a day to add your first appointment</span>
+        {% else %}
+        {% if request.user.is_authenticated %}Hi <a id="username" href="">{{ request.user.username }}</a>!{% endif %}
         {% if request.user.is_authenticated %}<a id="logout" href="{% url auth_logout %}">Logout</a>{% endif %}
+        {% endif %}
+        
+        {% if next_month %}
+        <div id="next_previous">
+            <a href="?year={{ year }}&month={{ prev_month }}">Previous</a>
+            <a href="?year={{ year }}&month={{ next_month }}">Next</a>
+
+        </div>
+        {% endif %}
+        
       </div>
     </div>
     

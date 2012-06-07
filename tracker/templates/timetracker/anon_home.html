@@ -10,24 +10,21 @@
 
 {% block extracss %}
 <style type="text/css">
-
+p {
+  margin: 0 0 30px 0;   
+}
 
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="super">
-    <h1>Timetracker</h1>
-    <p>Time tracker is a simple time tracking tool built specifically for people who work by the hour.</p>
+    <h1>The online time and money tracker for people who are paid by the hour</h1>
+    <p>Time tracker is a simple time tracking tool built specifically for people who work by the hour. It lets you keep track of work you have done, been paid for, or have coming up. Keeping your appointments and checking your financial position is easier than ever.</p>
     
-    <p>It lets you keep track of work you have done, been paid for, or have coming up.</p>
-    
-    <p>Adding jobs, removing them, and checking your financial position is easier than ever.</p>
-    
-    <p><a href="{% url auth_login %}">Login</a> if you already have an account, or <a href="{% url registration_register %}">register</a> if you don't.</p>
-    <br/><br/>
-    
-    <p>If you're testing this tool, <a href="{% url anonymous_login %}">login as an anonymous user</a> and try it out</p>
+    <p>If you have an account, then <a href="{% url auth_login %}">login &raquo;</a></p>
+    <p>If you don't, then <a href="{% url registration_register %}">register now &raquo;</a></p>
+    <p>If you're trying the tool out, <a href="{% url anonymous_login %}">login as an anonymous user &raquo;</a></p>
 
 </div>
 

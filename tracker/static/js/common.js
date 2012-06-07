@@ -8,6 +8,7 @@ function addJob() {
       $('td').removeClass('selected');
       $(this).addClass('selected');
       $('#add-form').css({'display': 'block', 'top': '40%', 'left': '35%'});
+      $('#add-form input:text:visible:first').focus();
       $('#add-form input#id_start_date').val(date);
    }    
 }
@@ -54,6 +55,8 @@ function clearAll() {
   $('#add-form').css({'display': 'none', 'top': '0' });
   $('.selected').removeClass('selected'); 
 }
+
+
 
 
 function jobDone() {

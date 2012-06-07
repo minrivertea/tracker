@@ -151,13 +151,31 @@ label {
 }
 
 #header {
-    top: 0;
-    z-index: 30;
+  top: 0;
+  z-index: 30;
+  font-size: 12px;
+}
+
+#header.firsttime {
+  height: ;   
+}
+
+#header #firsttime {
+  font-size: 15px;
+  font-weight: bold;   
+}
+
+#header #firsttime span {
+  color: #ffd800;   
+}
+
+#header #next_previous {
+  width: auto;
+  float: right;   
 }
 
 #header a {
   color: #fff;
-  font-size: 12px;   
 }
 
 #header #logout {
