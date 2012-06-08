@@ -90,21 +90,14 @@ def addjob(request):
         if form.is_valid():
         
             # turn the date provided by the form into a valid date format
-            date = datetime.datetime.strptime(form.cleaned_data['start_date'], "%Y%m%d").date()
-            
-            
-            
-            #date = form.cleaned_data['start_date'].split('-')
-            #year = date[0]
-            #month = date[1]
-            #day = date[2]
-            
+            date = datetime.datetime.strptime(form.cleaned_data['start_date'], "%Y-%m-%d").date()
+
            
             name = 'Untitled'
             client = None
             length = None
             hours = 9
-            minutes = 00
+            minutes = None
             
             details = form.cleaned_data['details'].split()
             for x in details:
@@ -146,9 +139,16 @@ def addjob(request):
                                             curr_code += d
                                             
 
-            
-            time_string = "%s%s%s" % (form.cleaned_data['start_date'], hours, minutes)
-            time_format = "%Y%m%d%H%M"
+            if not minutes:
+                time_string = "%s-%s" % (form.cleaned_data['start_date'], hours)
+                time_format = "%Y-%m-%d-%H"
+            else:
+                time_string = "%s-%s%s" % (form.cleaned_data['start_date'], hours, minutes)
+                time_format = "%Y-%m-%d-%H%M"
+         
+            print time_string
+            print time_format
+        
             date_time = datetime.datetime.fromtimestamp(time.mktime(time.strptime(time_string, time_format)))
            
             currency = get_object_or_404(Currency, code=curr_code)

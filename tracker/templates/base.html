@@ -53,6 +53,9 @@
     
     <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
       <div class="inner">
+        <div id="user">
+            <a href="" id="button"></a>
+        </div>
         {% if firsttime %}
         <span id="firsttime"><span>First time?</span> Click on a day to add your first appointment</span>
         {% else %}
@@ -62,9 +65,8 @@
         
         {% if next_month %}
         <div id="next_previous">
-            <a href="?year={{ year }}&month={{ prev_month }}">Previous</a>
-            <a href="?year={{ year }}&month={{ next_month }}">Next</a>
-
+            <a href="?year={{ year }}&month={{ prev_month }}"><</a>
+            <a href="?year={{ year }}&month={{ next_month }}">></a>
         </div>
         {% endif %}
         
