@@ -115,18 +115,24 @@ def addjob(request):
                                 # first lets convert it into 24 hour clock times (only if am or pm has been used)
                                 if x.endswith('am'):
                                     number = x.replace('am', '')
+                                    afternoon = False
                                 elif x.endswith('pm'):
                                     number = x.replace('pm', '')
-                                    number = float(number) + 12.00
+                                    afternoon = True
                                     
                                 # we want to check first if it is a whole number, or a part number (eg. 9 or 9.15)
                                 if '.' or ':' in number:
                                     new = str(number).replace(':', '.').split('.')
+
                                     hours = new[0]
+                                    if afternoon:
+                                        hours = int(new[0]) + 12
+                                        
                                     try:
                                         minutes = new[1]
                                     except:
-                                        pass                                   
+                                        pass 
+                                    print minutes                                  
                                 
                             else:
                                 if x[0].isdigit() and x.endswith(('RMB', 'GBP', 'USD')):
@@ -143,8 +149,8 @@ def addjob(request):
                 time_string = "%s-%s" % (form.cleaned_data['start_date'], hours)
                 time_format = "%Y-%m-%d-%H"
             else:
-                time_string = "%s-%s%s" % (form.cleaned_data['start_date'], hours, minutes)
-                time_format = "%Y-%m-%d-%H%M"
+                time_string = "%s-%s-%s" % (form.cleaned_data['start_date'], hours, minutes)
+                time_format = "%Y-%m-%d-%H-%M"
          
             print time_string
             print time_format

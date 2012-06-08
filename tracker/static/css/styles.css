@@ -217,7 +217,7 @@ label {
   padding: 1px;
   float: left;
   position: relative;
-  top: -6px; 
+  top: -7px; 
   border-radius: 3px;
   margin: 0 20px 0 0;   
 }
@@ -240,7 +240,8 @@ label {
 
 #footer .inner, #header .inner {
  width: 95%;
- margin: 10px auto;   
+ margin: 10px auto; 
+ text-align: center;  
 }
 
 #footer .inner ul {
