@@ -74,6 +74,8 @@ def home(request):
                 paid += job.get_total()
             
             total_money += job.get_total()
+        
+        av = total_money / 30
             
     else:
         return render(request, 'timetracker/anon_home.html', locals())
