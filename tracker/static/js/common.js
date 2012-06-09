@@ -28,10 +28,22 @@ function saveJob() {
                 } else {
                     $('td#'+data['date']+' .inner').append('<span class="jobs"><ul></ul></span>');
                     $('td#'+data['date']+' .jobs ul').append(data['html']);
+                    $('td#'+data['date']+' span.link').unbind().bind('click', getDetails);
                 }  
             } 
       });
       return false;
+}
+
+function deleteJob() {
+     $.ajax({
+        url: $(this).attr('href'),
+        success: function(data) {
+           clearAll();
+           $('li#'+ data).remove();   
+        }
+     });
+     return false;   
 }
 
 function getDetails(e) {
@@ -61,6 +73,7 @@ function getDetails(e) {
             success: function(data) {
                $('.popout-inner').html(data);
                $('#loading').css('display', 'none');
+               $('a#delete').bind('click', deleteJob);
                jobDone();
                jobPaid();
             }

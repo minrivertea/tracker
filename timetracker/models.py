@@ -82,10 +82,8 @@ class JobsCalendar(calendar.HTMLCalendar):
                 cssclass += ' filled'
                 body = ['<ul>']
                 for job in self.jobs[day]:
-                    body.append('<li>')
-                    body.append('<span class="link" href="%s">' % job.get_absolute_url())
-                    body.append(esc(job))
-                    body.append('</span></li>')
+                    link = render_to_string('snippets/job_link.html', {'job': job})
+                    body.append(link)
                 body.append('</ul>')
                 return self.day_cell(cssclass, day, ''.join(body))
             return self.day_cell(cssclass, day)

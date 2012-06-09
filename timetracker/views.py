@@ -256,7 +256,7 @@ def delete_job(request, hashkey):
     job.delete()
     
     if request.is_ajax(): 
-        return HttpResponse('true')
+        return HttpResponse(job.hashkey)
     
     url = reverse('home')
     return HttpResponseRedirect(url)
