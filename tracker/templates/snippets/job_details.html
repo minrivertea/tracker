@@ -4,7 +4,9 @@
 </div>
 
 <div class="left-content">
-    <h4>{{ job.name }}</h4>
+    <h4>{{ job.name }} ({{ job.client }})</h4>
+    {{ job.start_date_time|time:"H:i" }} - {{ job.get_end_time|time:"H:i" }} ({{ job.length|floatformat }}hrs)
+    <br/>{{ job.rate }} {{ job.currency.code }}
     <a id="delete" href="{% url delete_job job.hashkey %}">Delete </a>
     
 </div>

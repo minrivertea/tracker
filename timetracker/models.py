@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from itertools import groupby
 import calendar
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 
 
@@ -55,6 +55,14 @@ class Job(models.Model):
     def get_absolute_url(self):
         url = reverse('job', args=[self.hashkey])
         return url
+        
+    def get_end_time(self):
+        duration = str(self.length).split('.')
+        end_time = self.start_date_time + timedelta(hours=int(duration[0]), minutes=int(duration[1]))
+        
+        print end_time
+        return end_time
+        
 
 
 
