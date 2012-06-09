@@ -7,6 +7,9 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.utils import simplejson
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 
 import datetime
 import calendar
@@ -53,6 +56,8 @@ def home(request):
             year = datetime.datetime.now().year
             month = datetime.datetime.now().month
         
+        
+        date = datetime.datetime(year, month, day=1)
         
         next_month = int(month)+1
         prev_month = int(month)-1
@@ -161,22 +166,23 @@ def addjob(request):
            
             currency = get_object_or_404(Currency, code=curr_code)
             # then create a job object
-            new_job = Job.objects.create(
-                name = name,
-                owner = request.user,
-                start_date_time = date_time,
-                length = length,
-                rate = rate,
-                currency = currency,
-                client = client,
-                hashkey = uuid.uuid1().hex,
-            )
+            creation_args = {
+                'name': name,
+                'owner': request.user,
+                'start_date_time': date_time,
+                'length': length,
+                'rate': rate,
+                'currency': currency,
+                'client': client,
+                'hashkey': uuid.uuid1().hex,
+            }
             
-                        
+            new_job = Job.objects.create(**creation_args)
+                                    
             if request.is_ajax():
-                
-                url = reverse('home')
-                return HttpResponseRedirect(url)
+                html = render_to_string('snippets/job_link.html', {'job': new_job})
+                json =  simplejson.dumps((dict(html=html, date=form.cleaned_data['start_date'])), cls=DjangoJSONEncoder)
+                return HttpResponse(json)
             
             else:
                 url = reverse('home')

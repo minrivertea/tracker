@@ -175,6 +175,18 @@ label {
   top: -7px;   
 }
 
+#header #next_previous .date {
+  position: relative;
+  top: 7px;
+  font-weight: bold;
+  font-size: 14px;   
+}
+
+#header #next_previous .button-outer {
+  float: right;
+  margin: 0 0 0 20px;   
+}
+
 #header #next_previous a {
   display: block;
   height: 22px;
@@ -221,13 +233,18 @@ label {
   color: #fff;
 }
 
-#header .button-outer {
+.button-outer {
   display: block;
-  box-shadow: 0 0 1px #000 inset;
-  padding: 1px;
+  box-shadow: 0 0 3px #000 inset;
+  padding: 2px;
   float: left;
   border-radius: 3px;
-  margin: 0 10px 0 0;   
+  margin: 0 10px 0 0;    
+}
+
+#header .button-outer {
+  box-shadow: 0 0 1px #000 inset;
+  padding: 1px;   
 }
 
 #header #user {

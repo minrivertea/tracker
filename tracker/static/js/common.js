@@ -10,7 +10,28 @@ function addJob() {
       $('#add-form').css({'display': 'block', 'top': '40%', 'left': '35%'});
       $('#add-form input:text:visible:first').focus();
       $('#add-form input#id_start_date').val(date);
+      $('#add-form').unbind();
+      $('#add-form').bind('submit', saveJob);
    }    
+}
+
+function saveJob() {
+      $.ajax({
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "json",
+            type: "POST",
+            success: function(data) {
+                clearAll();
+                if ($('td#'+data['date']+' .jobs ul').length) {
+                    $('td#' + data['date'] + ' .jobs ul').append(data['html']);
+                } else {
+                    $('td#'+data['date']+' .inner').append('<span class="jobs"><ul></ul></span>');
+                    $('td#'+data['date']+' .jobs ul').append(data['html']);
+                }  
+            } 
+      });
+      return false;
 }
 
 function getDetails(e) {
@@ -20,7 +41,7 @@ function getDetails(e) {
    var height = $(window).height();
    var width = $(window).width();
    var cssClass = 'popout-inner';
-   if ((width-posX) < 400) {
+   if ((width-posX) < 300) {
       cssClass += ' left';
    }
    if ((height-posY) < 300) {
@@ -53,7 +74,8 @@ function getDetails(e) {
 function clearAll() {
   $('.popout').remove();
   $('#add-form').css({'display': 'none', 'top': '0' });
-  $('.selected').removeClass('selected'); 
+  $('.selected').removeClass('selected');
+   
 }
 
 
