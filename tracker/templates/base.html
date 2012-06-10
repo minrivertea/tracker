@@ -53,6 +53,7 @@
     
     <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
       <div class="inner">
+        {% if request.user.is_authenticated %}
         <div id="user">
             <div class="button-outer">
             <a href="" id="button"></a>
@@ -62,6 +63,8 @@
                 <a id="logout" href="{% url auth_logout %}">Logout</a>
             {% endif %}
         </div>
+        {% endif %}
+        
         {% if firsttime %}
         <span id="firsttime"><span>First time?</span> Click on a day to add your first appointment</span>        
         {% endif %}
@@ -70,8 +73,8 @@
         <div id="next_previous">
             <span class="date">{{ date|date:"M Y" }}</span>
             <div class="button-outer">
-            <a href="?year={{ year }}&month={{ prev_month }}"><</a>
-            <a href="?year={{ year }}&month={{ next_month }}">></a>
+            <a href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
+            <a href="?year={{ next_year }}&month={{ next_month }}">></a>
             </div>
              
         </div>
@@ -84,8 +87,26 @@
 	{% block content %}{% endblock %}
 	</div>
 	
+	<div id="share-form" class="popout">
+        <form action="{% url make_url %}" method="post">
+            {% csrf_token %}
+            <h3>Make a public calendar URL</h3>
+            <p>Assign permissions for people viewing this calendar on this URL. People viewing this calendar can:</p>
+            <p><input id="id_can_write" type="checkbox" name="can_write"><label>Add new appointments?</label></p>
+            <p><input id="id_can_see_names" type="checkbox" name="can_see_names"><label>See the names of appointments?</label></p>
+            <p><input id="id_can_see_details" type="checkbox" name="can_see_details"><label>View details of appointments?</label></p>
+            <p><input type="submit" value="Save and create URL" class="button"/></p>
+        </form>
+    </div>
+	
 	<div id="footer">
 	  <div class="inner">
+	   <div id="share">
+            <div class="button-outer">
+                <a id="share-button" title="Share this calender" href=""></a>
+            </div>
+        </div>
+
 	   <ul>
             {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
             {% if total_jobs %}<li><strong>Total jobs:</strong> {{ total_jobs }}</li>{% endif %}
@@ -93,12 +114,56 @@
             {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
             {% if av %}<li><strong>Average daily:</strong> {{ av }}</li>{% endif %}
 	   </ul>
+
 	  </div>
 	</div>
 
 
 <script type="text/javascript">
-
+$(document).ready( function() {
+    $('#share-form form').bind('submit', makeURL);
+    $('#share-button').click(function() {
+        
+        if ($('#share-form').hasClass('selected')) {
+            $(this).removeClass('selected');
+            $('#share-form').removeClass('selected');
+        } else {
+            $(this).addClass('selected');
+            $('#share-form').addClass('selected');
+        }
+        return false;
+    });
+    
+    			// clear input on focus
+			var clearMePrevious = '';
+			$('.clearMeFocus').each( function() {
+				if ($(this).val() == '') {
+				    var title = $(this).attr('title');
+				    $(this).val(title);
+				}
+			});
+			
+			$('.clearMeFocus').focus(function()
+			{
+				if($(this).val()==$(this).attr('title'))
+				{
+					clearMePrevious = $(this).val();
+					$(this).val('');
+					$(this).css('color', '#333');
+				}
+			});
+			
+			// if field is empty afterward, add text again
+			$('.clearMeFocus').blur(function()
+			{
+				if($(this).val()=='')
+				{
+					$(this).val(clearMePrevious);
+					$(this).css('color', '#999');
+				}
+			});
+    
+});
 </script>
 {% block extrajs %}{% endblock %}
 

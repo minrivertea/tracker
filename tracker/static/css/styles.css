@@ -60,12 +60,16 @@ h4 {
 
 .button, a.button, input.button {
 	background-color: #0088CC;
-	color: #fff;   
-	border:none;
+	color: #fff; 
+	border-radius: 3px;
+	border: 1px solid transparent;
+	border-color:  #349DD1 #349DD1 transparent transparent;
     font-size: 18px;
     font-weight: bold;
     padding: 10px 15px;
-    text-align: center; 	
+    text-align: center; 
+    text-decoration: none;
+    text-shadow: 0 1px 1px #333;	
 }
 
 .button:hover {
@@ -75,6 +79,16 @@ h4 {
 
 .button.right {
   float: right;	
+}
+
+.button.green {
+  background-color: #137f10;
+  border-color: #68cd65 #68cd65 transparent transparent;
+  box-shadow: 0 1px 2px #0c5a0a;
+}
+
+.button.green:hover {
+  background-color: #3c913a;
 }
 
 /* end links */
@@ -90,10 +104,10 @@ p.introduction {
 }
 
 h1 {
-  font-size:44px;
+  font-size:34px;
   font-weight: bold;
   letter-spacing: -1px;
-  margin: 0 0 30px 0;	
+  margin: 0 0 0px 0;	
 }
 
 h2 {
@@ -242,12 +256,12 @@ label {
   margin: 0 10px 0 0;    
 }
 
-#header .button-outer {
+#header .button-outer, #footer .button-outer {
   box-shadow: 0 0 1px #000 inset;
   padding: 1px;   
 }
 
-#header #user {
+#header #user, #footer #share {
   float: left;
   width: 200px;
   text-align: left; 
@@ -257,13 +271,16 @@ label {
   top: -4px;  
 }
 
-#header #user .button-outer {
+#footer #share {
+  top: -2px;   
+}
+
+#header #user .button-outer, #footer #share .button-outer {
   position: relative;
   top: -3px;   
 }
 
-#header #user a#button {
-  background-color: #0088cc;
+#header #user a#button, #footer #share a {
   border: 1px solid;
   border-color: #349dd1 #349dd1 transparent transparent;
   height: 22px;
@@ -272,9 +289,21 @@ label {
   border-radius: 2px; 
   margin: 0 0px 0 0;
   padding: 3px 5px;
+  background: url('/static/images/user.png') no-repeat top left #0088cc;
+  background-position: 1px 0px;
 }
 
-#header #user a#button:hover {
+#footer #share a.selected {
+  box-shadow: 0 1px 2px #333 inset;
+  border: 1px solid transparent;   
+}
+
+#footer #share a {
+  background: url('/static/images/share.png') no-repeat top left #0088cc;   
+}
+
+
+#header #user a#button:hover, #footer #share a:hover {
   background-color: #2099d5;   
 }
 
@@ -283,7 +312,7 @@ label {
 }
 
 #footer .inner, #header .inner {
- width: 95%;
+ width: 98%;
  margin: 10px auto; 
  text-align: center;  
 }
@@ -298,5 +327,36 @@ label {
   float: left;
   margin-right: 30px;
   font-size: 13px;   
+}
+
+#share-form {
+  position: absolute;
+  top: 25%;
+  margin-left: 30% ;
+  width: 500px;
+  height: 300px;
+  background-color: #fff;
+  box-shadow: 0 1px 40px #333;
+  display: none; 
+  padding: 20px;  
+}
+
+#share-form.selected {
+  display: block;   
+}
+
+#share-form p {
+  margin: 10px 0 0 0;   
+}
+
+#share-form input[type=checkbox] {
+  width: 30px;
+  margin: 0 20px 10px 0;
+  position: relative;
+  top: 3px;   
+}
+
+#share-form input[type=submit] {
+  margin: 20px 0 0 0;   
 }
 

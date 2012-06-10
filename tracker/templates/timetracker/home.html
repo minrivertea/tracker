@@ -91,13 +91,6 @@ table.month td span.inner_day {
     text-align: center;
     top: 15%;
     width: 100%;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
     transition:  400ms;
     -moz-transition:  400ms; /* Firefox 4 */
     -moz-transition:  400ms; /* Firefox 4 */
@@ -341,7 +334,7 @@ td .popout {
 {{ cal|safe }}
 <form id="add-form" action="{% url addjob %}" method="post">
     {% csrf_token %}
-    <input type="text" value="" title="Type details of the job here" name="details" id="id_details"/>
+    <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"/>
     <input type="submit" value="Save" class="submit"/>
     <input type="hidden" id="id_start_date" name="start_date" value=""/>
     {% if firsttime %}

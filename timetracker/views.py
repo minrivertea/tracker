@@ -17,8 +17,8 @@ import time
 import uuid
 from random import randint
 
-from timetracker.forms import AddForm
-from timetracker.models import JobsCalendar, Job, Currency
+from timetracker.forms import AddForm, MakeURLForm
+from timetracker.models import JobsCalendar, Job, Currency, URL
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
@@ -61,6 +61,16 @@ def home(request):
         
         next_month = int(month)+1
         prev_month = int(month)-1
+        next_year = year
+        prev_year = year
+        
+        if next_month == 13:
+            next_month = 1
+            next_year = int(year)+1
+        
+        if prev_month == 0:
+            prev_month = 12
+            prev_year = int(year)-1
             
         my_jobs = Job.objects.order_by('start_date_time').filter(
             start_date_time__year=year, start_date_time__month=month, owner=request.user
@@ -85,7 +95,7 @@ def home(request):
     else:
         return render(request, 'timetracker/anon_home.html', locals())
 
-
+    form = MakeURLForm()
     return render(request, 'timetracker/home.html', locals())
     
     
@@ -232,22 +242,34 @@ def anonymous_login(request):
 
 def mark_job_as_done(request, hashkey):
     job = get_object_or_404(Job, hashkey=hashkey)
-    job.completed = datetime.datetime.now()
-    job.save()
+    if job.completed:
+        job.completed = None
+        job.save()
+        response = 'false'
+    else:
+        job.completed = datetime.datetime.now()
+        job.save()
+        response = 'true'
     
     if request.is_ajax(): 
-        return HttpResponse('true')
+        return HttpResponse(response)
     
     return render(request, 'timetracker/job.html', locals())
 
 
 def mark_job_as_paid(request, hashkey):
     job = get_object_or_404(Job, hashkey=hashkey)
-    job.paid = datetime.datetime.now()
-    job.save()
+    if job.paid:
+        job.paid = None
+        job.save()
+        response = 'false'
+    else:
+        job.paid = datetime.datetime.now()
+        job.save()
+        response = 'true'
     
     if request.is_ajax():
-        return HttpResponse('true')
+        return HttpResponse(response)
     
     return render(request, 'timetracker/job.html', locals())
     
@@ -260,4 +282,35 @@ def delete_job(request, hashkey):
     
     url = reverse('home')
     return HttpResponseRedirect(url)
-    
+
+
+def make_url(request):
+    owner = request.user
+    if request.method == "POST":
+        form = MakeURLForm(request.POST)
+        if form.is_valid():
+            print "yes"
+            
+            new_url = URL.objects.create(
+                related_owner = owner, 
+                hashkey = uuid.uuid1().hex,
+                can_write = form.cleaned_data['can_write'],
+                can_see_names = form.cleaned_data['can_see_names'],
+                can_see_details = form.cleaned_data['can_see_details'],
+            )
+            new_url.save()
+            
+            if request.is_ajax():
+                url = reverse('view_url', args=[new_url.hashkey])
+                return HttpResponse(url)
+            else:        
+                return render(request, 'timetracker/url.html', locals())
+        
+    else:
+        form = MakeURLForm()
+            
+    return render(request, 'timetracker/url.html', locals())
+
+def view_url(request, hashkey):
+    link = get_object_or_404(URL, hashkey=hashkey)    
+    return render(request, 'timetracker/url.html', locals())

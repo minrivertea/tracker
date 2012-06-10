@@ -11,6 +11,10 @@ from timetracker.views import *
 urlpatterns = patterns('',
 
     url(r'^$', home, name="home"),
+    
+    url(r'^url/make$', make_url, name="make_url"),
+    url(r'^url/(?P<hashkey>[\w-]+)/$', view_url, name="view_url"),
+    
     url(r'^job/(?P<hashkey>[\w-]+)/delete$', delete_job, name="delete_job"),
     url(r'^job/(?P<hashkey>[\w-]+)/done$', mark_job_as_done, name="job_done"),
     url(r'^job/(?P<hashkey>[\w-]+)/paid$', mark_job_as_paid, name="job_paid"),

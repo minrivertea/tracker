@@ -10,15 +10,6 @@ import calendar
 from datetime import date, datetime, timedelta
 
 
-
-LONGRE = 'longre'
-EFLY = 'efly'
-CLIENT_CHOICES = (
-    (LONGRE, u'Longre'),
-    (EFLY, u'eFly'),
-)
-
-
 # Create your models here.
 
 class Currency(models.Model):
@@ -64,7 +55,15 @@ class Job(models.Model):
         return end_time
         
 
-
+class URL(models.Model):
+    hashkey = models.CharField(max_length=200)
+    related_owner = models.ForeignKey(User)
+    can_write = models.BooleanField(default=False)
+    can_see_names = models.BooleanField(default=True)
+    can_see_details = models.BooleanField(default=True)
+    needs_login = models.BooleanField(default=False)
+    
+    
 
 
 class JobsCalendar(calendar.HTMLCalendar):

@@ -99,7 +99,7 @@ function jobDone() {
         $.ajax({
             url: $(this).attr('href'),
             success: function(data) {
-                if (data == 'true') {$('#done').addClass('done');}   
+                if (data == 'true') {$('#done').addClass('done');} else {$('#done').removeClass('done');}   
             }
         });
         return false;
@@ -111,11 +111,24 @@ function jobPaid() {
         $.ajax({
             url: $(this).attr('href'),
             success: function(data) {
-                if (data == 'true') {$('#paid').addClass('done');}   
+                if (data == 'true') {$('#paid').addClass('done');} else {$('#paid').removeClass('done');} 
             }
         });
         return false;
     });
+}
+
+function makeURL() {
+   
+   $.ajax({
+      url: $(this).attr('action'),
+      data: $(this).serialize(),
+      type: "POST",
+      success: function(data) {
+         $('#share-form form').replaceWith('<h3>Your link is</h3><p><span class="link">http://tracker.westiseast.co.uk' + data + '</span></p>'); 
+      }
+   });
+   return false;   
 }
 
 
