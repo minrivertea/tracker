@@ -58,8 +58,10 @@ table.month tr:last-child td {
 }
 
 table.month td.selected {
-  border-color: red;
-  border: 1px solid red;   
+  border: 1px solid #87bfdb; 
+  position: relative;
+  top: -1px;
+  right: -1px;  
 }
 
 td div.inner {
@@ -106,16 +108,12 @@ table.month td span.inner_day {
 }
 
 table.month td:hover span.inner_day {
-  color: #c5d8ae;
+  color: #bcd9e7;
   
 }
 
-table.month td.today {
-  color: #c5d8ae;   
-}
-
 table.month td.today span.inner_day {
-  color: #aacb7d;   
+  color: #87BFDB;   
 }
 
 .month td:hover {
@@ -143,12 +141,14 @@ table.month td.today span.inner_day {
 }
 
 #add-form input {
-  width: 300px;
+  width: 420px;
   margin: 0 0 10px 0;   
 }
 
 #add-form input.submit {
-  width: 50px;   
+    font-size: 16px;
+    padding: 9px 15px;
+    width: 80px;
 }
 
 #add-form p {
@@ -335,10 +335,10 @@ td .popout {
 <form id="add-form" action="{% url addjob %}" method="post">
     {% csrf_token %}
     <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"/>
-    <input type="submit" value="Save" class="submit"/>
+    <input type="submit" value="Save" class="submit button"/>
     <input type="hidden" id="id_start_date" name="start_date" value=""/>
     {% if firsttime %}
-    <p><em>Type in the box above to add an appointment</em> - <span id="tips">Show tips</span></p>
+    <p>Type the job details above <em style="color: #666;">eg. @Nasa #moon-launch 2.5hrs 3000USD 4:00pm</em> - <span id="tips">Show tips</span></p>
     <div id="tips-full">
         <table>
             <tr>

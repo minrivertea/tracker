@@ -38,12 +38,6 @@ def calendar(request, year, month):
   return render_to_response('my_template.html', {'calendar': mark_safe(cal),})
 
 
-def login_as_anonymous(request):
-    
-    # still to do
-    return
-
-
 def home(request):
     
     if request.user.is_authenticated():
@@ -215,8 +209,12 @@ def job(request, hashkey):
 
 def anonymous_login(request):
     
+    new_username = "%s%s" % ('anonymous', str(randint(100, 999)))
+    if len(User.objects.filter(username=new_username)):
+        new_username = "%s%s" % ('anonymous', str(randint(100, 999)))
+    
     creation_args = {
-        'username': ("%s%s" % ('anonymous', str(randint(100, 999)))),
+        'username': new_username,
         'email': 'nothing@nothing.com',
         'password': uuid.uuid1().hex,
     }

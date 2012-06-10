@@ -41,7 +41,13 @@
 		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
 	{% endif %}
 	   
-
+    {% if not request.user.is_authenticated %}
+    <style type="text/css">
+        #header, #footer {
+          display: none;   
+        }
+    </style>
+    {% endif %}
 	{% block extracss %}{% endblock %}
 
 

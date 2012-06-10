@@ -131,8 +131,9 @@ input {
 }
 
 input:focus {
-  border-color: green;
-  background-color: #f9f9f9;	
+  border-color: #87bfdb;
+  background-color: #f6f9fb;
+  box-shadow: 0 1px 2px #87BFDB inset;
 }
 
 label {
