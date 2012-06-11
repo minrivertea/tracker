@@ -46,6 +46,10 @@
         #header, #footer {
           display: none;   
         }
+        
+        .super {
+          margin: 260px auto;   
+        }
     </style>
     {% endif %}
 	{% block extracss %}{% endblock %}
@@ -60,14 +64,16 @@
     <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
       <div class="inner">
         {% if request.user.is_authenticated %}
+        
         <div id="user">
             <div class="button-outer">
             <a href="" id="button"></a>
             </div>
-            {% if request.user.is_authenticated %}
-                <strong>Hi <a id="username" href="">{{ request.user.username }}</a>!</strong><br/>
-                <a id="logout" href="{% url auth_logout %}">Logout</a>
-            {% endif %}
+        </div>
+        <div id="share">
+            <div class="button-outer">
+                <a id="share-button" title="Share this calender" href=""></a>
+            </div>
         </div>
         {% endif %}
         
@@ -104,15 +110,16 @@
             <p><input type="submit" value="Save and create URL" class="button"/></p>
         </form>
     </div>
+    
+    <div id="user-full" class="popout">
+        {% if request.user.is_authenticated %}
+            <strong>Hi <a id="username" href="">{{ request.user.username }}</a>!</strong><br/>
+            <a id="logout" href="{% url auth_logout %}">Logout</a>
+        {% endif %}
+    </div>
 	
 	<div id="footer">
 	  <div class="inner">
-	   <div id="share">
-            <div class="button-outer">
-                <a id="share-button" title="Share this calender" href=""></a>
-            </div>
-        </div>
-
 	   <ul>
             {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
             {% if total_jobs %}<li><strong>Total jobs:</strong> {{ total_jobs }}</li>{% endif %}

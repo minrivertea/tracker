@@ -3,15 +3,30 @@
 {% block pagetitle %}Login{% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/registration.css">
+<style type="text/css">
+form {
+  margin: 10px 0 0;   
+}
+
+form input {
+  margin: 10px 20px 10px 0;
+  width: 300px;
+  color: #999;   
+}
+
+form input[type=submit] {
+  width: 100px;   
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
 
 <div class="super">
-<h1>Login</h1>
+<h1>Login to the timetracker</h1>
 
-<p class="introduction">Login - if you haven't got an account, <a href="{% url registration_register %}">register here</a>.</p>
+<p>If you haven't got an account, <a href="{% url registration_register %}">register here</a> - or did you <a class="forgotten" href="{% url auth_password_reset %}">forget your password?</a>?</p>
 
 {% if form.errors %}
 <p class="red">Your username and password didn't match. Please try again.</p>
@@ -19,11 +34,7 @@
 
 <form method="post" action="{% url django.contrib.auth.views.login %}">
 {% csrf_token %}
-<p>{{ form.username }}<label>Username</label></p>
-<p>{{ form.password }}<label>Password</label></p>
-
-<p><a class="forgotten" href="{% url auth_password_reset %}">Forgotten your password?</a></p>
-<input type="submit" value="Login" class="login button" />
+<p><input id="id_username" type="text" name="username" title="Your username" class="clearMeFocus" maxlength="30" /> <input type="password" name="password" id="id_password" title="Your password" class="clearMeFocus" /><input type="submit" value="Login" class="login button" /></p>
 
 <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}/{% endif %}" />
 </form>

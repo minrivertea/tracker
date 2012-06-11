@@ -262,9 +262,9 @@ label {
   padding: 1px;   
 }
 
-#header #user, #footer #share {
+#header #user, #share {
   float: left;
-  width: 200px;
+  width: auto;
   text-align: left; 
   font-size: 12px;
   line-height: 1em;
@@ -272,16 +272,12 @@ label {
   top: -4px;  
 }
 
-#footer #share {
-  top: -2px;   
-}
-
-#header #user .button-outer, #footer #share .button-outer {
+#header #user .button-outer, #share .button-outer {
   position: relative;
   top: -3px;   
 }
 
-#header #user a#button, #footer #share a {
+#header #user a#button, #share a {
   border: 1px solid;
   border-color: #349dd1 #349dd1 transparent transparent;
   height: 22px;
@@ -294,17 +290,17 @@ label {
   background-position: 1px 0px;
 }
 
-#footer #share a.selected {
+#share a.selected {
   box-shadow: 0 1px 2px #333 inset;
   border: 1px solid transparent;   
 }
 
-#footer #share a {
+#share a {
   background: url('/static/images/share.png') no-repeat top left #0088cc;   
 }
 
 
-#header #user a#button:hover, #footer #share a:hover {
+#header #user a#button:hover, #share a:hover {
   background-color: #2099d5;   
 }
 

@@ -287,7 +287,6 @@ def make_url(request):
     if request.method == "POST":
         form = MakeURLForm(request.POST)
         if form.is_valid():
-            print "yes"
             
             new_url = URL.objects.create(
                 related_owner = owner, 
@@ -296,6 +295,7 @@ def make_url(request):
                 can_see_names = form.cleaned_data['can_see_names'],
                 can_see_details = form.cleaned_data['can_see_details'],
             )
+            
             new_url.save()
             
             if request.is_ajax():

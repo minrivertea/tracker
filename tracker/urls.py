@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic.simple import direct_to_template
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from registration.views import register
 
@@ -14,6 +15,10 @@ urlpatterns = patterns('',
     
     url(r'^url/make$', make_url, name="make_url"),
     url(r'^url/(?P<hashkey>[\w-]+)/$', view_url, name="view_url"),
+    
+    url(r'^tour/one/$', direct_to_template, {'template': 'timetracker/tour_1.html',}),
+    url(r'^tour/two/$', direct_to_template, {'template': 'timetracker/tour_2.html',}),
+
     
     url(r'^job/(?P<hashkey>[\w-]+)/delete$', delete_job, name="delete_job"),
     url(r'^job/(?P<hashkey>[\w-]+)/done$', mark_job_as_done, name="job_done"),

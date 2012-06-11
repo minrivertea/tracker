@@ -41,24 +41,22 @@ $('#id_name').blur( function() {
 
 <style type="text/css">
 
-
-div#left input.register {
-  float: left;
-  width: 280px;	
-  margin: 20px 20px 0px 280px;
-  font-size: 20px;
+.super {
+  margin: 160px auto;   
 }
 
-p.description {
-    float: right;
-    font-size: 19px;
-    margin: 20px 20px 10px;
-    width: 290px;
-    border-bottom: none;
+form {
+  margin: 10px 0 0;   
 }
 
-#rightbar {
-  width: 310px;	
+form input {
+  margin: 10px 20px 10px 0;
+  width: 300px;
+  color: #999;   
+}
+
+form input[type=submit] {
+  width: 100px;   
 }
 
 #username_status {
@@ -104,6 +102,7 @@ p.description {
 {% block content %}
 <div class="super">
 <h1>Signup</h1>
+<p>We will <strong>never</strong> pass on your private information to any other individual or company. Your information is stored securely, your password encrypted, and your email will never be displayed publicly. We hate spam just as much as you do!</p>
 
 <div id="username_status">
 	<div class="ok"><img src="/images/username_tick.png" style="float: left; margin-right: 10px;"/>Username available</div>
@@ -119,10 +118,6 @@ p.description {
   <p>{{ form.email }}<label>Your email address <span>(will never be made public)</span></label></p>
   <p>{{ form.password1 }}<label>Choose a password</label></p>
   <p>{{ form.password2 }}<label>Confirm your password</label></p>
-
-<img style="float:left; position: relative; top: 0px; margin-right: 20px;" src="/images/lock-large.png"/>
-<p class="spam">We will <strong>never</strong> pass on your private information to any other individual or company. Your information is stored securely, your password encrypted, and your email will never be displayed publicly. We hate spam just as much as you do!</p>
-<br clear="all"/>
   
   <input type="submit" value="Register" class="register button" />
 </form>
