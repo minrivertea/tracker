@@ -1,1 +1,1 @@
-<li id="{{ job.hashkey }}"><span href="{{ job.get_absolute_url }}" class="link">{{ job }}</span></li>
+<li id="{{ job.hashkey }}"><span href="{{ job.get_absolute_url }}" class="link{% if job.completed %} done{% endif %}{% if job.paid %} paid{% endif %}">{{ job }}</span></li>
