@@ -274,20 +274,20 @@ label {
 
 #header #user .button-outer, #share .button-outer {
   position: relative;
-  top: -3px;   
+  top: -2px;   
 }
 
 #header #user a#button, #share a {
   border: 1px solid;
   border-color: #349dd1 #349dd1 transparent transparent;
-  height: 22px;
-  width: 22px;
+  height: 20px;
+  width: 20px;
   display: block;
   border-radius: 2px; 
   margin: 0 0px 0 0;
   padding: 3px 5px;
   background: url('/static/images/user.png') no-repeat top left #0088cc;
-  background-position: 1px 0px;
+  background-position: 0px -1px;
 }
 
 #share a.selected {
@@ -296,7 +296,8 @@ label {
 }
 
 #share a {
-  background: url('/static/images/share.png') no-repeat top left #0088cc;   
+  background: url('/static/images/share.png') no-repeat top left #0088cc; 
+  background-position: 0px -1px;  
 }
 
 
@@ -357,3 +358,24 @@ label {
   margin: 20px 0 0 0;   
 }
 
+#expandfooter {
+  position: relative;
+  top: -5px;   
+}
+
+
+#expandfooter span {
+  width: 35px;
+  height: 30px;
+  position: relative;
+  display: block;
+  float: left;
+  background-color: #666666;  
+  margin: 0; 
+}
+
+#expandfooter span:hover {
+  color: #fff;
+  background-color: #777; 
+  cursor: pointer;    
+}

@@ -45,7 +45,6 @@ def home(request):
         try:
             year = int(request.GET['year'])
             month = int(request.GET['month'])
-            print month
         except:
             year = datetime.datetime.now().year
             month = datetime.datetime.now().month
@@ -75,6 +74,10 @@ def home(request):
         total_money = 0
         paid = 0
         completed = 0
+
+        seen = {}
+        clients = []
+        
         total_jobs = len(my_jobs)
         for job in my_jobs:
             if job.completed and not job.paid:
@@ -83,9 +86,22 @@ def home(request):
                 paid += job.get_total()
             
             total_money += job.get_total()
-        
-        av = total_money / 30
             
+            
+            
+            
+            marker = job.client
+            if marker in seen: 
+                for x in clients:
+                    if x['name'] == marker:
+                        x['money'] = x['money']+job.get_total()
+                continue
+            seen[marker] = 1
+            clients.append(dict(name=marker, money=job.get_total()))
+            
+            
+        av = total_money / 30
+                   
     else:
         return render(request, 'timetracker/anon_home.html', locals())
 
@@ -143,7 +159,6 @@ def addjob(request):
                                         minutes = new[1]
                                     except:
                                         pass 
-                                    print minutes                                  
                                 
                             else:
                                 if x[0].isdigit() and x.endswith(('RMB', 'GBP', 'USD')):
@@ -162,9 +177,7 @@ def addjob(request):
             else:
                 time_string = "%s-%s-%s" % (form.cleaned_data['start_date'], hours, minutes)
                 time_format = "%Y-%m-%d-%H-%M"
-         
-            print time_string
-            print time_format
+        
         
             date_time = datetime.datetime.fromtimestamp(time.mktime(time.strptime(time_string, time_format)))
            

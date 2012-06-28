@@ -120,7 +120,12 @@
 	
 	<div id="footer">
 	  <div class="inner">
+	   <div class="button-outer" id="expandfooter"><span></span></div>
 	   <ul>
+            {% for x in clients %}
+            <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat }})</strong></li>
+            {% endfor %}
+            
             {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
             {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
             {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
@@ -133,6 +138,7 @@
 
 <script type="text/javascript">
 $(document).ready( function() {
+    $('#expandfooter').bind('click', expandFooter);
     $('#share-form form').bind('submit', makeURL);
     $('#share-button').click(function() {
         

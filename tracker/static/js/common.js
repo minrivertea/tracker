@@ -16,6 +16,8 @@ function addJob() {
 }
 
 function saveJob() {
+      $(this).css('opacity', '0.5');
+      $('#add-form #loading').css('display', 'block');
       $.ajax({
             url: $(this).attr('action'),
             data: $(this).serialize(),
@@ -29,6 +31,8 @@ function saveJob() {
                     $('td#'+data['date']+' .inner').append('<span class="jobs"><ul></ul></span>');
                     $('td#'+data['date']+' .jobs ul').append(data['html']);
                     $('td#'+data['date']+' span.link').unbind().bind('click', getDetails);
+                    $(this).css('opacity', '1');
+                    $('#add-form #loading').css('display', 'none');
                 }  
             } 
       });
@@ -99,7 +103,7 @@ function jobDone() {
         $.ajax({
             url: $(this).attr('href'),
             success: function(data) {
-                if (data == 'true') {$('#done').addClass('done');} else {$('#done').removeClass('done');}   
+                if (data == 'true') {$('#done').addClass('done');} else {$('#done').removeClass('done');}
             }
         });
         return false;
@@ -119,7 +123,6 @@ function jobPaid() {
 }
 
 function makeURL() {
-   
    $.ajax({
       url: $(this).attr('action'),
       data: $(this).serialize(),
@@ -130,5 +133,17 @@ function makeURL() {
    });
    return false;   
 }
+
+
+function expandFooter() {
+  if ($('#footer').hasClass('expanded')) {
+      $('#footer').css('height', '40px');
+      $('#footer').removeClass('expanded');  
+  } else {
+      $('#footer').css('height', '300px');
+      $('#footer').addClass('expanded');     
+  } 
+}
+
 
 

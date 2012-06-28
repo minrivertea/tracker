@@ -140,6 +140,13 @@ table.month td.today span.inner_day {
  border-radius: 10px;  
 }
 
+#add-form #loading {
+ display: none ;
+ position: absolute;
+ top: 20px;
+ left: 45%;   
+}
+
 #add-form input {
   width: 420px;
   margin: 0 0 10px 0;   
@@ -342,6 +349,7 @@ td .popout {
 {{ cal|safe }}
 <form id="add-form" action="{% url addjob %}" method="post">
     {% csrf_token %}
+    <img id="loading" src="{{ static_url }}{% staticfile '/images/loading.gif' %}"/>
     <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"/>
     <input type="submit" value="Save" class="submit button"/>
     <input type="hidden" id="id_start_date" name="start_date" value=""/>
