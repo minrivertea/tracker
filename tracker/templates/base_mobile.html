@@ -38,8 +38,8 @@ function prevMonth(event) {
 
 
 $(document).bind('pageinit', function() {
-   $(document).bind('swipeleft', prevMonth);
    $(document).bind('swipeleft', nextMonth);
+   $(document).bind('swiperight', prevMonth);
 });
 
 </script>
