@@ -4,13 +4,14 @@
     {% include 'snippets/header.html' %}
     
     <div id="content" data-role="content">
-    <ul id="month" data-role="listview" data-inset="false">  
+    <ul id="month" data-role="listview" data-inset="true">  
+        <p>
         {{ cal|safe|removetags:"table tr td th" }}
     </ul>    
     </div><!-- /content -->
     
-    <a id="prevMonth" href="/?year={{ prev_year }}&month={{ prev_month }}">Prev</a>
-    <a id="nextMonth" href="/?year={{ next_year }}&month={{ next_month }}">Next</a>
+    <a class="hidden" id="prevMonth" href="/?year={{ prev_year }}&month={{ prev_month }}">Prev</a>
+    <a class="hidden" id="nextMonth" href="/?year={{ next_year }}&month={{ next_month }}">Next</a>
     
         <script>   
     $(document).bind('pageinit', function() {

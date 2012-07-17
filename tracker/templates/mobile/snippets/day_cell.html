@@ -1,3 +1,7 @@
+{% if day|safe == '1' %}
+</p>
+{% endif %}
+
 {% if day %}
 <li id="{{ year }}-{{ month }}-{{ day }}" data-role="list-divider">
     <h3>{{ day|safe }}</h3>

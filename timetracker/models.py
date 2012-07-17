@@ -79,7 +79,7 @@ class JobsCalendar(calendar.HTMLCalendar):
                 cssclass += ' today'
             if day in self.jobs:
                 cssclass += ' filled'
-                body = ['<ul class="jobslist" data-role="listview" data-split-theme="d" data-split-icon="gear">']
+                body = ['<ul class="jobslist" data-role="listview">']
                 for job in self.jobs[day]:
                     link = render_to_string('snippets/job_link.html', {'job': job})
                     body.append(link)
