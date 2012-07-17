@@ -23,15 +23,14 @@
 
 
 <script>
-   $(document).bind('swipeleft swiperight', function(event) {
+   $(document).live('swipeleft swiperight', function(event) {
+      var prevurl = $('#prevMonth').attr('href');
+      var nexturl = $('#nextMonth').attr('href');
       if (event.type == "swiperight"){
-        var url = $('#prevMonth').attr('href');
-        $.mobile.changePage(url, { transition: 'slide' });
+        $.mobile.changePage(prevurl);
       } 
-      
       if (event.type == "swipeleft"){ 
-        var url = $('#nextMonth').attr('href');
-        $.mobile.changePage(url, { transition: 'slide' });
+        $.mobile.changePage(nexturl);
       }
    });
 </script>
