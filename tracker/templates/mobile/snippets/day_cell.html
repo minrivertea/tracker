@@ -1,6 +1,8 @@
-<li id="{{ year }}-{{ month }}-{{ day }}" class="{{ cssclass }}" data-role="list-divider">
+{% if day %}
+<li id="{{ year }}-{{ month }}-{{ day }}" data-role="list-divider">
     <h3>{{ day|safe }}</h3>
 </li>
 {% if body %}{{ body|safe|removetags:"ul" }}{% endif %}
+{% endif %}
 
 

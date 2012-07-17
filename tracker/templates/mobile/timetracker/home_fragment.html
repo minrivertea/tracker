@@ -5,7 +5,7 @@
     
     <div id="content" data-role="content">
     <ul id="month" data-role="listview" data-inset="false">  
-        {{ cal|safe }}
+        {{ cal|safe|removetags:"table tr td th" }}
     </ul>    
     </div><!-- /content -->
     
