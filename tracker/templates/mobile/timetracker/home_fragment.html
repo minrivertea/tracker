@@ -12,6 +12,31 @@
     <a id="prevMonth" href="/?year={{ prev_year }}&month={{ prev_month }}">Prev</a>
     <a id="nextMonth" href="/?year={{ next_year }}&month={{ next_month }}">Next</a>
     
+        <script>   
+    $(document).bind('pageinit', function() {
+    
+       $(document).unbind('swiperight swipeleft');
+                
+       var nexturl = ('/?year={{ next_year }}&month={{ next_month }}');
+       var prevurl = ('/?year={{ prev_year }}&month={{ prev_month }}');
+
+       $(document).bind('swiperight swipeleft', function(event) {
+          if (event.type == 'swiperight') {
+             $.mobile.changePage(prevurl);
+          }
+          
+          if (event.type == 'swipeleft') {
+            $.mobile.changePage(nexturl);
+          }
+          
+          event.preventDefault();
+       });
+       
+       
+    
+    });
+    </script>
+    
     {% include 'snippets/footer.html' %}
 
 </div>

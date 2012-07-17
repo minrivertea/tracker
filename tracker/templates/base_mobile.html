@@ -9,6 +9,9 @@
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
 	<link rel="stylesheet" href="{{ static_url }}css/mobile.css" />
+	
+
+	
 </head> 
 <body> 
 
@@ -21,19 +24,6 @@
 
 {% include 'snippets/stats.html' %}
 
-
-<script>
-   $(document).live('swipeleft swiperight', function(event) {
-      var prevurl = $('#prevMonth').attr('href');
-      var nexturl = $('#nextMonth').attr('href');
-      if (event.type == "swiperight"){
-        $.mobile.changePage(prevurl);
-      } 
-      if (event.type == "swipeleft"){ 
-        $.mobile.changePage(nexturl);
-      }
-   });
-</script>
 
 
 </body>
