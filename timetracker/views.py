@@ -10,6 +10,7 @@ from django.contrib import auth
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
+import django_mobile
 
 import datetime
 import calendar
@@ -220,6 +221,9 @@ def addjob(request):
     
 def job(request, hashkey):
     job = get_object_or_404(Job, hashkey=hashkey)
+    
+    if is_mobile_ajax(request):
+        return render(request, 'timetracker/job.html', locals())
     
     if request.is_ajax():
         text = render_to_string('snippets/job_details.html', {'job': job})
