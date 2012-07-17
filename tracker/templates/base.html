@@ -32,7 +32,7 @@
 	
     <link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 
-	<script type="text/javascript" src="{{ static_url }}js/common.js"></script>
+	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
 
 	<script type="text/javascript" src="{{ static_url }}js/jquery-1.6.min.js"></script>
 	{% if ga_is_on %}
@@ -52,6 +52,7 @@
         }
     </style>
     {% endif %}
+    
 	{% block extracss %}{% endblock %}
 
 
@@ -61,43 +62,13 @@
 
 <body>
     
-    <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
-      <div class="inner">
-        {% if request.user.is_authenticated %}
+    {% include 'snippets/header.html' %}
         
-        <div id="user">
-            <div class="button-outer">
-            <a href="" id="button"></a>
-            </div>
-        </div>
-        <div id="share">
-            <div class="button-outer">
-                <a id="share-button" title="Share this calender" href=""></a>
-            </div>
-        </div>
-        {% endif %}
-        
-        {% if firsttime %}
-        <span id="firsttime"><span>First time?</span> Click on a day to add your first appointment</span>        
-        {% endif %}
-        
-        {% if next_month %}
-        <div id="next_previous">
-            <span class="date">{{ date|date:"M Y" }}</span>
-            <div class="button-outer">
-            <a href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
-            <a href="?year={{ next_year }}&month={{ next_month }}">></a>
-            </div>
-             
-        </div>
-        {% endif %}
-        
-      </div>
-    </div>
-    
     <div id="container">
 	{% block content %}{% endblock %}
 	</div>
+	
+	{% include 'snippets/add-form.html' %}
 	
 	<div id="share-form" class="popout">
         <form action="{% url make_url %}" method="post">
@@ -118,22 +89,7 @@
         {% endif %}
     </div>
 	
-	<div id="footer">
-	  <div class="inner">
-	   <div class="button-outer" id="expandfooter"><span></span></div>
-	   <ul>
-            {% for x in clients %}
-            <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat }})</strong></li>
-            {% endfor %}
-            
-            {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
-            {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
-            {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
-            {% if av %}<li><strong>Average daily:</strong> {{ av }}</li>{% endif %}
-	   </ul>
-
-	  </div>
-	</div>
+	{% include 'snippets/footer.html' %}
 
 
 <script type="text/javascript">

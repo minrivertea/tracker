@@ -1,0 +1,15 @@
+<div data-role="page" id="stats">
+  <div data-role="content">
+  	<ul>
+          {% for x in clients %}
+          <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat }})</strong></li>
+          {% endfor %}
+            
+            {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
+            {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
+            {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
+            {% if av %}<li><strong>Average daily:</strong> {{ av }}</li>{% endif %}
+	   </ul>
+	 <a href="#mainContent" data-rel="back" data-role="button" data-inset="true">Back</a>
+  </div>
+</div>

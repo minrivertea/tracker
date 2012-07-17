@@ -5,9 +5,9 @@ function addJob() {
       $(this).removeClass('selected');
    } else {
       clearAll();
-      $('td').removeClass('selected');
+      $('li').removeClass('selected');
       $(this).addClass('selected');
-      $('#add-form').css({'display': 'block', 'top': '40%', 'left': '35%'});
+      $('#add-form').css({'display': 'block', 'top': '40%', 'left': '30%'});
       $('#add-form input:text:visible:first').focus();
       $('#add-form input#id_start_date').val(date);
       $('#add-form').unbind();
@@ -25,12 +25,12 @@ function saveJob() {
             type: "POST",
             success: function(data) {
                 clearAll();
-                if ($('td#'+data['date']+' .jobs ul').length) {
-                    $('td#' + data['date'] + ' .jobs ul').append(data['html']);
+                if ($('li#'+data['date']+' ul.jobslist').length) {
+                    $('li#' + data['date'] + ' ul.jobslist').append(data['html']);
                 } else {
-                    $('td#'+data['date']+' .inner').append('<span class="jobs"><ul></ul></span>');
-                    $('td#'+data['date']+' .jobs ul').append(data['html']);
-                    $('td#'+data['date']+' span.link').unbind().bind('click', getDetails);
+                    $('li#'+data['date']).append('<ul class="jobslist"></ul>');
+                    $('li#'+data['date']+' ul.jobslist').append(data['html']);
+                    $('li#'+data['date']+' a.link').unbind().bind('click', getDetails);
                     $(this).css('opacity', '1');
                     $('#add-form #loading').css('display', 'none');
                 }  
@@ -57,16 +57,16 @@ function getDetails(e) {
    var height = $(window).height();
    var width = $(window).width();
    var cssClass = 'popout-inner';
-   if ((width-posX) < 300) {
+   if ((width-posX) < 500) {
       cssClass += ' left';
    }
-   if ((height-posY) < 300) {
+   if ((height-posY) < 500) {
       cssClass += ' top';
    } 
    
    if ($(this).hasClass('selected')) {
         $('.popout').remove();
-        $('td span.link').removeClass('selected');
+        $('li span.link').removeClass('selected');
    } else {
         clearAll();
         $(this).addClass('selected');

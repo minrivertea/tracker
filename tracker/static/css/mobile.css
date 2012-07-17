@@ -1,0 +1,14 @@
+
+#month li.noday {
+  display: none;   
+}
+
+#month li.today {
+     
+}
+
+.jobs ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; 
+}

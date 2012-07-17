@@ -75,6 +75,7 @@ STATICFILES_FINDERS = (
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -84,6 +85,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.contrib.auth.context_processors.auth', 
     'timetracker.context_processors.common',
+    'django_mobile.context_processors.flavour',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,6 +95,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -126,8 +131,12 @@ DJANGO_STATIC_NAME_PREFIX = '/cache-forever'
 DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 
 
-#django-registration required:
+FLAVOURS_TEMPLATE_PREFIX = ''
+BASE_TEMPLATE = 'base.html'
+BASE_TEMPLATE_MOBILE = 'base_mobile.html'
 
+
+#django-registration required:
 ACCOUNT_ACTIVATION_DAYS = 7
 
 try:

@@ -1,0 +1,37 @@
+{% extends base_template %}
+
+{% block extrajs %}
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('ul#month li').each( function() {
+       $(this).bind('click', addJob);  
+    });
+    
+    $('ul.jobslist li a').bind('click', getDetails);
+    
+    $('ul#month li.noday').bind('click', clearAll);
+    
+    $('#add-form #tips').click( function() {   
+        $('#tips-full').toggle();
+        if ($(this).text() == 'Show tips') {
+            $(this).text('Hide tips');
+        } else {    
+            $(this).text('Show tips');
+        }
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+</style>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'mobile/timetracker/home_fragment.html' %}
+    
+{% endblock %}

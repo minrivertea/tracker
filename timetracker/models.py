@@ -28,9 +28,9 @@ class Job(models.Model):
     hashkey = models.CharField(max_length=100)
     start_date_time = models.DateTimeField()
     length = models.DecimalField(max_digits=4, decimal_places=2)
-    rate = models.IntegerField()
-    currency = models.ForeignKey('Currency')
-    client = models.CharField(max_length=200)
+    rate = models.IntegerField(blank=True, null=True)
+    currency = models.ForeignKey('Currency', blank=True, null=True)
+    client = models.CharField(max_length=200, blank=True, null=True)
     completed = models.DateTimeField(blank=True, null=True)
     paid = models.DateTimeField(blank=True, null=True)
     
@@ -79,14 +79,14 @@ class JobsCalendar(calendar.HTMLCalendar):
                 cssclass += ' today'
             if day in self.jobs:
                 cssclass += ' filled'
-                body = ['<ul>']
+                body = ['<ul class="jobslist" data-role="listview" data-split-theme="d" data-split-icon="gear">']
                 for job in self.jobs[day]:
                     link = render_to_string('snippets/job_link.html', {'job': job})
                     body.append(link)
                 body.append('</ul>')
                 return self.day_cell(cssclass, day, ''.join(body))
             return self.day_cell(cssclass, day)
-        return self.day_cell('noday', '&nbsp;')
+        return self.day_cell('noday', '')
 
     def formatmonth(self, year, month):
         self.year, self.month = year, month

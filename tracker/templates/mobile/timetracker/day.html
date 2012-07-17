@@ -1,0 +1,61 @@
+{% extends base_template %}
+
+{% load django_static %}
+
+
+{% block extrajs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+
+{% block extracss %}
+<style type="text/css">
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div data-role="page" id="content" data-add-back-btn="true">
+    
+    	{% include 'snippets/header.html' %}
+    
+        <h1>Day</h1>
+        
+    </div><!-- /content -->
+    
+    <div data-role="page" id="form">
+        <form id="add-form" action="{% url addjob %}" method="post">
+            {% csrf_token %}
+            <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"/>
+            <a href="#content" data-rel="back" data-role="button">Cancel</a>
+            <input type="submit" value="Save" class="submit button"/>
+            <input type="hidden" id="id_start_date" name="start_date" value=""/>
+            {% if firsttime %}
+            <p>Type the job details above <em style="color: #666;">eg. @Nasa #moon-launch 2.5hrs 3000USD 4:00pm</em> - <span id="tips">Show tips</span></p>
+            <div id="tips-full">
+                <table>
+                    <tr>
+                        <td width="250px;">use <strong>@</strong> for the client name</td><td>@Nasa</td>
+                    </tr>
+                    <tr>
+                        <td>use <strong>#</strong> for the project name</td><td>@moon-launch</td>
+                    </tr>
+                    <tr>
+                        <td>use <strong><em>h</em></strong> for length in hours</td><td>2.5h = 2 hours 30 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>use <strong>am/pm</strong> for the time</td><td>12.15am</td>
+                    </tr>
+                    <tr>
+                        <td>use <strong>RMB</strong> for the hourly rate</td><td>350RMB</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2"><em><br/>eg. @Nasa #moon-launch 350RMB 12.15am 2h</em></td>
+                    </tr>
+                </table>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

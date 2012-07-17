@@ -22,20 +22,22 @@ from timetracker.models import JobsCalendar, Job, Currency, URL
 
 #render shortcut
 def render(request, template, context_dict=None, **kwargs):
+    
+    if is_mobile_ajax(request):
+        template = template.replace('.html', '_fragment.html')
+    
     return render_to_response(
         template, context_dict or {}, context_instance=RequestContext(request),
                               **kwargs
     )
 
 
-
-
-def calendar(request, year, month):
-  my_jobs = Job.objects.order_by('start_date_time').filter(
-    my_date__year=year, my_date__month=month
-  )
-  cal = WorkoutCalendar(my_workouts).formatmonth(year, month)
-  return render_to_response('my_template.html', {'calendar': mark_safe(cal),})
+def is_mobile_ajax(request):
+    result = False   
+    if request.is_ajax() and django_mobile.get_flavour(request) == 'mobile':
+        result = True        
+    
+    return result
 
 
 def home(request):
@@ -125,6 +127,8 @@ def addjob(request):
             length = None
             hours = 9
             minutes = None
+            curr_code = None
+            rate = 0
             
             details = form.cleaned_data['details'].split()
             for x in details:
@@ -181,7 +185,11 @@ def addjob(request):
         
             date_time = datetime.datetime.fromtimestamp(time.mktime(time.strptime(time_string, time_format)))
            
-            currency = get_object_or_404(Currency, code=curr_code)
+            if curr_code:
+                currency = get_object_or_404(Currency, code=curr_code)
+            else:
+                currency = None
+                
             # then create a job object
             creation_args = {
                 'name': name,

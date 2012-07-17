@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends base_template %}
 
 {% load django_static %}
 
@@ -6,12 +6,15 @@
 {% block extrajs %}
 <script type="text/javascript">
 
-
-$(document).ready( function() {
-    $('table.month td').not('.noday').bind('click', addJob);
-    $('table.month td span.link').bind('click', getDetails);
+$(document).ready(function() {
+    $('ul#month li').each( function() {
+       $(this).bind('click', addJob);  
+    });
     
-    $('table.month td.noday').bind('click', clearAll);
+    $('ul.jobslist li a').bind('click', getDetails);
+    
+    $('ul#month li.noday').bind('click', clearAll);
+    
     $('#add-form #tips').click( function() {   
         $('#tips-full').toggle();
         if ($(this).text() == 'Show tips') {
@@ -22,57 +25,61 @@ $(document).ready( function() {
     });
 });
 
-
 </script>
 {% endblock %}
 
 {% block extracss %}
 <style type="text/css">
 
-table.month {
-  margin: 0px auto;   
+#days {
+  width: 95%;
+  position: absolute;
+  top: 140px;  
+  left: 2.5%;
 }
 
-table.month th {
-  color: #fff;
-  font-size: 12px;
-  padding-top: 5px;   
+#days span {
+  width: 190px;
+  float: left;
+  text-align: center;
+  color: #e6e6e6;
+  text-transform: ;
+  font-size: 20px; 
+  font-weight: bold; 
 }
 
-table.month td {
+ul#month {
+    list-style-type: none;
+    margin: 40px 0 100px 2.5%;
+    padding: 0;
+    width: 95%;
+    float: left;
+}
+
+ul#month th {
+  display: none;   
+}
+
+ul#month li {
     width:190px;
     height: 135px;
     text-align: center;
-    background-color: #fff;
-    border: 1px dotted #f1f1f1;
-    border-width: 0px 0px 2px 2px;
+    border: 1px dotted #e6e6e6;
+    border-width: 0px 0px 1px 1px;
+    float: left;
     position: relative;
 }
 
-table.month tr td:first-child {
+ul#month li:first-child {
   border-left: 0;   
 }
 
-table.month tr:last-child td {
-   border-bottom: 0   
-}
-
-table.month td.selected {
-  border: 1px solid #87bfdb; 
-  position: relative;
+ul#month li.selected {
   top: -1px;
   right: -1px;  
 }
 
-td div.inner {
-  width: 190px;
-  height: 135px;
-  position: relative;
-  padding: 0;
-  margin: 0;   
-}
-
-td ul {
+.jobs ul li {
   list-style-type: none;
   font-size: 12px;
   font-weight:normal;
@@ -85,13 +92,15 @@ td ul {
   text-align: left;   
 }
 
-table.month td span.inner_day {
-    color: #F1F1F1;
-    font-size: 70px;
+ul#month li h3.inner_day {
+    bottom: 10px;
+    color: #e6e6e6;
+    font-size: 30px;
     font-weight: bold;
-    position: relative;
-    text-align: center;
-    top: 15%;
+    line-height: 1em;
+    position: absolute;
+    right: 10px;
+    text-align: right;
     width: 100%;
     transition:  400ms;
     -moz-transition:  400ms; /* Firefox 4 */
@@ -107,107 +116,75 @@ table.month td span.inner_day {
     user-select: none; 
 }
 
-table.month td:hover span.inner_day {
+ul#month li:hover h3.inner_day {
   color: #bcd9e7;
-  
 }
 
-table.month td.today span.inner_day {
+ul#month li.today h3.inner_day {
   color: #bcd9e7;   
 }
 
-.month td:hover {
+#month li:hover {
   cursor: pointer;   
 }
 
-.month .noday {
+#month .noday {
   border-right: none;   
 }
 
-.month .noday:hover {
-  background-color: #fff;
+#month .noday:hover {
   cursor: default;   
 }
 
-#add-form {
- position: absolute;
- top: 0;
- left: 0;
- display: none; 
- padding: 20px;
- background: #fff;
- box-shadow: 0 1px 30px #333;
- border-radius: 10px;  
-}
 
-#add-form #loading {
- display: none ;
- position: absolute;
- top: 20px;
- left: 45%;   
-}
-
-#add-form input {
-  width: 420px;
-  margin: 0 0 10px 0;   
-}
-
-#add-form input.submit {
-    font-size: 16px;
-    padding: 9px 15px;
-    width: 80px;
-}
-
-#add-form p {
-  font-size: 13px;   
-}
-
-#add-form #tips {
-  color: #0088CC;
-  font-size: 13px;
-  margin: 0px 0 0px 0;  
-}
-
-#add-form #tips:hover {
-  color: #005580; 
-  cursor: pointer;  
-}
-
-#add-form #tips-full {
-  display: none;
-  margin-top: 10px;   
-}
-
-
-#add-form table {
-   font-size: 13px;
-   color: #555;   
-}
-
-#add-form table strong {
-   color: #333;
-   font-size: 18px;   
-}
-
-td span.link {
+li span.link {
   color: #0088CC;
   text-decoration: underline;   
 }
 
-td span.link:hover {
+li span.link:hover {
   cursor: pointer;
   color: #005580;   
 }
 
-td span.link.done {
+li span.link.done {
   color: #777;   
 }
 
-td span.link.paid {
+li span.link.paid {
   color: #c1c1c1;   
 }
 
-td .popout {
+ul#month li a {
+  position: relative;   
+}
+
+ul.jobslist {
+  list-style-type: none; 
+  position: absolute;
+  top: 10px;
+  left: 10px;  
+}
+
+ul#month li ul.jobslist li {
+  border: none;
+  float: none;
+  height: auto;
+  width: auto;
+  text-align: left;
+  font-size: 13px;
+  z-index: 10;   
+}
+
+ul#month li ul.jobslist li a:hover {
+  text-decoration: underline;   
+}
+
+.popout {
+  display: none;   
+}
+
+li .popout {
   position: relative;
   display: block;
   color: #333;
@@ -339,48 +316,25 @@ td .popout {
   left: 20px;  
 }
 
-
-
 </style>
 {% endblock %}
 
 {% block content %}
 
-{{ cal|safe }}
-<form id="add-form" action="{% url addjob %}" method="post">
-    {% csrf_token %}
-    <img id="loading" src="{{ static_url }}{% staticfile '/images/loading.gif' %}"/>
-    <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"/>
-    <input type="submit" value="Save" class="submit button"/>
-    <input type="hidden" id="id_start_date" name="start_date" value=""/>
-    {% if firsttime %}
-    <p>Type the job details above <em style="color: #666;">eg. @Nasa #moon-launch 2.5hrs 3000USD 4:00pm</em> - <span id="tips">Show tips</span></p>
-    <div id="tips-full">
-        <table>
-            <tr>
-                <td width="250px;">use <strong>@</strong> for the client name</td><td>@Nasa</td>
-            </tr>
-            <tr>
-                <td>use <strong>#</strong> for the project name</td><td>@moon-launch</td>
-            </tr>
-            <tr>
-                <td>use <strong><em>h</em></strong> for length in hours</td><td>2.5h = 2 hours 30 minutes</td>
-            </tr>
-            <tr>
-                <td>use <strong>am/pm</strong> for the time</td><td>12.15am</td>
-            </tr>
-            <tr>
-                <td>use <strong>RMB</strong> for the hourly rate</td><td>350RMB</td>
-            </tr>
-            
-            <tr>
-                <td colspan="2"><em><br/>eg. @Nasa #moon-launch 350RMB 12.15am 2h</em></td>
-            </tr>
-        </table>
-    </div>
-    {% endif %}
-</form>
-
-
-
+    <div id="content">
+        <div id="days">
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+          <span>Sun</span>
+        
+        </div>
+        <ul id="month">  
+            {{ cal|safe }}
+        </ul>    
+    </div><!-- /content -->
+    
 {% endblock %}
