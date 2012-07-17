@@ -26,18 +26,18 @@
 
 function nextMonth(event) {
    var url = $('#nextMonth').attr('href');
-   $.mobile.changePage(url)  
+   $.mobile.changePage(url, { transition: 'slide' })  
 }
 
 function prevMonth(event) {
    var url = $('#prevMonth').attr('href');
-   $.mobile.changePage(url)  
+   $.mobile.changePage(url, { transition: 'slide' })  
 }
 
 
 $(document).bind('pageinit', function() {
-   $(document).bind('swipeleft', nextMonth);
    $(document).bind('swipeleft', prevMonth);
+   $(document).bind('swipeleft', nextMonth);
 });
 
 </script>
