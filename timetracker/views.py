@@ -337,3 +337,7 @@ def make_url(request):
 def view_url(request, hashkey):
     link = get_object_or_404(URL, hashkey=hashkey)    
     return render(request, 'timetracker/url.html', locals())
+    
+    
+# API CALLS FOR MOBILE
+    

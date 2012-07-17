@@ -12,6 +12,7 @@ from timetracker.views import *
 urlpatterns = patterns('',
 
     url(r'^$', home, name="home"),
+    #url(r'^api/next-month/(?P<current>[\w-]+)/$', next_month, name="next_month"),
     
     url(r'^url/make$', make_url, name="make_url"),
     url(r'^url/(?P<hashkey>[\w-]+)/$', view_url, name="view_url"),

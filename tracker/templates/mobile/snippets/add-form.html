@@ -1,4 +1,6 @@
 <div data-role="page" id="addForm">
+
+  <div data-role="content">
     <form id="add-form" action="{% url addjob %}" method="post">
         {% csrf_token %}
         <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"  />
@@ -36,4 +38,5 @@
         </div>
         {% endif %}
     </form>
+  </div>
 </div>

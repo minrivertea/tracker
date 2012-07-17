@@ -1,9 +1,16 @@
-<div data-role="page">
+<div data-role="page" id="job">
 
-    {% include 'snippets/header.html' %}
-
+    <div data-role="header" id="header" data-id="header">
+        <a href="#home" data-rel="back" data-icon="arrow-l">Back</a>
+        <h1>{{ job }}</h1>
+    </div>
+    
     <div data-role="content">
         <h2>{{ job }}</h2>
+        <div data-role="controlgroup" data-type="horizontal">
+            <a href="#" data-role="button" class="">Done</a>
+            <a href="#" data-role="button" class="">Paid</a>
+        </div>
     </div>
 
     {% include 'snippets/footer.html' %}
