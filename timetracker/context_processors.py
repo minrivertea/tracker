@@ -1,6 +1,7 @@
 from timetracker.models import *
 from timetracker.views import get_clients
 import django_mobile
+import datetime
 
 
 def common(request):
@@ -15,6 +16,8 @@ def common(request):
 
     
     context['clientnames'] = get_clients(request)
+    context['today'] = datetime.datetime.now()
+    print datetime.datetime.now()
         
     try:
         firsttime = request.session['firsttime']

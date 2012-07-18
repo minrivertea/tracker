@@ -6,23 +6,65 @@
         
         <p>Add a job or appointment with the fields below:</p>
         
+        <input type="hidden" class="hidden" name="details" id="id_details">
         <div data-role="fieldcontain">
             <label for="start_date" class="hidden">Date</label>
-            <input type="date" id="date" name="date" value="" class="hidden" />
+            <input type="date" id="id_start_date" name="start_date" value="{{ today|date:'Y-m-d' }}" class="hidden" />
 		</div>
 		
 		<div data-role="fieldcontain">
             <label class="ui-input-text" for="name">Name</label>
-            <input type="text" val="" />
+            <input type="text" name="name" id="id_name" value="" />
         </div>
         
         <div data-role="fieldcontain">
             <label class="ui-input-text" for="client">Client</label>
-            <select name="select-choice-0" id="select-choice-0">
+            <select name="client" id="id_client">
                 {% for x in clientnames %}
-               <option value="@{{ x }}">{{ x }}</option>
+               <option value="{{ x }}">{{ x }}</option>
                 {% endfor %}
             </select>
+        </div>
+        
+        <div data-role="fieldcontain">
+            
+            <label class="ui-input-text" for="start_time">Start time</label>
+            
+            <fieldset data-role="controlgroup" data-type="horizontal"> 
+            <select name="start_time_hours" id="id_start_time_hours">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select name="start_time_mins" id="id_start_time_mins">
+                <option value="00">0</option>
+                <option value="05">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
+                <option value="55">55</option>
+            </select>
+            <select name="start_time_ampm" id="id_start_time_ampm">
+                <option value="am">a.m.</option>
+                <option value="pm">p.m.</option>
+            </select>
+            </fieldset>
         </div>
 		
 		<div data-role="fieldcontain">
@@ -30,8 +72,8 @@
 		  <input type="range" name="rate" id="id_rate" value="60" min="0" max="100" data-highlight="true" step="10">
 		</div>
 		<div data-role="fieldcontain">
-		  <label class="ui-input-text" for="time">Time (hrs)</label>
-		  <input type="range" name="time" id="id_time" value="2" min="0" max="12" step="0.1" data-highlight="true">
+		  <label class="ui-input-text" for="time">Length (hrs)</label>
+		  <input type="range" name="time" id="id_time" val="" value="2" min="0" max="12" step="0.1" data-highlight="true">
 		</div>
         	
         

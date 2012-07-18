@@ -119,6 +119,26 @@ def addjob(request):
         form = AddForm(request.POST)
         if form.is_valid():
         
+            if '/' in form.cleaned_data['start_date']:
+                start_date = form.cleaned_data['start_date'].replace('/', '-')
+            else:
+                start_date = form.cleaned_data['start_date']
+            
+            if form.cleaned_data['rate'] and form.cleaned_data['time']:
+                details = "@%s #%s %s%s %shrs %s.%s%s" % (form.cleaned_data['client'], form.cleaned_data['name'],
+                    form.cleaned_data['rate'], 'RMB', form.cleaned_data['time'],
+                    form.cleaned_data['start_time_hours'], form.cleaned_data['start_time_mins'], form.cleaned_data['start_time_ampm'])
+                
+                details = details.split()
+                    
+                print form.cleaned_data['start_date']
+                
+            else:
+                details = form.cleaned_data['details'].split()
+            
+            
+            print details
+            
             # turn the date provided by the form into a valid date format
             date = datetime.datetime.strptime(form.cleaned_data['start_date'], "%Y-%m-%d").date()
 
@@ -131,7 +151,7 @@ def addjob(request):
             curr_code = None
             rate = 0
             
-            details = form.cleaned_data['details'].split()
+            
             for x in details:
                 if x.startswith('@'):
                     client = x.replace('@', '')
@@ -177,10 +197,10 @@ def addjob(request):
                                             
 
             if not minutes:
-                time_string = "%s-%s" % (form.cleaned_data['start_date'], hours)
+                time_string = "%s-%s" % (start_date, hours)
                 time_format = "%Y-%m-%d-%H"
             else:
-                time_string = "%s-%s-%s" % (form.cleaned_data['start_date'], hours, minutes)
+                time_string = "%s-%s-%s" % (start_date, hours, minutes)
                 time_format = "%Y-%m-%d-%H-%M"
         
         
