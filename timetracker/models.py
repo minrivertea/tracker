@@ -51,8 +51,6 @@ class Job(models.Model):
         duration = str(self.length).split('.')
         end_time = self.start_date_time + timedelta(hours=int(duration[0]), minutes=int(duration[1]))
         
-        print end_time
-        return end_time
         
 
 class URL(models.Model):

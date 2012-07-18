@@ -3,7 +3,7 @@
 {% endif %}
 
 {% if day %}
-<li id="{{ year }}-{{ month }}-{{ day }}" data-role="list-divider">
+<li id="{{ year }}-{{ month }}-{{ day }}" data-role="list-divider" class="{{ cssclass }}">
     <h3>{{ day|safe }}</h3>
 </li>
 {% if body %}{{ body|safe|removetags:"ul" }}{% endif %}

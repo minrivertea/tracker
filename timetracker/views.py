@@ -205,6 +205,11 @@ def addjob(request):
             
             new_job = Job.objects.create(**creation_args)
                                     
+            if is_mobile_ajax(request):
+                url = reverse('home')
+                return HttpResponseRedirect(url)
+            
+            
             if request.is_ajax():
                 html = render_to_string('snippets/job_link.html', {'job': new_job})
                 json =  simplejson.dumps((dict(html=html, date=form.cleaned_data['start_date'])), cls=DjangoJSONEncoder)
@@ -214,7 +219,10 @@ def addjob(request):
                 url = reverse('home')
                 return HttpResponseRedirect(url)
     
-
+    else:
+        url = reverse('home')
+        return HttpResponseRedirect(url)
+        
     form = AddForm()
     
     return render(request, 'timetracker/home.html', locals())
@@ -341,3 +349,16 @@ def view_url(request, hashkey):
     
 # API CALLS FOR MOBILE
     
+def get_clients(request):
+    user = request.user
+    jobs = Job.objects.filter(owner=user)
+
+    seen = {}
+    result = []
+    for item in jobs:
+        marker = item.client
+        if marker in seen: continue
+        seen[marker] = 1
+        result.append(item.client)
+
+    return result    

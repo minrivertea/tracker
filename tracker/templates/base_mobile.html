@@ -7,10 +7,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	
+	<!-- IMPORTANT: This script must appear before the jQuery mobile script -->
+	<script>
+		//reset type=date inputs to text
+		$( document ).bind( "pageinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = true;
+		});	
+	</script>
+	
 	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
 	<link rel="stylesheet" href="{{ static_url }}css/mobile.css" />
 	
+	<!-- these are the datepicker files -->
+    <script src="{{ static_url }}js/jQuery.ui.datepicker.js"></script>
+    <script src="{{ static_url }}js/jquery.ui.datepicker.mobile.js"></script>
 
+
+    <script>
+    
+        $('#add-form').submit(function() {
+          $('ul#month').listview('refresh');    
+        });
+        
+    </script>
 	
 </head> 
 <body> 

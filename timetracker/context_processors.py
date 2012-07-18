@@ -1,5 +1,7 @@
 from timetracker.models import *
+from timetracker.views import get_clients
 import django_mobile
+
 
 def common(request):
     from tracker import settings
@@ -11,6 +13,8 @@ def common(request):
     if django_mobile.get_flavour(request) == 'mobile':
         context['base_template'] = settings.BASE_TEMPLATE_MOBILE
 
+    
+    context['clientnames'] = get_clients(request)
         
     try:
         firsttime = request.session['firsttime']

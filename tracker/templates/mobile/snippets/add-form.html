@@ -3,40 +3,43 @@
   <div data-role="content">
     <form id="add-form" action="{% url addjob %}" method="post">
         {% csrf_token %}
-        <input type="text" value="" title="Type details of the job here" name="details" id="id_details" class="clearMeFocus"  />
+        
+        <p>Add a job or appointment with the fields below:</p>
+        
+        <div data-role="fieldcontain">
+            <label for="start_date" class="hidden">Date</label>
+            <input type="date" id="date" name="date" value="" class="hidden" />
+		</div>
+		
+		<div data-role="fieldcontain">
+            <label class="ui-input-text" for="name">Name</label>
+            <input type="text" val="" />
+        </div>
+        
+        <div data-role="fieldcontain">
+            <label class="ui-input-text" for="client">Client</label>
+            <select name="select-choice-0" id="select-choice-0">
+                {% for x in clientnames %}
+               <option value="@{{ x }}">{{ x }}</option>
+                {% endfor %}
+            </select>
+        </div>
+		
+		<div data-role="fieldcontain">
+		  <label class="ui-input-text" for="rate">Rate</label>
+		  <input type="range" name="rate" id="id_rate" value="60" min="0" max="100" data-highlight="true" step="10">
+		</div>
+		<div data-role="fieldcontain">
+		  <label class="ui-input-text" for="time">Time (hrs)</label>
+		  <input type="range" name="time" id="id_time" value="2" min="0" max="12" step="0.1" data-highlight="true">
+		</div>
+        	
         
         <fieldset class="ui-grid-a">
-    	   <div class="ui-block-a"><a href="#mainContent" data-theme="c" data-inline="true" data-rel="back" data-role="button">Cancel</a></div>
-    	   <div class="ui-block-b"><input type="submit" value="Save" class="submit button" data-theme="b" data-inline="true" /></div>	   
+    	   <div class="ui-block-a"><button href="#mainContent" data-theme="c" data-rel="back" data-role="button">Cancel</button></div>
+    	   <div class="ui-block-b"><input type="submit" value="Save" data-theme="b" /></div>
         </fieldset>
         
-        <input type="hidden" id="id_start_date" name="start_date" value=""/>
-        {% if firsttime %}
-        <p>Type the job details above <em style="color: #666;">eg. @Nasa #moon-launch 2.5hrs 3000USD 4:00pm</em> - <span id="tips">Show tips</span></p>
-        <div id="tips-full">
-            <table>
-                <tr>
-                    <td width="250px;">use <strong>@</strong> for the client name</td><td>@Nasa</td>
-                </tr>
-                <tr>
-                    <td>use <strong>#</strong> for the project name</td><td>@moon-launch</td>
-                </tr>
-                <tr>
-                    <td>use <strong><em>h</em></strong> for length in hours</td><td>2.5h = 2 hours 30 minutes</td>
-                </tr>
-                <tr>
-                    <td>use <strong>am/pm</strong> for the time</td><td>12.15am</td>
-                </tr>
-                <tr>
-                    <td>use <strong>RMB</strong> for the hourly rate</td><td>350RMB</td>
-                </tr>
-                
-                <tr>
-                    <td colspan="2"><em><br/>eg. @Nasa #moon-launch 350RMB 12.15am 2h</em></td>
-                </tr>
-            </table>
-        </div>
-        {% endif %}
     </form>
   </div>
 </div>
