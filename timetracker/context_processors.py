@@ -15,7 +15,10 @@ def common(request):
         context['base_template'] = settings.BASE_TEMPLATE_MOBILE
 
     
-    context['clientnames'] = get_clients(request)
+    
+    if request.user.is_authenticated():
+        context['clientnames'] = get_clients(request)
+    
     context['today'] = datetime.datetime.now()
     print datetime.datetime.now()
         
