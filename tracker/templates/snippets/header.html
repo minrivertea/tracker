@@ -1,8 +1,8 @@
 <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
    <div class="inner">
       {% if request.user.is_authenticated %}        
-        <a href="" id="user" class="button">Your account</a>
-        <a class="button" id="share" title="Share this calender" href="">Share</a>
+        <a class="button" id="user" onclick="expandHeader('user')" href="#" >Your account</a>
+        <a class="button" id="share" onclick="expandHeader('share')" title="Share this calender" href="#">Share</a>
         <a class="button" href="{% url jobs_ical request.user.id %}">iCal</a>
       {% endif %}
         
@@ -13,6 +13,13 @@
             <a class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
         </div>
       {% endif %}
-        
+       
+      <div id="expandable" class="">
+        <div id="share_full">
+            <h3>Your public calendar link is:</h3><p><span id="sharelink">http://tracker.westiseast.co.uk</span></p>
+        </div>
+        <div id="user_full"></div>
+      </div>
+      
    </div>
 </div>

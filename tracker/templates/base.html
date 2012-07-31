@@ -32,7 +32,7 @@
 	
     <link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 
-	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
+	
 
 	<script type="text/javascript" src="{{ static_url }}js/jquery-1.6.min.js"></script>
 	{% if ga_is_on %}
@@ -40,6 +40,8 @@
 	{% else %}
 		<script src="{{ static_url }}js/jquery.tools.min.js"></script>
 	{% endif %}
+	
+	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
 	   
     {% if not request.user.is_authenticated %}
     <style type="text/css">
@@ -98,21 +100,8 @@
 
 <script type="text/javascript">
 $(document).ready( function() {
-    $('#expandfooter').bind('click', expandFooter);
-    $('#share-form form').bind('submit', makeURL);
-    $('#share-button').click(function() {
-        
-        if ($('#share-form').hasClass('selected')) {
-            $(this).removeClass('selected');
-            $('#share-form').removeClass('selected');
-        } else {
-            $(this).addClass('selected');
-            $('#share-form').addClass('selected');
-        }
-        return false;
-    });
     
-    			// clear input on focus
+    		// clear input on focus
 			var clearMePrevious = '';
 			$('.clearMeFocus').each( function() {
 				if ($(this).val() == '') {

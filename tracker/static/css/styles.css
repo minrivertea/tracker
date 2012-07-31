@@ -76,7 +76,7 @@ h4 {
 }
 
 .button:hover {
-  box-shadow: 0 1px 3px #c1c1c1;
+  box-shadow: 0 1px 6px #d1d1d1;
   border: 1px solid #c1c1c1;
   color:#0088CC;
   text-decoration: underline; 
@@ -172,10 +172,27 @@ label {
   top: 0;
 }
 
+#expandable {
+  height: auto;
+  width: 96%;
+  float: left;
+  margin: 10px 0 40px 0;
+  background: #fff;
+  display: none;
+  padding: 20px 2%;   
+}
+
+#expandable.open {
+   display: block; 
+   position: relative;
+   top: -20px;  
+}
+
 #footer {
   float: left;
   width: 100%;
-  padding: 10px 0 30px 0; 
+  padding: 10px 0 30px 0;
+  margin: 0 0 100px 0; 
 }
 
 #header #next_previous {
@@ -191,17 +208,9 @@ label {
     top: 5px;
 }
 
-#header #next_previous .button-outer {
-  float: right;
-  margin: 0 0 0 20px;   
-}
-
 #header #next_previous a {
   margin: 0;   
 }
-
-
-
 
 #header a {
     float: left;
@@ -209,56 +218,29 @@ label {
     width: auto;
 }
 
+#header a.button.selected {
+  background: #fff;
+  border: 1px solid transparent;
+  padding-bottom: 30px;
+}
+
 #footer .inner, #header .inner {
  width: 96%;
  margin: 0 0 0 2%;
  padding: 0px 0;
- height: 15px;
 }
 
-#footer .inner ul {
+#footer ul {
   list-style-type: none;
   margin: 6px 0 0 0;
   padding: 0;   
 }
 
-#footer .inner ul li {
+#footer ul li.block {
   float: left;
-  margin-right: 30px;
+  width: 18%;
+  margin-right: 2%;
 }
-
-#share-form {
-  position: absolute;
-  top: 25%;
-  margin-left: 30% ;
-  width: 500px;
-  height: 300px;
-  background-color: #fff;
-  box-shadow: 0 1px 40px #333;
-  display: none; 
-  padding: 20px;
-  z-index: 40;  
-}
-
-#share-form.selected {
-  display: block;   
-}
-
-#share-form p {
-  margin: 10px 0 0 0;   
-}
-
-#share-form input[type=checkbox] {
-  width: 30px;
-  margin: 0 20px 10px 0;
-  position: relative;
-  top: 3px;   
-}
-
-#share-form input[type=submit] {
-  margin: 20px 0 0 0;   
-}
-
 
 /* add form styles */
 

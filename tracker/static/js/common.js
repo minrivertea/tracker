@@ -1,3 +1,6 @@
+var thisDomain = 'http://tracker.westiseast.co.uk';
+
+
 function addJob() {
    var date = $(this).attr('id');
    if ($(this).hasClass('selected')) {
@@ -122,16 +125,54 @@ function jobPaid() {
     });
 }
 
+var shareURL;
+
 function makeURL() {
-   $.ajax({
-      url: $(this).attr('action'),
-      data: $(this).serialize(),
-      type: "POST",
-      success: function(data) {
-         $('#share-form form').replaceWith('<h3>Your link is</h3><p><span class="link">http://tracker.westiseast.co.uk' + data + '</span></p>'); 
+   if ($('#sharelink').text() == thisDomain) {
+        $.ajax({
+         url: '/url/make/',
+         type: "GET",
+         success: function(data) {
+            shareURL = data;
+            $('#sharelink').append(data); 
+         }
+      }); 
+      return false;
+   } else {}
+}
+ 
+
+function expandHeader(block) {
+   var currentBlock = $('#'+block);
+   if ($('#expandable').hasClass('open')) {
+      if (currentBlock.hasClass('selected')) {
+         $('#expandable').removeClass('open');
+         $('#header a').removeClass('selected');
+      } else { 
+         $('#header a').removeClass('selected');
+         currentBlock.addClass('selected');
+         getHeaderContents(block);
       }
-   });
-   return false;   
+      
+   }
+   
+   else {
+      $('#expandable').addClass('open');
+      currentBlock.addClass('selected');
+      getHeaderContents(block);
+   }
+   
+   
+}
+
+function getHeaderContents(block) {
+  if (block == 'share') {
+     makeURL(); 
+  }   
+  
+  if (block == 'user') {
+    
+  }
 }
 
 

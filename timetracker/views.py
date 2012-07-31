@@ -338,6 +338,28 @@ def delete_job(request, hashkey):
 
 def make_url(request):
     owner = request.user
+    
+    if request.method == 'GET':
+        existing = URL.objects.filter(related_owner=owner)
+        if existing[0]:
+            new_url = existing[0]
+        else:
+            new_url = URL.objects.create(
+                related_owner = owner,
+                hashkey = uuid.uuid1().hex,
+                can_write = False,
+                can_see_names = False,
+                can_see_details = False,
+            )
+            new_url.save()
+        
+        
+        if request.is_ajax():
+            url = reverse('view_url', args=[new_url.hashkey])
+            return HttpResponse(url)
+        else:
+            return render(request, 'timetracker/url.html', locals())
+    
     if request.method == "POST":
         form = MakeURLForm(request.POST)
         if form.is_valid():

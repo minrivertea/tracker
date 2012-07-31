@@ -1,14 +1,28 @@
 <div id="footer">
   <div class="inner">
 	   <ul>
-            {% for x in clients %}
-            <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat }})</strong></li>
-            {% endfor %}
+           <li class="green block">
+                <h3>{{ clients|length }} clients &gt;</h3>
+                <ul>
+                    {% for x in clients %}
+                    <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat:"2" }})</strong></li>
+                    {% endfor %}
+                </ul>
+           </li>
+           <li class="blue block">
+                <h3>{{ total_money|floatformat:"2" }} this month &gt;</h3>
+                <ul>
+                    {% if av %}<li><strong>Daily average:</strong> {{ av|floatformat:"2" }}</li>{% endif %}
+                    {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
+                    {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
+                </ul>
+           </li>
+           
             
-            {% if total_money %}<li><strong>Total money:</strong> {{ total_money }}</li>{% endif %}
-            {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
-            {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
-            {% if av %}<li><strong>Average daily:</strong> {{ av }}</li>{% endif %}
+            
+            
+            
+            
 	   </ul>
 
   </div>
