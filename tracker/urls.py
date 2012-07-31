@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^tour/one/$', direct_to_template, {'template': 'timetracker/tour_1.html',}),
     url(r'^tour/two/$', direct_to_template, {'template': 'timetracker/tour_2.html',}),
 
+    url(r'^ical/(?P<owner_id>\d+)/jobs.ics$', ical, name="jobs_ical"),
     
     url(r'^job/(?P<hashkey>[\w-]+)/delete$', delete_job, name="delete_job"),
     url(r'^job/(?P<hashkey>[\w-]+)/done$', mark_job_as_done, name="job_done"),

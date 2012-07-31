@@ -50,6 +50,7 @@ class Job(models.Model):
     def get_end_time(self):
         duration = str(self.length).split('.')
         end_time = self.start_date_time + timedelta(hours=int(duration[0]), minutes=int(duration[1]))
+        return end_time
         
         
 

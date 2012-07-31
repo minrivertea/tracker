@@ -17,6 +17,7 @@ import calendar
 import time
 import uuid
 from random import randint
+import vobject
 
 from timetracker.forms import AddForm, MakeURLForm
 from timetracker.models import JobsCalendar, Job, Currency, URL
@@ -365,7 +366,32 @@ def make_url(request):
 def view_url(request, hashkey):
     link = get_object_or_404(URL, hashkey=hashkey)    
     return render(request, 'timetracker/url.html', locals())
+
+
+def ical(request, owner_id):
+    owner=User.objects.get(pk=owner_id)
+    cal = vobject.iCalendar()
+    cal.add('method').value = 'PUBLISH' # IE/Outlook needs this
+    for job in Job.objects.filter(owner=owner):
+        
+        vevent = cal.add('vevent')
+        vevent.add('dtstart').value=job.start_date_time #begin and end are python datetime objects
+        vevent.add('dtend').value=job.get_end_time()
+        vevent.add('summary').value=str(job.name)
+        vevent.add('uid').value=str(job.id)
+        
     
+    cal.prettyPrint()
+    
+    
+    icalstream = cal.serialize()
+        
+    response = HttpResponse(icalstream, mimetype='text/calendar')
+    response['Filename'] = 'jobs.ics' # IE needs this
+    response['Content-Disposition'] = 'attachment; filename=jobs.ics'
+    return response
+
+   
     
 # API CALLS FOR MOBILE
     
