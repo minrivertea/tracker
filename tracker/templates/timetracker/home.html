@@ -32,28 +32,39 @@ $(document).ready(function() {
 <style type="text/css">
 
 #days {
-  width: 95%;
+  width: 100%;
   position: absolute;
-  top: 140px;  
-  left: 2.5%;
+  top: -30px;  
 }
 
 #days span {
-  width: 14%;
-  float: left;
-  text-align: center;
-  color: #e6e6e6;
-  text-transform: ;
-  font-size: 20px; 
-  font-weight: bold; 
+    color: #a1a1a1;
+    float: left;
+    font-size: 20px;
+    font-weight: 100;
+    padding: 0px 2%;
+    text-align: center;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 10.2%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 ul#month {
-    list-style-type: none;
-    margin: 40px 0 100px 2.5%;
-    padding: 0;
-    width: 95%;
+    background-color: #FFFFFF;
+    border: 1px solid #c1c1c1;
     float: left;
+    list-style-type: none;
+    margin: 10px 0 30px 2%;
+    padding: 0;
+    width: 96%;
+    border-radius: 5px;
+    position: relative;
 }
 
 ul#month th {
@@ -61,7 +72,7 @@ ul#month th {
 }
 
 ul#month li {
-    width:14%;
+    width:14.2%;
     height: 135px;
     text-align: center;
     border: 1px dotted #e6e6e6;
@@ -94,9 +105,9 @@ ul#month li.selected {
 
 ul#month li h3.inner_day {
     bottom: 10px;
-    color: #e6e6e6;
-    font-size: 30px;
-    font-weight: bold;
+    color: #c1c1c1;
+    font-size: 20px;
+    font-weight: 100;
     line-height: 1em;
     position: absolute;
     right: 10px;
@@ -120,8 +131,12 @@ ul#month li:hover h3.inner_day {
   color: #bcd9e7;
 }
 
+ul#month li.today {
+  background: #eff6f8;   
+}
+
 ul#month li.today h3.inner_day {
-  color: #bcd9e7;   
+  color: #4d8093;   
 }
 
 #month li:hover {
@@ -192,15 +207,16 @@ li .popout {
 
 .popout-inner {
     background-color: #FFFFFF;
-    box-shadow: 0 1px 5px #E1E1E1;
+    box-shadow: 0 1px 15px #c1c1c1;
     height: 160px;
     left: 0px;
     position: absolute;
     top: 40px;
     width: 460px;
-    z-index: 20;
-    border: 1px solid #d1d1d1;
+    z-index: 40;
+    border: 1px solid #999;
     padding: 20px;
+    border-radius: 4px;
 }
 
 .popout-inner.left {
@@ -217,14 +233,14 @@ li .popout {
         display: block;
         width: 0;
         height: 0;
-        border-bottom: 20px solid #e1e1e1;         
+        border-bottom: 20px solid #a1a1a1;         
         border-top: 0;
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
         position: absolute;
         top: -21px;
         left: 29px;
-        z-index: 1;
+        z-index: 30;
         margin-left: ;
 }
 
@@ -241,7 +257,7 @@ li .popout {
         position: absolute;
         top: -19px;
         left: 30px;
-        z-index: 2;
+        z-index: 31;
         margin-left: -1px;
 }
 
@@ -253,7 +269,7 @@ li .popout {
 
 .popout-inner.top:after {
   border-bottom: 0;
-  border-top: 20px solid #e1e1e1; 
+  border-top: 20px solid #a1a1a1; 
   top: 201px; 
 }
 
@@ -272,48 +288,39 @@ li .popout {
 }
 
 
-.popout-inner .right-buttons {
-  width: 100px;
-  float: right;   
+.popout-inner .actions {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  float: left;   
 }
 
-.popout-inner .right-buttons a {
-  background-color: #f1f1f1;
-  height: 50px;
-  padding-top: 22px;
+.popout-inner .actions a {
   width: 80px;
   float: left; 
   border-radius: 2px;
-  text-align: center; 
-  color: #333;
-  font-weight: bold;
-  font-size: 20px;
-  text-decoration: none; 
+  text-align: center;
+  margin: 0 10px 0 0; 
 }
 
-.popout-inner .right-buttons a:hover {
+.popout-inner .actions a:hover {
   background-color: #c0d6b7;
 }
-
-.popout-inner .right-buttons a#done {
-  margin: 0 0 15px 0;   
-}
-
 
 .popout-inner .left-content {
   float:left;
   width: 360px;   
 }
 
-.popout-inner .right-buttons a.done {
+.popout-inner .actions a.done {
   background-color: #196611; 
   color: #fff;  
 }
 
 #delete {
   position: absolute;
-  bottom: 20px; 
-  left: 20px;  
+  top: 10px; 
+  right: 0px;  
 }
 
 </style>
@@ -322,17 +329,17 @@ li .popout {
 {% block content %}
 
     <div id="content">
-        <div id="days">
-          <span>Mon</span>
-          <span>Tue</span>
-          <span>Wed</span>
-          <span>Thu</span>
-          <span>Fri</span>
-          <span>Sat</span>
-          <span>Sun</span>
         
-        </div>
         <ul id="month">  
+            <div id="days">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
             {{ cal|safe }}
         </ul>    
     </div><!-- /content -->

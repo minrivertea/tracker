@@ -1,11 +1,14 @@
-<div class="right-buttons">
-    <a id="done" {% if job.completed %}class="done"{% endif %} href="{% url job_done job.hashkey %}">Done</a>
-    <a id="paid" {% if job.paid %}class="done"{% endif %} href="{% url job_paid job.hashkey %}">Paid</a>
-</div>
+
 
 <div class="left-content">
     <h4>{{ job.name }} ({{ job.client }})</h4>
     {{ job.start_date_time|time:"H:i" }} - {{ job.get_end_time|time:"H:i" }} ({{ job.length|floatformat }}hrs)
     <br/>{{ job.rate }} {{ job.currency.code }}
+    
+</div>
+
+<div class="actions">
+    <a id="done" class="button" {% if job.completed %}class="done"{% endif %} href="{% url job_done job.hashkey %}">Done</a>
+    <a id="paid" class="button" {% if job.paid %}class="done"{% endif %} href="{% url job_paid job.hashkey %}">Paid</a>
     <a id="delete" href="{% url delete_job job.hashkey %}">Delete </a>
 </div>

@@ -1,25 +1,15 @@
 <div id="header" {% if firsttime %}class="firsttime"{% endif %}>
    <div class="inner">
-      {% if request.user.is_authenticated %}
-        
-        <div id="user">
-            <div class="button-outer">
-            <a href="" id="button">Your account</a>
-            </div>
-        </div>
-        
-        <div id="share">
-            <div class="button-outer">
-                <a id="share-button" title="Share this calender" href="">Share</a>
-            </div>
-        </div>
+      {% if request.user.is_authenticated %}        
+        <a href="" id="user" class="button">Your account</a>
+        <a class="button" id="share" title="Share this calender" href="">Share</a>
       {% endif %}
         
       {% if next_month %}
         <div id="next_previous">
-            <a href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
+            <a class="button" href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
             <span class="date">{{ date|date:"M Y" }}</span>
-            <a href="?year={{ next_year }}&month={{ next_month }}">></a>
+            <a class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
         </div>
       {% endif %}
         
