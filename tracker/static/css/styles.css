@@ -59,7 +59,7 @@ h4 {
 
 .button, a.button, input.button {
     border: 1px solid #D6D6D6;
-    color: #222;
+    color:#0088CC;
     text-shadow: 0 1px 0px #fff;
     font-weight: bold;
     font-size: 12px;
@@ -78,7 +78,8 @@ h4 {
 .button:hover {
   box-shadow: 0 1px 3px #c1c1c1;
   border: 1px solid #c1c1c1;
-  color:#0088CC; 
+  color:#0088CC;
+  text-decoration: underline; 
 }
 
 .button.right {
