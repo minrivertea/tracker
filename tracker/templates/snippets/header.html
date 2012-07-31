@@ -4,29 +4,22 @@
         
         <div id="user">
             <div class="button-outer">
-            <a href="" id="button"></a>
+            <a href="" id="button">Your account</a>
             </div>
         </div>
         
         <div id="share">
             <div class="button-outer">
-                <a id="share-button" title="Share this calender" href=""></a>
+                <a id="share-button" title="Share this calender" href="">Share</a>
             </div>
         </div>
       {% endif %}
         
-      {% if firsttime %}
-        <span id="firsttime"><span>First time?</span> Click on a day to add your first appointment</span>        
-      {% endif %}
-        
       {% if next_month %}
         <div id="next_previous">
-            <span class="date">{{ date|date:"M Y" }}</span>
-            <div class="button-outer">
             <a href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
+            <span class="date">{{ date|date:"M Y" }}</span>
             <a href="?year={{ next_year }}&month={{ next_month }}">></a>
-            </div>
-             
         </div>
       {% endif %}
         

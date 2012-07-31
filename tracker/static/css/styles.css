@@ -160,43 +160,28 @@ label {
 #footer, #header {
   position: fixed;
   bottom: 0px;
-  height: 40px;
+  height: 30px;
   background: #444;
   width: 100%;
-  color: #fff;   
+  color: #fff;
+  font-size: 13px;   
 }
 
 #header {
-  top: 0;
-  z-index: 30;
-  font-size: 12px;
-}
-
-#header.firsttime {
-  height: ;   
-}
-
-#header #firsttime {
-  font-size: 15px;
-  font-weight: bold;   
-}
-
-#header #firsttime span {
-  color: #ffd800;   
+    
+    top: 0;
+    z-index: 30;
 }
 
 #header #next_previous {
   float: right; 
-  position: relative;
-  top: -7px;   
+  margin: 6px 0 0 0;
 }
 
 #header #next_previous .date {
-    font-size: 32px;
     font-weight: bold;
-    letter-spacing: -1px;
-    position: relative;
-    top: 7px;
+    float: left;
+    margin: 0 15px;
 }
 
 #header #next_previous .button-outer {
@@ -206,19 +191,18 @@ label {
 
 #header #next_previous a {
   display: block;
-  height: 22px;
+  height: 15px;
   width: 25px;
   text-align: center; 
   float: left;
   background-color: #666;
-  margin-right: 1px;
-  padding: 3px 5px;
+  padding: 0px 0px;
   text-decoration: none;
-  font-size: 20px;
   font-family: Tahoma, sans-serif;
-  line-height: 1em;
+  line-height: 0.8em;
   font-weight: 100;
-  color: #999;  
+  color: #e1e1e1; 
+  font-weight: normal; 
 }
 
 #header #next_previous a:hover {
@@ -248,8 +232,14 @@ label {
 
 #header a {
   color: #fff;
+  float: left;
+  width: auto;
+  padding: 6px 25px;
+  font-weight: bold;
 }
 
+
+/*
 .button-outer {
   display: block;
   box-shadow: 0 0 3px #000 inset;
@@ -278,6 +268,7 @@ label {
   position: relative;
   top: -2px;   
 }
+
 
 #header #user a#button, #share a {
   border: 1px solid;
@@ -311,23 +302,24 @@ label {
   border-color: #006597 transparent transparent #006597 ;   
 }
 
+*/
+
 #footer .inner, #header .inner {
- width: 98%;
- margin: 10px auto; 
- text-align: center;  
+ width: 95%;
+ margin: 0px auto; 
+ padding: 0px 0;
+ height: 15px;
 }
 
 #footer .inner ul {
   list-style-type: none;
-  margin: 0;
+  margin: 6px 0 0 0;
   padding: 0;   
 }
 
 #footer .inner ul li {
   float: left;
   margin-right: 30px;
-  font-size: 20px;
-  letter-spacing: -1px;   
 }
 
 #share-form {
@@ -359,29 +351,6 @@ label {
 
 #share-form input[type=submit] {
   margin: 20px 0 0 0;   
-}
-
-#expandfooter {
-  position: relative;
-  top: -5px;
-  float: right;   
-}
-
-
-#expandfooter span {
-  width: 35px;
-  height: 30px;
-  position: relative;
-  display: block;
-  float: left;
-  background-color: #666666;  
-  margin: 0; 
-}
-
-#expandfooter span:hover {
-  color: #fff;
-  background-color: #777; 
-  cursor: pointer;    
 }
 
 

@@ -1,6 +1,5 @@
 <div id="footer">
   <div class="inner">
-	   <div class="button-outer" id="expandfooter"><span></span></div>
 	   <ul>
             {% for x in clients %}
             <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat }})</strong></li>
