@@ -167,11 +167,14 @@ function expandHeader(block) {
 
 function getHeaderContents(block) {
   if (block == 'share') {
+     $('#share-full').css('display', 'block');
+     $('#user-full').css('display', 'none');
      makeURL(); 
   }   
   
   if (block == 'user') {
-    
+    $('#share-full').css('display', 'none');
+     $('#user-full').css('display', 'block');
   }
 }
 

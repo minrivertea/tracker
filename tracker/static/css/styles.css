@@ -188,6 +188,10 @@ label {
    top: -20px;  
 }
 
+#expandable #user-full, #expandable #share-full {
+  display: none;   
+}
+
 #footer {
   float: left;
   width: 100%;

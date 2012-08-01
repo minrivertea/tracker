@@ -17,10 +17,12 @@
       {% include 'snippets/add-form.html' %}
        
       <div id="expandable" class="">
-        <div id="share_full">
+        <div id="share-full">
             <h3>Your public calendar link is:</h3><p><span id="sharelink">http://tracker.westiseast.co.uk</span></p>
         </div>
-        <div id="user_full"></div>
+        <div id="user-full">
+            <p>Currently logged in as: <strong>{{ request.user.username }}</strong> <a class="button" href="{% url auth_logout %}">Logout</a></p>
+        </div>
       </div>
       
    </div>

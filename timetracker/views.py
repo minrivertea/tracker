@@ -341,9 +341,9 @@ def make_url(request):
     
     if request.method == 'GET':
         existing = URL.objects.filter(related_owner=owner)
-        if existing[0]:
+        try:
             new_url = existing[0]
-        else:
+        except:
             new_url = URL.objects.create(
                 related_owner = owner,
                 hashkey = uuid.uuid1().hex,

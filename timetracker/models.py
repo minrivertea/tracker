@@ -55,6 +55,7 @@ class Job(models.Model):
         
 
 class URL(models.Model):
+    name = models.CharField(max_length=255)
     hashkey = models.CharField(max_length=200)
     related_owner = models.ForeignKey(User)
     can_write = models.BooleanField(default=False)
