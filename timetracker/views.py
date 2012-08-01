@@ -42,6 +42,69 @@ def is_mobile_ajax(request):
     return result
 
 
+def load_stats(request):
+    
+    
+    
+    try:
+        year = int(request.GET['year'])
+        month = int(request.GET['month'])
+    except:
+        year = datetime.datetime.now().year
+        month = datetime.datetime.now().month
+    
+    my_jobs = Job.objects.order_by('start_date_time').filter(
+            start_date_time__year=year, start_date_time__month=month, owner=request.user
+        )
+        
+    date = datetime.datetime(year, month, day=1)
+    
+    # start collecting the stats
+    total_money = 0
+    paid = 0
+    completed = 0
+    overdue = 0
+
+    seen = {}
+    clients = []
+    
+    overdues = Job.objects.filter(start_date_time__lt=date, owner=request.user, completed__lte=datetime.datetime.now(), paid=None)
+    
+    for job in overdues:
+        overdue += job.get_total()
+    
+    for job in my_jobs:
+        if job.completed and not job.paid:
+            completed += job.get_total()
+        elif job.paid:
+            paid += job.get_total()
+        
+        total_money += job.get_total()
+        
+        marker = job.client
+        if marker in seen: 
+            for x in clients:
+                if x['name'] == marker:
+                    x['money'] = x['money']+job.get_total()
+            continue
+        seen[marker] = 1
+        clients.append(dict(name=marker, money=job.get_total()))
+        
+        
+    av = total_money / 30
+    
+    html = render_to_string('snippets/footer_inner.html', {
+        'total_money': total_money,
+        'paid': paid,
+        'completed': completed,
+        'overdue': overdue,
+        'total_jobs': len(my_jobs),
+        'clients': clients,
+    })
+    
+    return HttpResponse(html)
+
+
 def home(request):
     
     if request.user.is_authenticated():
@@ -74,46 +137,7 @@ def home(request):
         )
         
         cal = JobsCalendar(my_jobs).formatmonth(year, month)
-        
-        
-        # start collecting the stats
-        total_money = 0
-        paid = 0
-        completed = 0
-        overdue = 0
-        total_jobs = len(my_jobs)
-
-        seen = {}
-        clients = []
-        
-        overdues = Job.objects.filter(start_date_time__lt=date, owner=request.user, completed__lte=datetime.datetime.now(), paid=None)
-        
-        for job in overdues:
-            overdue += job.get_total()
-        
-        for job in my_jobs:
-            if job.completed and not job.paid:
-                completed += job.get_total()
-            elif job.paid:
-                paid += job.get_total()
-            
-            total_money += job.get_total()
-            
-            
-            
-            
-            marker = job.client
-            if marker in seen: 
-                for x in clients:
-                    if x['name'] == marker:
-                        x['money'] = x['money']+job.get_total()
-                continue
-            seen[marker] = 1
-            clients.append(dict(name=marker, money=job.get_total()))
-            
-            
-        av = total_money / 30
-                   
+          
     else:
         return render(request, 'timetracker/anon_home.html', locals())
 

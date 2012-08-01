@@ -203,5 +203,16 @@ function expandFooter() {
   } 
 }
 
+function loadStats() {
+  $.ajax({
+    url: '/load-stats/',
+    method: 'GET',
+    dataType: 'html',
+    success: function(html) {
+        $('#footer').html(html);
+    }
+  });   
+}
+
 
 
