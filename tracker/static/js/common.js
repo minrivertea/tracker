@@ -203,9 +203,9 @@ function expandFooter() {
   } 
 }
 
-function loadStats() {
+function loadStats(month, year) {
   $.ajax({
-    url: '/load-stats/',
+    url: '/load-stats/?year='+year+'&month='+month,
     method: 'GET',
     dataType: 'html',
     success: function(html) {

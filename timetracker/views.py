@@ -163,15 +163,11 @@ def addjob(request):
                     form.cleaned_data['start_time_hours'], form.cleaned_data['start_time_mins'], form.cleaned_data['start_time_ampm'])
                 
                 details = details.split()
-                    
-                print form.cleaned_data['start_date']
-                
+                                    
             else:
                 details = form.cleaned_data['details'].split()
             
-            
-            print details
-            
+                        
             # turn the date provided by the form into a valid date format
             date = datetime.datetime.strptime(form.cleaned_data['start_date'], "%Y-%m-%d").date()
 
@@ -433,10 +429,7 @@ def ical(request, owner_id):
         vevent.add('dtend').value=job.get_end_time()
         vevent.add('summary').value=str(job.name)
         vevent.add('uid').value=str(job.id)
-        
-    
-    cal.prettyPrint()
-    
+            
     
     icalstream = cal.serialize()
         
