@@ -1,0 +1,25 @@
+
+<ul>
+    <li class="green block">
+        <h3>{{ clients|length }} client{{ clients|pluralize }} &gt;</h3>
+        <ul>
+            {% for x in clients %}
+            <li><strong>{{ x.name|capfirst }} ({{ x.money|floatformat:"2" }})</strong></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li class="blue block">
+        <h3>{{ total_money|floatformat:"2" }} this month &gt;</h3>
+        <ul>
+            {% if av %}<li><strong>Daily average:</strong> {{ av|floatformat:"2" }}</li>{% endif %}
+            {% if completed %}<li><strong>Total completed:</strong> {{ completed }}</li>{% endif %}
+            {% if paid %}<li><strong>Total paid:</strong> {{ paid }}</li>{% endif %}
+            {% if total_jobs %}<li><strong>No. jobs:</strong> {{ total_jobs }}</li>{% endif %}
+        </ul>
+    </li>
+    
+    <li class="red block">
+        <h3>{{ overdue|floatformat:"2" }} overdue &gt;</h3>
+        <p>(Completed but still unpaid jobs from previous months)</p>
+    </li>
+</ul>
