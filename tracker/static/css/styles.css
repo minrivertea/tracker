@@ -200,11 +200,14 @@ label {
 }
 
 #header #next_previous .date {
-    font-weight: bold;
+    color: #777777;
     float: left;
-    margin: 5px 10px;
-    font-size: 16px;
+    font-size: 24px;
+    font-weight: 100;
+    letter-spacing: -1px;
+    margin: -1px 10px;
     position: relative;
+    text-transform: uppercase;
     top: 5px;
 }
 
@@ -232,8 +235,9 @@ label {
 
 #footer ul {
   list-style-type: none;
-  margin: 6px 0 0 0;
-  padding: 0;   
+  margin: 6px 0 0 5%;
+  padding: 0; 
+  width: 90%;  
 }
 
 #footer ul li.block {
@@ -242,19 +246,50 @@ label {
   margin-right: 2%;
 }
 
+#footer ul li.block h3 {
+  font-weight: normal; 
+  text-shadow: 1px 1px 0 #fff;  
+}
+
+#footer ul li.block.green h3 {
+  color: #05a63e;   
+}
+
+#footer ul li.block.blue h3 {
+  color: #2d74c4;   
+}
+
+#footer ul li.block ul {
+   margin: 0;
+   padding: 0;   
+}
+
 /* add form styles */
 
 #add-form {
- position: absolute;
+ display: none; 
+ background: #fff;
+ padding: 0.8% 2%;
+ z-index: 30; 
+ width: 96%;
+ float: left;
  top: 0;
  left: 0;
- display: none; 
- padding: 20px;
- background: #fff;
- box-shadow: 0 1px 30px #333;
- border-radius: 10px; 
- z-index: 30; 
+ position: absolute;
+ box-shadow: 0 1px 5px #c1c1c1;
+ border-bottom: 8px solid #B3CCDB;
+ 
+background: rgb(167,199,220); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(167,199,220,1) 0%, rgba(133,178,211,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(167,199,220,1)), color-stop(100%,rgba(133,178,211,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(167,199,220,1) 0%,rgba(133,178,211,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(167,199,220,1) 0%,rgba(133,178,211,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(167,199,220,1) 0%,rgba(133,178,211,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(167,199,220,1) 0%,rgba(133,178,211,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', endColorstr='#85b2d3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
+
 
 #add-form #loading {
  display: none ;
@@ -264,14 +299,52 @@ label {
 }
 
 #add-form input {
-  width: 420px;
-  margin: 0 0 10px 0;   
+  width: 60%;
+  margin: 0 10px 0px 0;
+  float: left;  
+}
+
+#add-form input:focus {
+  box-shadow: none;   
 }
 
 #add-form input.submit {
-    font-size: 16px;
-    padding: 9px 15px;
-    width: 80px;
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #FFFFFF;
+    font-size: 33px;
+    font-weight: normal;
+    padding: 4px 0 0;
+    text-shadow: 1px 1px 0 #777;
+    width: auto;
+}
+
+#add-form input.submit:hover {
+   cursor: pointer;
+   border: none;
+   box-shadow: none;
+   text-decoration: none;   
+}
+
+#add-form #cancelAddJob {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-radius: 55px 55px 55px 55px;
+    font-weight: bold;
+    padding: 10px 14px;
+    position: absolute;
+    right: 20px;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    top: 13px;
+    background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  border: 1px solid #fff;
+  box-shadow: 0 0 6px #888; 
 }
 
 #add-form p {
@@ -279,14 +352,15 @@ label {
 }
 
 #add-form #tips {
-  color: #0088CC;
-  font-size: 13px;
-  margin: 0px 0 0px 0;  
+    color: #FFFFFF;
+    float: left;
+    font-size: 13px;
+    margin: 10px 0 0 30px;
 }
 
 #add-form #tips:hover {
-  color: #005580; 
-  cursor: pointer;  
+  cursor: pointer; 
+  text-decoration: underline; 
 }
 
 #add-form #tips-full {
@@ -294,10 +368,28 @@ label {
   margin-top: 10px;   
 }
 
+#add-form #tips-full #example {
+    color: #FFFFFF;
+    float: left;
+    font-size: 31px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-shadow: 0 1px 0 #000000;
+    width: 100%;
+}
+
+#add-form #tips-full #explanation {
+   float: left;
+   width: 100%;
+   font-size: 22px;
+   color: #444;
+}
 
 #add-form table {
-   font-size: 13px;
-   color: #555;   
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    width: 100%;
 }
 
 #add-form table strong {

@@ -4,13 +4,13 @@ var thisDomain = 'http://tracker.westiseast.co.uk';
 function addJob() {
    var date = $(this).attr('id');
    if ($(this).hasClass('selected')) {
-      $('#add-form').css({'display': 'none', 'top': '0' });
+      $('#add-form').css({'display': 'none',});
       $(this).removeClass('selected');
    } else {
       clearAll();
       $('li').removeClass('selected');
       $(this).addClass('selected');
-      $('#add-form').css({'display': 'block', 'top': '40%', 'left': '30%'});
+      $('#add-form').css({'display': 'block',});
       $('#add-form input:text:visible:first').focus();
       $('#add-form input#id_start_date').val(date);
       $('#add-form').unbind();

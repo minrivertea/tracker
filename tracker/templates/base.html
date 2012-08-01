@@ -74,7 +74,7 @@
 	{% block content %}{% endblock %}
 	</div>
 	
-	{% include 'snippets/add-form.html' %}
+	
 	
 	<div id="share-form" class="popout">
         <form action="{% url make_url %}" method="post">
@@ -87,14 +87,7 @@
             <p><input type="submit" value="Save and create URL" class="button"/></p>
         </form>
     </div>
-    
-    <div id="user-full" class="popout">
-        {% if request.user.is_authenticated %}
-            <strong>Hi <a id="username" href="">{{ request.user.username }}</a>!</strong><br/>
-            <a id="logout" href="{% url auth_logout %}">Logout</a>
-        {% endif %}
-    </div>
-	
+    	
 	{% include 'snippets/footer.html' %}
 
 
