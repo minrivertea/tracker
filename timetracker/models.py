@@ -28,7 +28,7 @@ class Job(models.Model):
     hashkey = models.CharField(max_length=100)
     start_date_time = models.DateTimeField()
     length = models.DecimalField(max_digits=4, decimal_places=2)
-    rate = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True) # I want to change this to a decimal field and allow for split numbers
     currency = models.ForeignKey('Currency', blank=True, null=True)
     client = models.CharField(max_length=200, blank=True, null=True)
     completed = models.DateTimeField(blank=True, null=True)

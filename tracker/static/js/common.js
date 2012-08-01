@@ -19,7 +19,6 @@ function addJob() {
 }
 
 function saveJob() {
-      $(this).css('opacity', '0.5');
       $('#add-form #loading').css('display', 'block');
       $.ajax({
             url: $(this).attr('action'),
@@ -34,7 +33,6 @@ function saveJob() {
                     $('li#'+data['date']).append('<ul class="jobslist"></ul>');
                     $('li#'+data['date']+' ul.jobslist').append(data['html']);
                     $('li#'+data['date']+' a.link').unbind().bind('click', getDetails);
-                    $(this).css('opacity', '1');
                     $('#add-form #loading').css('display', 'none');
                 }  
             } 
@@ -66,36 +64,52 @@ function getDetails(e) {
    if ((height-posY) < 500) {
       cssClass += ' top';
    } 
+      
    
+   // if it's already open, close it
    if ($(this).hasClass('selected')) {
-        $('.popout').remove();
-        $('li span.link').removeClass('selected');
-   } else {
         clearAll();
-        $(this).addClass('selected');
-        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
-        $.ajax({
-            url: $(this).attr('href'),
-            cache: false,
-            success: function(data) {
-               $('.popout-inner').html(data);
-               $('#loading').css('display', 'none');
-               $('a#delete').bind('click', deleteJob);
-               jobDone();
-               jobPaid();
-            }
-        });
+   } 
+   
+   // if it's not open, then open the popout
+   else {
+        
+        clearAll(); // close any other popouts
+        $(this).addClass('selected'); // select this
+        
+        // if it's already been loaded previously, don't load the ajax again, just make it visible
+        if ($(this).parent().children('.popout').length) {
+            $(this).parent().children('.popout').css('display', 'block');
+        } 
+        
+        
+        else {
+            $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
+            $.ajax({
+                url: $(this).attr('href'),
+                cache: false,
+                success: function(data) {
+                   $('.popout-inner').html(data);
+                   $('#loading').css('display', 'none');
+                   $('a#delete').bind('click', deleteJob);
+                   jobDone();
+                   jobPaid();
+                }
+            });
+        }
    }
    e.preventDefault();
    e.stopPropagation();
    e.stopImmediatePropagation();    
 }
 
+
+
 function clearAll() {
-  $('.popout').remove();
+  $('.popout').css('display', 'none');
   $('#add-form').css({'display': 'none', 'top': '0' });
   $('.selected').removeClass('selected');
-   
+  $('#expandable').attr('class', '');
 }
 
 

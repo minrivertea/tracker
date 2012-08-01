@@ -82,6 +82,8 @@ ul#month li {
     border-width: 0px 0px 1px 1px;
     float: left;
     position: relative;
+    overflow: hidden;
+    display: block;
 }
 
 ul#month li:first-child {
@@ -137,15 +139,21 @@ ul#month li.today h3.inner_day {
   color: #4d8093;   
 }
 
-#month li:hover {
-  cursor: pointer;   
+ul#month li:hover {
+  overflow: inherit;
+  cursor: pointer;  
+}
+
+ul#month li:hover > ul.jobslist {
+ z-index: 100;   
+ padding-bottom: 50px;
 }
 
 #month .noday {
   border-right: none;   
 }
 
-#month .noday:hover {
+ul#month .noday:hover {
   cursor: default;   
 }
 
@@ -181,7 +189,8 @@ ul.jobslist {
   list-style-type: none; 
   position: absolute;
   top: 10px;
-  left: 10px;  
+  left: 10px;
+  background: #fff;  
 }
 
 ul#month li ul.jobslist li {
@@ -304,10 +313,6 @@ li .popout {
   border-radius: 2px;
   text-align: center;
   margin: 0 10px 0 0; 
-}
-
-.popout-inner .actions a:hover {
-  background-color: #c0d6b7;
 }
 
 .popout-inner .left-content {

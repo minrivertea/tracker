@@ -75,14 +75,22 @@ def home(request):
         
         cal = JobsCalendar(my_jobs).formatmonth(year, month)
         
+        
+        # start collecting the stats
         total_money = 0
         paid = 0
         completed = 0
+        overdue = 0
+        total_jobs = len(my_jobs)
 
         seen = {}
         clients = []
         
-        total_jobs = len(my_jobs)
+        overdues = Job.objects.filter(start_date_time__lt=date, owner=request.user, completed__lte=datetime.datetime.now(), paid=None)
+        
+        for job in overdues:
+            overdue += job.get_total()
+        
         for job in my_jobs:
             if job.completed and not job.paid:
                 completed += job.get_total()

@@ -246,7 +246,7 @@ label {
 
 #footer ul li.block {
   float: left;
-  width: 18%;
+  width: 25%;
   margin-right: 2%;
 }
 
@@ -261,6 +261,10 @@ label {
 
 #footer ul li.block.blue h3 {
   color: #2d74c4;   
+}
+
+#footer ul li.block.red h3 {
+   color: #9d1c1c;   
 }
 
 #footer ul li.block ul {
@@ -281,8 +285,7 @@ label {
  left: 0;
  position: absolute;
  box-shadow: 0 1px 5px #c1c1c1;
- border-bottom: 8px solid #B3CCDB;
- 
+ border-bottom: 4px solid #B3CCDB;
 background: rgb(167,199,220); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(167,199,220,1) 0%, rgba(133,178,211,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(167,199,220,1)), color-stop(100%,rgba(133,178,211,1))); /* Chrome,Safari4+ */
@@ -338,7 +341,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', end
     position: absolute;
     right: 20px;
     text-shadow: 1px 1px 0 #FFFFFF;
-    top: 13px;
+    top: 11px;
     background: rgb(238,238,238); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
@@ -348,7 +351,11 @@ background: -ms-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238
 background: linear-gradient(135deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   border: 1px solid #fff;
-  box-shadow: 0 0 6px #888; 
+   
+}
+
+#add-form #cancelAddJob:hover {
+  box-shadow: 0 0 6px #888;   
 }
 
 #add-form p {
