@@ -1,6 +1,6 @@
 <li id="{{ year }}-{{ month }}-{{ day }}" class="{{ cssclass }}">
   <h3 class="inner_day">{{ day|safe }}</h3>
-  {% if body %}{{ body|safe }}{% endif %}
+  <ul class="jobslist droppable">{% if body %}{{ body }}{% endif %}</ul>
 </li>
 
 

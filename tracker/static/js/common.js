@@ -1,5 +1,6 @@
 var thisDomain = 'http://tracker.westiseast.co.uk';
-
+var draggedItemID;
+var draggedItem;
 
 function addJob() {
    var date = $(this).attr('id');
@@ -27,14 +28,16 @@ function saveJob() {
             type: "POST",
             success: function(data) {
                 clearAll();
-                if ($('li#'+data['date']+' ul.jobslist').length) {
-                    $('li#' + data['date'] + ' ul.jobslist').append(data['html']);
+                var thisItem = 'li#'+data['date'];
+                if ($(thisItem+' ul.jobslist').length) {
+                    $(thisItem+' ul.jobslist').append(data['html']);
                 } else {
-                    $('li#'+data['date']).append('<ul class="jobslist"></ul>');
-                    $('li#'+data['date']+' ul.jobslist').append(data['html']);
-                    $('li#'+data['date']+' a.link').unbind().bind('click', getDetails);
+                    $(thisItem).append('<ul class="jobslist"></ul>');
+                    $(thisItem+' ul.jobslist').append(data['html']);
+                    $(thisItem+' a').unbind().bind('click', getDetails);
                     $('#add-form #loading').css('display', 'none');
                 }  
+                bindDraggable($(thisItem+' a.draggable'));
                 var thisDate = data['date'].split('-');
                 loadStats(thisDate[1], thisDate[0]);
             } 
@@ -226,20 +229,109 @@ function loadJobs(month, year) {
     method: 'GET',
     dataType: 'json',
     success: function(data) {
+
         $(data).each( function() {
-           if ($('li#'+this.date+' ul.jobslist').length) {} else {
-             $('li#'+this.date).append('<ul class="jobslist"></ul>');
+           thisDay = 'li#'+this.date;
+           thisList = thisDay+' ul.jobslist';
+           thisItem = 'li#'+this.uid;
+           itemHTML = '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
+           
+           
+           
+           if ($(thisList).length) {} else {
+             $(thisDay).append('<ul class="jobslist droppable"></ul>');
+             
            }
-           $('li#'+this.date+' ul.jobslist').append(
-               '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="'+this.cssclass+'">'+this.name+'</a></li>'
-           ); 
+
+           $(thisList).append(itemHTML); 
+           
+           bindDraggable($(thisItem+' a.draggable'));
+           
+      		
+      		
+      		$('ul.droppable').droppable({
+      			drop: function(event, ui) {
+      			    ui.draggable.attr('style', '');
+      			    var newLI = ui.draggable.parent().clone();
+      			    ui.draggable.parent().remove();
+      				$(this).append(newLI);
+      				bindDraggable(newLI.children('a'));
+      				updateJob(newLI);
+      			}
+      		});
+           
         });
         $('ul.jobslist li a').bind('click', getDetails); 
+		
+		
     }
   });
 }
 
+function bindDraggable(job) {
+    $(job).draggable({
+	    'opacity': 0.8,
+	    'snap': true,
+	    start: function(event, ui) {
+	       $(job).unbind('click', false);
+	    },
+	    stop: function(event, ui) {
+	       
+	    },
+	});    
+}
 
+function updateJob(job) {
+   var newDate = job.parent().parent().attr('id');
+   $.ajax({
+      url: '/update-job/',
+      type: 'POST',
+      data: { date: newDate, uid: job.attr('id') },
+      success: function() {
+        // shoudl I do something here to celebrate moving a job? a message?  
+      },
+      error: function() {},
+   });
+}
+
+
+/// a helper for CSRF protection in django when making ajax POSTs
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
 
 
 

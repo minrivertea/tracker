@@ -464,7 +464,19 @@ def ical(request, owner_id):
     response['Content-Disposition'] = 'attachment; filename=jobs.ics'
     return response
 
-   
+
+def update_job(request):
+    
+    if request.method == 'POST':
+        job = get_object_or_404(Job, hashkey=request.POST['uid'])
+        d = request.POST['date'].split('-')
+        new_time = datetime.datetime.combine(datetime.date(int(d[0]), int(d[1]), int(d[2])), job.start_date_time.time())
+        
+        job.start_date_time = new_time
+        
+        job.save()
+    
+    return HttpResponse()
     
 # API CALLS FOR MOBILE
     
