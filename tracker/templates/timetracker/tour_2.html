@@ -11,7 +11,18 @@
 
 {% block extracss %}
 <style type="text/css">
+.super {
+   margin-top: 15%;   
+}
 
+p {
+  margin: 0 0 30px 0;   
+}
+
+a.button {
+  margin: 0 20px 0 0;
+  font-size: 22px;   
+}
 </style>
 {% endblock %}
 
@@ -19,7 +30,7 @@
 <div class="super">
 <h1>…it helps you keep track of your money!</h1>
 <p>How much did you earn last month? How much money will you earn next month? This timetracker not only makes sure you miss less work, but also tells you in an instant what your financial position was, is and will be in the future.</p> 
-
+<p><a href="{% url anonymous_login %}" class="button">Try the tool out right now (free, instant) &raquo;</a> or go back to the <a href="{% url home %}">homepage</a></p>
 
 </div>
 {% endblock %}

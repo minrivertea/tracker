@@ -9,7 +9,7 @@
       {% if next_month %}
         <div id="next_previous">
             <a class="button" href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
-            <span class="date">{{ date|date:"M Y" }}</span>
+            <span id="thisMonthYear" date="{{ month }}-{{ year }}" class="date">{{ date|date:"M Y" }}</span>
             <a class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
         </div>
       {% endif %}

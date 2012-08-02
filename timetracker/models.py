@@ -36,8 +36,8 @@ class Job(models.Model):
     
     def __unicode__(self):
         hour = self.start_date_time.strftime('%H:%M')
-        date_time = "%s %s" % (hour, self.name)
-        return date_time
+        name = "%s %s" % (hour, self.name)
+        return name
     
     def get_total(self):
         cost = self.rate * float(self.length)

@@ -43,9 +43,6 @@ def is_mobile_ajax(request):
 
 
 def load_stats(request):
-    
-    
-    
     try:
         year = int(request.GET['year'])
         month = int(request.GET['month'])
@@ -104,6 +101,32 @@ def load_stats(request):
     
     return HttpResponse(html)
 
+def load_jobs(request):
+    try:
+        year = int(request.GET['year'])
+        month = int(request.GET['month'])
+    except:
+        year = datetime.datetime.now().year
+        month = datetime.datetime.now().month
+    
+    
+    date = datetime.datetime(year, month, day=1)
+        
+    my_jobs = Job.objects.order_by('start_date_time').filter(
+        start_date_time__year=year, start_date_time__month=month, owner=request.user
+    )
+
+    jobs = []
+    for x in my_jobs:
+        jobs.append(dict(
+            name=str(x),
+            uid=x.hashkey,
+            date="%s-%s-%s" % (x.start_date_time.year, x.start_date_time.month, x.start_date_time.day),
+            url="/job/%s" % x.hashkey,
+        ))
+        
+    return HttpResponse(simplejson.dumps(jobs), mimetype="application/json")
+
 
 def home(request):
     
@@ -132,10 +155,7 @@ def home(request):
             prev_month = 12
             prev_year = int(year)-1
             
-        my_jobs = Job.objects.order_by('start_date_time').filter(
-            start_date_time__year=year, start_date_time__month=month, owner=request.user
-        )
-        
+        my_jobs = ''        
         cal = JobsCalendar(my_jobs).formatmonth(year, month)
           
     else:

@@ -29,11 +29,6 @@
 	{% block extra-head %}{% endblock %}
 	
     <link rel="stylesheet" href="{{ static_url }}css/styles.css" />
-
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>	
-	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
-	   
-    {% if not request.user.is_authenticated %}
     <style type="text/css">
         #header, #footer {
           display: none;   
@@ -47,7 +42,6 @@
         #share-form { display: none;}
         #add-form {display: none;}
     </style>
-    {% endif %}
     
 	{% block extracss %}{% endblock %}
 
@@ -57,28 +51,11 @@
 
 
 <body>
-    
-    {% include 'snippets/header.html' %}
-        
+            
     <div id="container">
 	{% block content %}{% endblock %}
 	</div>
 	
-	
-	
-	<div id="share-form" class="popout">
-        <form action="{% url make_url %}" method="post">
-            {% csrf_token %}
-            <h3>Make a public calendar URL</h3>
-            <p>Assign permissions for people viewing this calendar on this URL. People viewing this calendar can:</p>
-            <p><input id="id_can_write" type="checkbox" name="can_write"><label>Add new appointments?</label></p>
-            <p><input id="id_can_see_names" type="checkbox" name="can_see_names"><label>See the names of appointments?</label></p>
-            <p><input id="id_can_see_details" type="checkbox" name="can_see_details"><label>View details of appointments?</label></p>
-            <p><input type="submit" value="Save and create URL" class="button"/></p>
-        </form>
-    </div>
-    	
-	{% include 'snippets/footer.html' %}
 
 
 <script type="text/javascript">
@@ -112,10 +89,6 @@ $(document).ready( function() {
 					$(this).css('color', '#999');
 				}
 			});
-			
-	/// load the footer stats
-	loadStats({{ month }}, {{ year}});
-	loadJobs({{ month }}, {{ year }});
     
 });
 </script>

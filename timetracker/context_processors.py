@@ -10,7 +10,10 @@ def common(request):
     context['static_url'] = settings.STATIC_URL
     context['flavour'] = django_mobile.get_flavour(request)
     
-    context['base_template'] = settings.BASE_TEMPLATE
+    if request.user.is_authenticated():
+        context['base_template'] = settings.BASE_TEMPLATE
+    else:
+        context['base_template'] = settings.BASE_TEMPLATE_ANON
     if django_mobile.get_flavour(request) == 'mobile':
         context['base_template'] = settings.BASE_TEMPLATE_MOBILE
 
@@ -20,7 +23,6 @@ def common(request):
         context['clientnames'] = get_clients(request)
     
     context['today'] = datetime.datetime.now()
-    print datetime.datetime.now()
         
     try:
         firsttime = request.session['firsttime']

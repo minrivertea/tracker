@@ -35,17 +35,23 @@ function saveJob() {
                     $('li#'+data['date']+' a.link').unbind().bind('click', getDetails);
                     $('#add-form #loading').css('display', 'none');
                 }  
+                var thisDate = data['date'].split('-');
+                loadStats(thisDate[1], thisDate[0]);
             } 
       });
       return false;
 }
 
 function deleteJob() {
+     
+     alert($(this).attr('id'));
      $.ajax({
         url: $(this).attr('href'),
         success: function(data) {
            clearAll();
-           $('li#'+ data).remove();   
+           $('li#'+ data).remove();
+           var thisDate = $('#thisMonthYear').attr('date').split('-');
+           loadStats(thisDate[0], thisDate[1]);   
         }
      });
      return false;   
@@ -132,7 +138,7 @@ function jobPaid() {
         $.ajax({
             url: $(this).attr('href'),
             success: function(data) {
-                if (data == 'true') {$('#paid').addClass('done');} else {$('#paid').removeClass('done');} 
+                if (data == 'true') {$('#paid').addClass('paid');} else {$('#paid').removeClass('paid');} 
             }
         });
         return false;
@@ -209,10 +215,31 @@ function loadStats(month, year) {
     method: 'GET',
     dataType: 'html',
     success: function(html) {
-        $('#footer').html(html);
+        $('#footer .inner').html(html);
     }
   });   
 }
+
+function loadJobs(month, year) {
+  $.ajax({
+    url: '/load-jobs/?year='+year+'&month='+month,
+    method: 'GET',
+    dataType: 'json',
+    success: function(data) {
+        $(data).each( function() {
+           if ($('li#'+this.date+' ul.jobslist').length) {} else {
+             $('li#'+this.date).append('<ul class="jobslist"></ul>');
+           }
+           $('li#'+this.date+' ul.jobslist').append(
+               '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="">'+this.name+'</a></li>'
+           ); 
+        });
+        $('ul.jobslist li a').bind('click', getDetails); 
+    }
+  });
+}
+
+
 
 
 

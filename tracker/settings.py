@@ -134,6 +134,7 @@ DJANGO_STATIC_MEDIA_URL = 'http://static.minrivertea.com'
 FLAVOURS_TEMPLATE_PREFIX = ''
 BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_MOBILE = 'base_mobile.html'
+BASE_TEMPLATE_ANON = 'base_anon.html'
 
 
 #django-registration required:
