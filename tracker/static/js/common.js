@@ -231,7 +231,7 @@ function loadJobs(month, year) {
              $('li#'+this.date).append('<ul class="jobslist"></ul>');
            }
            $('li#'+this.date+' ul.jobslist').append(
-               '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="">'+this.name+'</a></li>'
+               '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="'+this.cssclass+'">'+this.name+'</a></li>'
            ); 
         });
         $('ul.jobslist li a').bind('click', getDetails); 

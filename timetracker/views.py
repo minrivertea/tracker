@@ -118,11 +118,17 @@ def load_jobs(request):
 
     jobs = []
     for x in my_jobs:
+        css = ""
+        if x.paid:
+            css +=' paid'
+        if x.completed:
+            css +=' done'
         jobs.append(dict(
             name=str(x),
             uid=x.hashkey,
             date="%s-%s-%s" % (x.start_date_time.year, x.start_date_time.month, x.start_date_time.day),
             url="/job/%s" % x.hashkey,
+            cssclass=css,
         ))
         
     return HttpResponse(simplejson.dumps(jobs), mimetype="application/json")
@@ -206,7 +212,7 @@ def addjob(request):
                     client = x.replace('@', '')
                 else:
                     if x.startswith('#'):
-                        name = x.replace('#', '').replace('-', ' ').capitalize()
+                        name = x.replace('#', '').replace('-', ' ')
                     else: 
                         if x[0].isdigit() and x.endswith(('h', 'hr', 'hrs')):
                             length = x.replace('h', '').replace('r', '').replace('s', '')
