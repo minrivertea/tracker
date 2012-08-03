@@ -102,6 +102,8 @@ def load_stats(request):
     return HttpResponse(html)
 
 def load_jobs(request):
+    
+    
     try:
         year = int(request.GET['year'])
         month = int(request.GET['month'])

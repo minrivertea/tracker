@@ -1,3 +1,4 @@
 <li id="{{ job.hashkey }}" class="">
+    <div class="popout"></div>
     <a href="{{ job.get_absolute_url }}" class="draggable {% if job.completed %} done{% endif %}{% if job.paid %} paid{% endif %}">{{ job }}</a>
 </li>

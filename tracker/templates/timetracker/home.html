@@ -56,7 +56,8 @@ $(document).ready(function() {
     user-select: none;
 }
 
-ul#month {
+
+ul#month{
     background-color: #FFFFFF;
     border: 1px solid #c1c1c1;
     float: left;
@@ -81,8 +82,7 @@ ul#month li {
     border-width: 0px 0px 1px 1px;
     float: left;
     position: relative;
-    display: block;
-    z-index: 2;
+    display:;
 }
 
 ul#month li:first-child {
@@ -104,7 +104,7 @@ ul#month li:first-child {
 
 ul#month li h3.inner_day {
     bottom: 10px;
-    color: #c1c1c1;
+    color: #a1a1a1;
     font-size: 20px;
     font-weight: 100;
     line-height: 1em;
@@ -126,10 +126,6 @@ ul#month li h3.inner_day {
     user-select: none; 
 }
 
-ul#month li:hover h3.inner_day {
-  color: #bcd9e7;
-}
-
 ul#month li.today {
   background: #eff6f8;   
 }
@@ -139,12 +135,10 @@ ul#month li.today h3.inner_day {
 }
 
 ul#month li:hover {
-  overflow: inherit;
   cursor: pointer;  
 }
 
 ul#month li:hover > ul.jobslist {
- z-index: 100;   
  padding-bottom: 50px;
 }
 
@@ -179,7 +173,7 @@ ul#month li a {
   position: relative;   
 }
 
-ul#month li.selected h3.inner_day {
+ul#month li.selected h3.inner_day, ul#month li:hover h3.inner_day {
   font-weight: bold;
   color: #00c4ff;   
 }
@@ -190,7 +184,6 @@ ul.jobslist {
     position: relative;
     width: 90%;
     height: 90%;
-    z-index: 3;
     float: left;
 }
 
@@ -201,7 +194,6 @@ ul#month li ul.jobslist li {
   width: 100%;
   text-align: left;
   font-size: 13px;
-  z-index: 4;
 }
 
 ul#month li ul.jobslist li a:hover {

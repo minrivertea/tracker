@@ -32,6 +32,7 @@
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>	
 	<script type="text/javascript" src="{{ static_url }}js/jquery-ui-1.8.22.custom.min.js"></script>
+
 	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
 	   
     {% if not request.user.is_authenticated %}
@@ -62,6 +63,7 @@
     {% include 'snippets/header.html' %}
         
     <div id="container">
+        
 	{% block content %}{% endblock %}
 	</div>
 	
@@ -114,9 +116,9 @@ $(document).ready( function() {
 				}
 			});
 			
-	/// load the footer stats
-	loadStats({{ month }}, {{ year}});
 	loadJobs({{ month }}, {{ year }});
+	loadStats({{ month }}, {{ year}});
+	
     
 });
 </script>

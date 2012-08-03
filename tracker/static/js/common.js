@@ -29,14 +29,15 @@ function saveJob() {
             success: function(data) {
                 clearAll();
                 var thisItem = 'li#'+data['date'];
+                
                 if ($(thisItem+' ul.jobslist').length) {
                     $(thisItem+' ul.jobslist').append(data['html']);
                 } else {
                     $(thisItem).append('<ul class="jobslist"></ul>');
                     $(thisItem+' ul.jobslist').append(data['html']);
-                    $(thisItem+' a').unbind().bind('click', getDetails);
                     $('#add-form #loading').css('display', 'none');
-                }  
+                };
+                $(thisItem+' a').unbind().bind('click', getDetails);
                 bindDraggable($(thisItem+' a.draggable'));
                 var thisDate = data['date'].split('-');
                 loadStats(thisDate[1], thisDate[0]);
@@ -46,8 +47,6 @@ function saveJob() {
 }
 
 function deleteJob() {
-     
-     alert($(this).attr('id'));
      $.ajax({
         url: $(this).attr('href'),
         success: function(data) {
@@ -256,6 +255,7 @@ function loadJobs(month, year) {
       			    ui.draggable.parent().remove();
       				$(this).append(newLI);
       				bindDraggable(newLI.children('a'));
+      				newLI.children('a').bind('click', getDetails);
       				updateJob(newLI);
       			}
       		});

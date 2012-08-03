@@ -72,6 +72,7 @@ a:hover, a:active, #navigation li a:hover {
   border: 1px solid #c1c1c1;
   color:#0088CC;
   text-decoration: underline; 
+  cursor: pointer;
 }
 
 .button.right {
@@ -285,7 +286,7 @@ label {
  float: left;
  top: 0;
  left: 0;
- position: absolute;
+ position: fixed;
  box-shadow: 0 1px 5px #c1c1c1;
  border-bottom: 4px solid #B3CCDB;
 background: rgb(167,199,220); /* Old browsers */
