@@ -25,7 +25,7 @@ function buildCal() {
              
     dim[1]=(((oD.getFullYear()%100!=0)&&(oD.getFullYear()%4==0))||(oD.getFullYear()%400==0))?29:28; // gives days of month for Feb
     
-    var t='<ul id="month">';
+    var t='';
     for (i=0;i<=36;i++) {
                 
         var x= ((i-oD.fd>=0)&&(i-oD.fd<dim[m-1]))?i-oD.fd+1 : '';
@@ -48,8 +48,7 @@ function buildCal() {
         t+='<li id="'+uid+'" class="'+cssclass+'"><h3 class="inner_day">'+x+'</h3><ul class="jobslist"></ul></li>';
         
     }
-    t+='</ul>';
-    $('#content').append(t);
+    $('#month').html(t);
     $('#thisMonthYear').html(mn[thisDate.getMonth()]);
     loadJobs(m, y);
     loadStats(m, y);
