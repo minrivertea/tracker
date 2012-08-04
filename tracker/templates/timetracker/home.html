@@ -34,9 +34,10 @@ $(document).ready(function() {
 <style type="text/css">
 
 #days {
-  width: 100%;
-  position: absolute;
-  top: -30px;  
+    margin: 0 0 0 2%;
+    position: absolute;
+    top: 75px;
+    width: 96%;
 }
 
 #days span {
@@ -322,16 +323,6 @@ li .popout {
 {% block content %}
 
     <div id="content">
-        
-        
-
-<script type="text/javascript">
-buildCal();
-</script>
-
-
-        
-        <ul id="month">  
             <div id="days">
               <span>Mon</span>
               <span>Tue</span>
@@ -341,8 +332,9 @@ buildCal();
               <span>Sat</span>
               <span>Sun</span>
             </div>
-            {{ cal|safe }}
-        </ul>    
+         <script type="text/javascript">
+buildCal();
+</script>
     </div><!-- /content -->
     
 {% endblock %}

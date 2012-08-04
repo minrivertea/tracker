@@ -63,7 +63,6 @@
     {% include 'snippets/header.html' %}
         
     <div id="container">
-        
 	{% block content %}{% endblock %}
 	</div>
 	
@@ -114,11 +113,7 @@ $(document).ready( function() {
 					$(this).val(clearMePrevious);
 					$(this).css('color', '#999');
 				}
-			});
-			
-	loadStats({{ month }}, {{ year}});
-	
-    
+			});    
 });
 </script>
 {% block extrajs %}{% endblock %}

