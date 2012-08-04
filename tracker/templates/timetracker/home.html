@@ -8,7 +8,8 @@
 
 $(document).ready(function() {
     
-    
+    $('#nextMonth').bind('click', nextMonth);
+    $('#prevMonth').bind('click', prevMonth);
     
     $('ul#month li').each( function() {
        $(this).bind('click', addJob);  
@@ -161,14 +162,6 @@ li span.link:hover {
   color: #005580;   
 }
 
-li a.done {
-  color: #777;   
-}
-
-li a.paid {
-  color: #c1c1c1;   
-}
-
 ul#month li a {
   position: relative;   
 }
@@ -304,7 +297,6 @@ li .popout {
 .popout-inner .actions a {
   width: 80px;
   float: left; 
-  border-radius: 2px;
   text-align: center;
   margin: 0 10px 0 0; 
 }
@@ -312,11 +304,6 @@ li .popout {
 .popout-inner .left-content {
   float:left;
   width: 360px;   
-}
-
-.popout-inner .actions a.done {
-  background-color: #196611; 
-  color: #fff;  
 }
 
 #delete {
@@ -335,6 +322,14 @@ li .popout {
 {% block content %}
 
     <div id="content">
+        
+        
+
+<script type="text/javascript">
+buildCal();
+</script>
+
+
         
         <ul id="month">  
             <div id="days">

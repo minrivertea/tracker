@@ -137,39 +137,10 @@ def load_jobs(request):
 
 
 def home(request):
-    
-    if request.user.is_authenticated():
-        
-        try:
-            year = int(request.GET['year'])
-            month = int(request.GET['month'])
-        except:
-            year = datetime.datetime.now().year
-            month = datetime.datetime.now().month
-        
-        
-        date = datetime.datetime(year, month, day=1)
-        
-        next_month = int(month)+1
-        prev_month = int(month)-1
-        next_year = year
-        prev_year = year
-        
-        if next_month == 13:
-            next_month = 1
-            next_year = int(year)+1
-        
-        if prev_month == 0:
-            prev_month = 12
-            prev_year = int(year)-1
-            
-        my_jobs = ''        
-        cal = JobsCalendar(my_jobs).formatmonth(year, month)
-          
-    else:
+    if not request.user.is_authenticated():
         return render(request, 'timetracker/anon_home.html', locals())
 
-    form = MakeURLForm()
+
     return render(request, 'timetracker/home.html', locals())
     
     

@@ -6,13 +6,11 @@
         <a class="button" href="{% url jobs_ical request.user.id %}">iCal</a>
       {% endif %}
         
-      {% if next_month %}
         <div id="next_previous">
-            <a class="button" href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
-            <span id="thisMonthYear" date="{{ month }}-{{ year }}" class="date">{{ date|date:"M Y" }}</span>
-            <a class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
+            <a id="prevMonth" class="button" href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
+            <span id="thisMonthYear" date="{{ month }}-{{ year }}" class="date"></span>
+            <a id="nextMonth" class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
         </div>
-      {% endif %}
       
       {% include 'snippets/add-form.html' %}
        

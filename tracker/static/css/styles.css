@@ -79,10 +79,22 @@ a:hover, a:active, #navigation li a:hover {
   float: right;	
 }
 
-.button.green {
-  background-color: #137f10;
-  border-color: #68cd65 #68cd65 transparent transparent;
-  box-shadow: 0 1px 2px #0c5a0a;
+.button.done {
+  background: #137f10;
+  color: #fff;
+  text-shadow: none;
+  border-color: #21702A #21702A #1C6022 #1C6022;
+
+background: rgb(39,142,50); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(39,142,50,1) 0%, rgba(71,158,60,1) 50%, rgba(24,137,16,1) 51%, rgba(7,124,13,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(39,142,50,1)), color-stop(50%,rgba(71,158,60,1)), color-stop(51%,rgba(24,137,16,1)), color-stop(100%,rgba(7,124,13,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#278e32', endColorstr='#077c0d',GradientType=0 ); /* IE6-9 */
+
+
 }
 
 .button.green:hover {
