@@ -105,10 +105,10 @@ function getDetails(e) {
       
    var cssclass = '';
    if (($(window).width()-e.pageX) < 500) {
-      cssclass += ' left';
+      $(this).parent().children('.popout').addClass('left');
    }
    if (($(window).height()-e.pageY) < 500) {
-      cssclass += ' top';
+      $(this).parent().children('.popout').addClass('top');
    } 
    
    e.preventDefault();
