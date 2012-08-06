@@ -1,109 +1,60 @@
 var thisDomain = 'http://tracker.westiseast.co.uk';
 var draggedItemID;
 var draggedItem;
-var thisDate = '';
+var tD = '';
+var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var dim=[31,0,31,30,31,30,31,31,30,31,30,31];
+var dow=['Mon','Tue','Wed','Thu','Fri','Sat', 'Sun'];
+var today= new Date();
+
 
 function buildCal() {
     
-    if (thisDate.length==0) {       
-       thisDate = new Date();
-    } else {
-       thisDate = thisDate;   
-    }
-           
-    y = thisDate.getFullYear();
-    m = thisDate.getMonth()+1; // we plus one because it's zero indexed
-        
-    var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var dim=[31,0,31,30,31,30,31,31,30,31,30,31];
-    var dow=['Mon','Tue','Wed','Thu','Fri','Sat', 'Sun'];
-    var today= new Date(); 
-
+    if (tD.length==0) { tD = new Date() } else { tD = tD }
+    y = tD.getFullYear();
+    m = tD.getMonth()+1;      
     
-    var oD = new Date(y, m-1, 1); // this gives us the 1st day of the month
-    oD.fd=((oD.getDay()-1<0))?6:oD.getDay()-1; // this tells us what day of the week the first day is
+    var oD = new Date(y, m-1, 1);
+    oD.fd=((oD.getDay()-1<0))?6:oD.getDay()-1; 
              
-    dim[1]=(((oD.getFullYear()%100!=0)&&(oD.getFullYear()%4==0))||(oD.getFullYear()%400==0))?29:28; // gives days of month for Feb
+    dim[1]=(((oD.getFullYear()%100!=0)&&(oD.getFullYear()%4==0))||(oD.getFullYear()%400==0))?29:28; 
     
     var t='';
     for (i=0;i<=36;i++) {
                 
         var x= ((i-oD.fd>=0)&&(i-oD.fd<dim[m-1]))?i-oD.fd+1 : '';
-        
-        // if i1 minus fd3 is greater than 0,
-        // AND
-        // i1 minus fd3 is less than 31
-        // THEN
-        // x is i1 + fd3 + 1
-        
-        var uid=y+'-'+m+'-'+x;
         var cssclass = '';
-
         
-        if ((y==today.getFullYear()) && (m-1==today.getMonth()) && (x==today.getDate())) 
-            cssclass+='today ';
+        if (x == '') cssclass+= 'noday';
+        if ((y==today.getFullYear()) && (m-1==today.getMonth()) && (x==today.getDate())) cssclass+='today ';
         
-        cssclass += dow[x];
-
-        t+='<li id="'+uid+'" class="'+cssclass+'"><h3 class="inner_day">'+x+'</h3><ul class="jobslist"></ul></li>';
+        t+='<li id="'+y+'-'+m+'-'+x+'" class="'+cssclass+'"><h3 class="inner_day">'+x+'</h3><ul class="jobslist droppable"></ul></li>';
         
     }
     $('#month').html(t);
-    $('#thisMonthYear').html(mn[thisDate.getMonth()]);
+    $('#thisMonthYear').html(mn[m-1]+' '+y);
     loadJobs(m, y);
-    loadStats(m, y);
+    loadStats();
+    $('#month li').not('.noday').bind('click', addJob);
+    $('.noday').bind('click', clearAll);
 }
-
-
-
-
-function nextMonth(e) {
-        
-    if (thisDate.getMonth() == 11) {
-        newDate = new Date(thisDate.getFullYear() + 1, 0, 1);
-    } else {
-        newDate = new Date(thisDate.getFullYear(), thisDate.getMonth() + 1, 1);
-    }
-        
-    thisDate = newDate;
-    buildCal();
-    e.preventDefault();
-}
-
-function prevMonth(e) {
-        
-    if (thisDate.getMonth() == 0) {
-        newDate = new Date(thisDate.getFullYear() - 1, 11, 1);
-    } else {
-        newDate = new Date(thisDate.getFullYear(), thisDate.getMonth() - 1, 1);
-    }
-    
-    thisDate = newDate;
-    buildCal();
-    e.preventDefault();
-}
-
 
 
 function addJob() {
-   var date = $(this).attr('id');
    if ($(this).hasClass('selected')) {
       $('#add-form').css({'display': 'none',});
       $(this).removeClass('selected');
    } else {
       clearAll();
-      $('li').removeClass('selected');
       $(this).addClass('selected');
       $('#add-form').css({'display': 'block',});
       $('#add-form input:text:visible:first').focus();
-      $('#add-form input#id_start_date').val(date);
-      $('#add-form').unbind();
+      $('#add-form input#id_start_date').val($(this).attr('id'));
       $('#add-form').bind('submit', saveJob);
    }    
 }
 
 function saveJob() {
-      $('#add-form #loading').css('display', 'block');
       $.ajax({
             url: $(this).attr('action'),
             data: $(this).serialize(),
@@ -111,23 +62,16 @@ function saveJob() {
             type: "POST",
             success: function(data) {
                 clearAll();
-                var thisItem = 'li#'+data['date'];
-                
-                if ($(thisItem+' ul.jobslist').length) {
-                    $(thisItem+' ul.jobslist').append(data['html']);
-                } else {
-                    $(thisItem).append('<ul class="jobslist"></ul>');
-                    $(thisItem+' ul.jobslist').append(data['html']);
-                    $('#add-form #loading').css('display', 'none');
-                };
-                $(thisItem+' a').unbind().bind('click', getDetails);
-                bindDraggable($(thisItem+' a.draggable'));
-                var thisDate = data['date'].split('-');
-                loadStats(thisDate[1], thisDate[0]);
-            } 
+                html = '<li id="'+data.hashkey+'"><a href="'+data.url+'" class="draggable">'+data.name+'</a></li>';
+                $('li#'+data.date+' ul.jobslist').append(html);
+                $('li#'+data.hashkey+' a').unbind().bind('click', getDetails);
+                bindDraggable();
+                loadStats();
+            }
       });
       return false;
 }
+      
 
 function deleteJob() {
      $.ajax({
@@ -135,8 +79,7 @@ function deleteJob() {
         success: function(data) {
            clearAll();
            $('li#'+ data).remove();
-           var thisDate = $('#thisMonthYear').attr('date').split('-');
-           loadStats(thisDate[0], thisDate[1]);   
+           loadStats();   
         }
      });
      return false;   
@@ -144,50 +87,37 @@ function deleteJob() {
 
 function getDetails(e) {
    
-   var posX = e.pageX;
-   var posY = e.pageY;
-   var height = $(window).height();
-   var width = $(window).width();
    var cssClass = 'popout-inner';
-   if ((width-posX) < 500) {
+   if (($(window).width()-e.pageX) < 500) {
       cssClass += ' left';
    }
-   if ((height-posY) < 500) {
+   if (($(window).height()-e.pageY) < 500) {
       cssClass += ' top';
    } 
       
-   
-   // if it's already open, close it
-   if ($(this).hasClass('selected')) {
-        clearAll();
-   } 
-   
-   // if it's not open, then open the popout
-   else {
+   clearAll();
+   $(this).addClass('selected'); // select this
         
-        clearAll(); // close any other popouts
-        $(this).addClass('selected'); // select this
-        
-        // if it's already been loaded previously, don't load the ajax again, just make it visible
-        if ($(this).parent().children('.popout').length) {
-            $(this).parent().children('.popout').css('display', 'block');
-        } 
-        
-        
-        else {
-            $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
-            $.ajax({
-                url: $(this).attr('href'),
-                cache: false,
-                success: function(data) {
-                   $('.popout-inner').html(data);
-                   $('#loading').css('display', 'none');
-                   $('a#delete').bind('click', deleteJob);
-                   jobDone();
-                   jobPaid();
-                }
-            });
-        }
+    // if it's already been loaded previously, don't load the ajax again, just make it visible
+    if ($(this).parent().children('.popout').length) {
+        $(this).parent().children('.popout').css('display', 'block');
+    } 
+    
+    
+    else {
+        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
+        $.ajax({
+            url: $(this).attr('href'),
+            cache: false,
+            success: function(data) {
+                $('.popout-inner').html(data);
+                $('#loading').css('display', 'none');
+                $('a#delete').bind('click', deleteJob);
+                jobDone();
+                jobPaid();
+            }
+        });
+
    }
    e.preventDefault();
    e.stopPropagation();
@@ -294,16 +224,8 @@ function expandFooter() {
   } 
 }
 
-function loadStats(month, year) {
-  $.ajax({
-    url: '/load-stats/?year='+year+'&month='+month,
-    method: 'GET',
-    dataType: 'html',
-    success: function(html) {
-        $('#footer .inner').html(html);
-    }
-  });   
-}
+
+
 
 function loadJobs(month, year) {
   $.ajax({
@@ -311,65 +233,52 @@ function loadJobs(month, year) {
     method: 'GET',
     dataType: 'json',
     success: function(data) {
-
         $(data).each( function() {
-           thisDay = 'li#'+this.date;
-           thisList = thisDay+' ul.jobslist';
-           thisItem = 'li#'+this.uid;
-           itemHTML = '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
-           
-           
-           
-           if ($(thisList).length) {} else {
-             $(thisDay).append('<ul class="jobslist droppable"></ul>');
-             
-           }
-
-           $(thisList).append(itemHTML); 
-           
-           bindDraggable($(thisItem+' a.draggable'));
-           
-      		
-      		
-      		$('ul.droppable').droppable({
-      			drop: function(event, ui) {
-      			    ui.draggable.attr('style', '');
-      			    var newLI = ui.draggable.parent().clone();
-      			    ui.draggable.parent().remove();
-      				$(this).append(newLI);
-      				bindDraggable(newLI.children('a'));
-      				newLI.children('a').bind('click', getDetails);
-      				updateJob(newLI);
-      			}
-      		});
-           
+           html = '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
+           $('li#'+this.date+' ul.jobslist').append(html); 
         });
-        $('ul.jobslist li a').bind('click', getDetails); 
-		
-		
+        
+        $('ul.jobslist li a').each(function(){
+            $(this).unbind().bind('click', getDetails); 
+        });	
+        bindDraggable();
+        bindDroppable();
     }
-  });
+  });     	
 }
 
-function bindDraggable(job) {
-    $(job).draggable({
-	    'opacity': 0.8,
-	    'snap': true,
-	    start: function(event, ui) {
-	       $(job).unbind('click', false);
-	    },
-	    stop: function(event, ui) {
-	       
-	    },
-	});    
+function bindDraggable() { 
+    $('.draggable').draggable({
+       'opacity': 0.8,
+	   'snap': true,
+	   start: function(event, ui) {
+	       $(this).unbind('click', false);
+	   }
+     });
 }
+
+function bindDroppable() {
+    $('.droppable').droppable({
+		drop: function(event, ui) {
+		    var newLI = ui.draggable.parent().clone();
+		    ui.draggable.parent().remove();
+			$(this).append(newLI);
+			newLI.children('a').attr('style', '');
+			bindDraggable(newLI.children('a'));
+			newLI.children('a').unbind().bind('click', getDetails);
+			updateJob(newLI);
+			
+		}
+    });    
+}
+
 
 function updateJob(job) {
-   var newDate = job.parent().parent().attr('id');
+   var nD = job.parent().parent().attr('id');
    $.ajax({
       url: '/update-job/',
       type: 'POST',
-      data: { date: newDate, uid: job.attr('id') },
+      data: { date: nD, uid: job.attr('id') },
       success: function() {
         // shoudl I do something here to celebrate moving a job? a message?  
       },
@@ -381,8 +290,36 @@ function updateJob(job) {
 
 
 
+function nextMonth(e) {
+        
+    if (tD.getMonth() == 11) {
+        nD = new Date(tD.getFullYear() + 1, 0, 1);
+    } else {
+        nD = new Date(tD.getFullYear(), tD.getMonth() + 1, 1);
+    }
+        
+    tD = nD;
+    buildCal();
+    e.preventDefault();
+}
 
 
+function prevMonth(e) {
+        
+    if (tD.getMonth() == 0) {
+        nD = new Date(tD.getFullYear() - 1, 11, 1);
+    } else {
+        nD = new Date(tD.getFullYear(), tD.getMonth() - 1, 1);
+    }
+    
+    tD = nD;
+    buildCal();
+    e.preventDefault();
+}
+
+function loadStats() {
+   $('#footer').load('/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1));
+}
 
 
 /// a helper for CSRF protection in django when making ajax POSTs

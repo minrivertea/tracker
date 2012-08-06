@@ -65,7 +65,12 @@ def load_stats(request):
     seen = {}
     clients = []
     
-    overdues = Job.objects.filter(start_date_time__lt=date, owner=request.user, completed__lte=datetime.datetime.now(), paid=None)
+    overdues = Job.objects.filter(
+        start_date_time__lt=date, 
+        owner=request.user, 
+        completed__lte=datetime.datetime.now(), 
+        paid=None
+    )
     
     for job in overdues:
         overdue += job.get_total()
@@ -253,14 +258,16 @@ def addjob(request):
             
             new_job = Job.objects.create(**creation_args)
                                     
-            if is_mobile_ajax(request):
-                url = reverse('home')
-                return HttpResponseRedirect(url)
-            
+
             
             if request.is_ajax():
-                html = render_to_string('snippets/job_link.html', {'job': new_job})
-                json =  simplejson.dumps((dict(html=html, date=form.cleaned_data['start_date'])), cls=DjangoJSONEncoder)
+                data = {
+                    'name': new_job.__unicode__(), 
+                    'date': form.cleaned_data['start_date'],
+                    'hashkey': new_job.hashkey, 
+                    'url': reverse('job', args=[new_job.hashkey]),
+                }
+                json =  simplejson.dumps(data, cls=DjangoJSONEncoder)
                 return HttpResponse(json)
             
             else:
