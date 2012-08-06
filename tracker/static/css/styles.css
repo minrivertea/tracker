@@ -79,7 +79,7 @@ a:hover, a:active, #navigation li a:hover {
   float: right;	
 }
 
-.button.done {
+.button.filled {
   background: #137f10;
   color: #fff;
   text-shadow: none;

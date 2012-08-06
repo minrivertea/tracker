@@ -331,14 +331,12 @@ def mark_job_as_done(request, hashkey):
     if job.completed:
         job.completed = None
         job.save()
-        response = 'false'
     else:
         job.completed = datetime.datetime.now()
         job.save()
-        response = 'true'
     
     if request.is_ajax(): 
-        return HttpResponse(response)
+        return HttpResponse(job.hashkey)
     
     return render(request, 'timetracker/job.html', locals())
 
@@ -348,14 +346,12 @@ def mark_job_as_paid(request, hashkey):
     if job.paid:
         job.paid = None
         job.save()
-        response = 'false'
     else:
         job.paid = datetime.datetime.now()
         job.save()
-        response = 'true'
     
     if request.is_ajax():
-        return HttpResponse(response)
+        return HttpResponse(job.hashkey)
     
     return render(request, 'timetracker/job.html', locals())
     

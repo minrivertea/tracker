@@ -1,5 +1,5 @@
 
-
+<div class="popout-inner">
 <div class="left-content">
     <h4>{{ job.name }} ({{ job.client }})</h4>
     {{ job.start_date_time|time:"H:i" }} - {{ job.get_end_time|time:"H:i" }} ({{ job.length|floatformat }}hrs)
@@ -8,7 +8,8 @@
 </div>
 
 <div class="actions">
-    <a id="done" class="button{% if job.completed %} done{% endif %}" href="{% url job_done job.hashkey %}">Done</a>
-    <a id="paid" class="button{% if job.paid %} done{% endif %}" href="{% url job_paid job.hashkey %}">Paid</a>
-    <a id="delete" href="{% url delete_job job.hashkey %}">Delete </a>
+    <a class="done button{% if job.completed %} filled{% endif %}" href="{% url job_done job.hashkey %}">Done</a>
+    <a class="paid button{% if job.paid %} filled{% endif %}" href="{% url job_paid job.hashkey %}">Paid</a>
+    <a class="delete" href="{% url delete_job job.hashkey %}">Delete </a>
+</div>
 </div>

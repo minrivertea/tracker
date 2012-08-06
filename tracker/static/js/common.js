@@ -54,7 +54,7 @@ function addJob() {
    }    
 }
 
-function saveJob() {
+function saveJob(e) {
       $.ajax({
             url: $(this).attr('action'),
             data: $(this).serialize(),
@@ -69,11 +69,11 @@ function saveJob() {
                 loadStats();
             }
       });
-      return false;
+      e.preventDefault();
 }
       
 
-function deleteJob() {
+function deleteJob(e) {
      $.ajax({
         url: $(this).attr('href'),
         success: function(data) {
@@ -82,86 +82,61 @@ function deleteJob() {
            loadStats();   
         }
      });
-     return false;   
+     e.preventDefault();   
 }
 
 function getDetails(e) {
-   
-   var cssClass = 'popout-inner';
-   if (($(window).width()-e.pageX) < 500) {
-      cssClass += ' left';
-   }
-   if (($(window).height()-e.pageY) < 500) {
-      cssClass += ' top';
-   } 
-      
+         
    clearAll();
+   
    $(this).addClass('selected'); // select this
         
     // if it's already been loaded previously, don't load the ajax again, just make it visible
-    if ($(this).parent().children('.popout').length) {
-        $(this).parent().children('.popout').css('display', 'block');
+   if ($(this).parent().children('.popout-inner').length) {
+        $(this).parent().children('.popout').show();
     } 
     
-    
-    else {
-        $(this).parent().prepend('<div class="popout"><div class="'+cssClass+'"><img id="loading" src="/static/images/loading.gif"></div></div>');
-        $.ajax({
-            url: $(this).attr('href'),
-            cache: false,
-            success: function(data) {
-                $('.popout-inner').html(data);
-                $('#loading').css('display', 'none');
-                $('a#delete').bind('click', deleteJob);
-                jobDone();
-                jobPaid();
-            }
+   else {
+        $(this).parent().children('.popout').show();
+        $(this).parent().children('.popout').load($(this).attr('href'), function() {
+           markJob();   
         });
-
    }
+      
+   var cssclass = '';
+   if (($(window).width()-e.pageX) < 500) {
+      cssclass += ' left';
+   }
+   if (($(window).height()-e.pageY) < 500) {
+      cssclass += ' top';
+   } 
+   
    e.preventDefault();
    e.stopPropagation();
-   e.stopImmediatePropagation();    
+   e.stopImmediatePropagation();
 }
 
 
-
-function clearAll() {
-  $('.popout').css('display', 'none');
-  $('#add-form').css({'display': 'none', 'top': '0' });
-  $('.selected').removeClass('selected');
-  $('#expandable').attr('class', '');
-}
-
-
-
-
-function jobDone() {
-    $('a#done').click( function() {
-        $.ajax({
-            url: $(this).attr('href'),
-            success: function(data) {
-                if (data == 'true') {$('#done').addClass('done');} else {$('#done').removeClass('done');}
-            }
-        });
-        return false;
-    });
-}
-
-function jobPaid() {
-    $('a#paid').click( function() {
-        $.ajax({
-            url: $(this).attr('href'),
-            success: function(data) {
-                if (data == 'true') {$('#paid').addClass('done');} else {$('#paid').removeClass('done');} 
-            }
-        });
-        return false;
-    });
+function markJob(e) {
+   $('.popout a').click( function(e) {
+     var t = this;
+     $.ajax({
+          url: $(t).attr('href'),
+          dataType: 'html',
+          success: function(data) {
+              if ($(t).hasClass('filled')) {
+                $(t).removeClass('filled');
+              } else {
+                $(t).addClass('filled');
+              }
+          }
+      });
+      e.preventDefault();
+      e.stopPropagation();
+   });
 }
 
 var shareURL;
-
 function makeURL() {
    if ($('#sharelink').text() == thisDomain) {
         $.ajax({
@@ -173,7 +148,7 @@ function makeURL() {
          }
       }); 
       return false;
-   } else {}
+   }
 }
  
 
@@ -234,13 +209,11 @@ function loadJobs(month, year) {
     dataType: 'json',
     success: function(data) {
         $(data).each( function() {
-           html = '<li class="" id="'+this.uid+'"><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
+           html = '<li class="" id="'+this.uid+'"><div class="popout"></div><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
            $('li#'+this.date+' ul.jobslist').append(html); 
         });
         
-        $('ul.jobslist li a').each(function(){
-            $(this).unbind().bind('click', getDetails); 
-        });	
+        $('ul.jobslist li a.draggable').bind('click', getDetails); 
         bindDraggable();
         bindDroppable();
     }
@@ -252,7 +225,7 @@ function bindDraggable() {
        'opacity': 0.8,
 	   'snap': true,
 	   start: function(event, ui) {
-	       $(this).unbind('click', false);
+	       $(this).unbind('click');
 	   }
      });
 }
@@ -264,8 +237,8 @@ function bindDroppable() {
 		    ui.draggable.parent().remove();
 			$(this).append(newLI);
 			newLI.children('a').attr('style', '');
-			bindDraggable(newLI.children('a'));
-			newLI.children('a').unbind().bind('click', getDetails);
+			bindDraggable();
+			newLI.children('a').bind('click', getDetails);
 			updateJob(newLI);
 			
 		}
@@ -285,9 +258,6 @@ function updateJob(job) {
       error: function() {},
    });
 }
-
-
-
 
 
 function nextMonth(e) {
@@ -315,6 +285,13 @@ function prevMonth(e) {
     tD = nD;
     buildCal();
     e.preventDefault();
+}
+
+function clearAll() {
+  $('.popout').css('display', 'none');
+  $('#add-form').css({'display': 'none', 'top': '0' });
+  $('.selected').removeClass('selected');
+  $('#expandable').attr('class', '');
 }
 
 function loadStats() {
