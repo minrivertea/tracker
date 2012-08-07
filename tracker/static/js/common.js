@@ -20,12 +20,15 @@ function buildCal() {
     dim[1]=(((oD.getFullYear()%100!=0)&&(oD.getFullYear()%4==0))||(oD.getFullYear()%400==0))?29:28; 
     
     var t='';
-    for (i=0;i<=36;i++) {
-                
+    for (i=0;i<=35;i++) {
+            
         var x= ((i-oD.fd>=0)&&(i-oD.fd<dim[m-1]))?i-oD.fd+1 : '';
+        if ((i>6)&&(x=='')) break;
         var cssclass = '';
         
-        if (x == '') cssclass+= 'noday';
+        if (x == '') {
+            cssclass+= 'noday';
+        }
         if ((y==today.getFullYear()) && (m-1==today.getMonth()) && (x==today.getDate())) cssclass+='today ';
         
         t+='<li id="'+y+'-'+m+'-'+x+'" class="'+cssclass+'"><h3 class="inner_day">'+x+'</h3><ul class="jobslist droppable"></ul></li>';
@@ -50,7 +53,7 @@ function addJob() {
       $('#add-form').css({'display': 'block',});
       $('#add-form input:text:visible:first').focus();
       $('#add-form input#id_start_date').val($(this).attr('id'));
-      $('#add-form').bind('submit', saveJob);
+      $('#add-form').unbind().bind('submit', saveJob);
    }    
 }
 
@@ -62,7 +65,7 @@ function saveJob(e) {
             type: "POST",
             success: function(data) {
                 clearAll();
-                html = '<li id="'+data.hashkey+'"><a href="'+data.url+'" class="draggable">'+data.name+'</a></li>';
+                html = '<li id="'+data.hashkey+'"><div class="popout"></div><a href="'+data.url+'" class="draggable">'+data.name+'</a></li>';
                 $('li#'+data.date+' ul.jobslist').append(html);
                 $('li#'+data.hashkey+' a').unbind().bind('click', getDetails);
                 bindDraggable();
@@ -71,19 +74,7 @@ function saveJob(e) {
       });
       e.preventDefault();
 }
-      
-
-function deleteJob(e) {
-     $.ajax({
-        url: $(this).attr('href'),
-        success: function(data) {
-           clearAll();
-           $('li#'+ data).remove();
-           loadStats();   
-        }
-     });
-     e.preventDefault();   
-}
+     
 
 function getDetails(e) {
          
@@ -104,7 +95,8 @@ function getDetails(e) {
    }
       
    var cssclass = '';
-   if (($(window).width()-e.pageX) < 500) {
+   
+   if (( $(window).width() - e.pageX ) < 500) {
       $(this).parent().children('.popout').addClass('left');
    }
    if (($(window).height()-e.pageY) < 500) {
@@ -124,6 +116,11 @@ function markJob(e) {
           url: $(t).attr('href'),
           dataType: 'html',
           success: function(data) {
+              if ($(t).hasClass('delete')) {
+                 clearAll();
+                 $('li#'+data).remove();
+                 loadStats(); 
+              }
               if ($(t).hasClass('filled')) {
                 $(t).removeClass('filled');
               } else {
@@ -154,6 +151,9 @@ function makeURL() {
 
 function expandHeader(block) {
    var currentBlock = $('#'+block);
+   
+   
+   
    if ($('#expandable').hasClass('open')) {
       if (currentBlock.hasClass('selected')) {
          $('#expandable').removeClass('open');
@@ -176,16 +176,9 @@ function expandHeader(block) {
 }
 
 function getHeaderContents(block) {
-  if (block == 'share') {
-     $('#share-full').css('display', 'block');
-     $('#user-full').css('display', 'none');
-     makeURL(); 
-  }   
-  
-  if (block == 'user') {
-    $('#share-full').css('display', 'none');
-     $('#user-full').css('display', 'block');
-  }
+  $('#expandable div').not('#'+block+'-full').hide()
+  $('#'+block+'-full').show();
+  if (block=='share') makeURL();
 }
 
 
@@ -288,7 +281,7 @@ function prevMonth(e) {
 }
 
 function clearAll() {
-  $('.popout').css('display', 'none');
+  $('.popout').hide();
   $('#add-form').css({'display': 'none', 'top': '0' });
   $('.selected').removeClass('selected');
   $('#expandable').attr('class', '');

@@ -31,8 +31,8 @@ $(document).ready(function() {
 
 #days {
     margin: 0 0 0 2%;
-    position: absolute;
-    top: 75px;
+    position: relative;
+    top: 0px;
     width: 96%;
 }
 
@@ -81,6 +81,10 @@ ul#month li {
     float: left;
     position: relative;
     display:;
+}
+
+ul#month li:last-child {
+   border-right: 1px dotted #c1c1c1;   
 }
 
 .jobs ul li {
@@ -282,7 +286,7 @@ li .popout {
 .popout-inner .actions {
   position: absolute;
   bottom: 20px;
-  width: 100%;
+  width: 92%;
   float: left;   
 }
 
@@ -292,6 +296,22 @@ li .popout {
   text-align: center;
   margin: 0 10px 0 0; 
 }
+
+ul#month li .popout .actions .delete {
+    bottom: 0;
+    color: red;
+    float: right;
+    font-size: 12px;
+    padding: 4px 5px;
+    position: absolute;
+    right: 0;
+    width: auto;
+    margin: 0;
+}
+
+
+
+
 
 .popout-inner .left-content {
   float:left;

@@ -7,9 +7,9 @@
       {% endif %}
         
         <div id="next_previous">
-            <a id="prevMonth" class="button" href="?year={{ prev_year }}&month={{ prev_month }}"><</a>
+            <a id="prevMonth" class="button" href="#"><</a>
             <span id="thisMonthYear" class="date"></span>
-            <a id="nextMonth" class="button" href="?year={{ next_year }}&month={{ next_month }}">></a>
+            <a id="nextMonth" class="button" href="#">></a>
         </div>
       
       {% include 'snippets/add-form.html' %}
@@ -19,7 +19,7 @@
             <h3>Your public calendar link is:</h3><p><span id="sharelink">http://tracker.westiseast.co.uk</span></p>
         </div>
         <div id="user-full">
-            <p>Currently logged in as: <strong>{{ request.user.username }}</strong> <a class="button" href="{% url auth_logout %}">Logout</a></p>
+            <p>Currently logged in as: <strong>{{ request.user.username }}</strong> <a class="button" id="logout" href="{% url auth_logout %}">Logout</a></p>
         </div>
       </div>
       

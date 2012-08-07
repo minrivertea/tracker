@@ -10,6 +10,6 @@
 <div class="actions">
     <a class="done button{% if job.completed %} filled{% endif %}" href="{% url job_done job.hashkey %}">Done</a>
     <a class="paid button{% if job.paid %} filled{% endif %}" href="{% url job_paid job.hashkey %}">Paid</a>
-    <a class="delete" href="{% url delete_job job.hashkey %}">Delete </a>
+    <a class="delete button" href="{% url delete_job job.hashkey %}">Delete </a>
 </div>
 </div>
