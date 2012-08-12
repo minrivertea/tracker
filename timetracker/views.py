@@ -10,6 +10,7 @@ from django.contrib import auth
 from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
+from django.contrib import messages
 import django_mobile
 
 import datetime
@@ -455,7 +456,7 @@ def update_job(request):
     return HttpResponse()
     
 # API CALLS FOR MOBILE
-    
+   
 def get_clients(request):
     user = request.user
     jobs = Job.objects.filter(owner=user)

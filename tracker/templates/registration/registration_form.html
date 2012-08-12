@@ -114,10 +114,8 @@ form input[type=submit] {
 
 <form method="post" action=".">
 	{% csrf_token %}
-  <p id="username">{{ form.username }}<label>Choose a username <span>(your display name on the site)</span></label></p>
   <p>{{ form.email }}<label>Your email address <span>(will never be made public)</span></label></p>
   <p>{{ form.password1 }}<label>Choose a password</label></p>
-  <p>{{ form.password2 }}<label>Confirm your password</label></p>
   
   <input type="submit" value="Register" class="register button" />
 </form>

@@ -134,11 +134,10 @@ h3 {
 }
 
 h4 {
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-  margin: 0; 
-  line-height: 1em;  
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    line-height: 1em;
+    margin: 0;
 }
 
 
@@ -178,13 +177,36 @@ label {
 
 
 #header {
-  height: 80px;
+  height: 60px;
   width: 100%;
   color: #333;
   padding: 10px 0;
   font-size: 13px; 
   z-index: 30;  
   top: 0;
+}
+
+#messages {
+    background: none repeat scroll 0 0 transparent;
+    float: left;
+    height: auto;
+    left: 23%;
+    position: absolute;
+    text-align: center;
+    top: 14px;
+    width: 54%;
+}
+
+#messages p {
+    color: #0160B1;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #FFFFFF;
+}
+
+#messages p.warning {
+  color: #C8205F;
+  font-size: 16px;   
 }
 
 #expandable {
@@ -428,5 +450,323 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 #add-form table strong {
    color: #333;
    font-size: 18px;   
+}
+
+
+
+#days {
+    margin: 0 0 0 2%;
+    position: relative;
+    top: 0px;
+    width: 96%;
+}
+
+#days span {
+    color: #666;
+    float: left;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 0px 2%;
+    text-align: center;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 10.2%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+ul#month{
+    background-color: #FFFFFF;
+    border: 1px solid #c1c1c1;
+    float: left;
+    list-style-type: none;
+    margin: 10px 0 30px 2%;
+    padding: 0;
+    width: 96%;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+ul#month th {
+  display: none;   
+}
+
+ul#month li {
+    width:14.2%;
+    height: 135px;
+    text-align: center;
+    border: 1px dotted #c1c1c1;
+    border-width: 0px 0px 1px 1px;
+    float: left;
+    position: relative;
+    display:;
+}
+
+ul#month li:last-child {
+   border-right: 1px dotted #c1c1c1;   
+}
+
+.jobs ul li {
+  list-style-type: none;
+  font-size: 12px;
+  font-weight:normal;
+  color: #333;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+  text-align: left;   
+}
+
+ul#month li h3.inner_day {
+    bottom: 10px;
+    color: #666;
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 1em;
+    position: absolute;
+    right: 10px;
+    text-align: right;
+    width: 100%;
+    transition:  400ms;
+    -moz-transition:  400ms; /* Firefox 4 */
+    -moz-transition:  400ms; /* Firefox 4 */
+    -webkit-transition:  400ms; /* Safari and Chrome */
+    -o-transition:  400ms; /* Opera */ 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none; 
+}
+
+ul#month li.today {
+  background: #C8E6F4;   
+}
+
+ul#month li.today h3.inner_day {
+  color: #00368E;   
+}
+
+ul#month li:hover {
+  cursor: pointer;  
+}
+
+ul#month li:hover > ul.jobslist {
+ padding-bottom: 50px;
+}
+
+#month .noday {
+  border-right: none;   
+}
+
+ul#month .noday:hover {
+  cursor: default;   
+}
+
+
+li span.link {
+  color: #0088CC;
+  text-decoration: underline;   
+}
+
+li span.link:hover {
+  cursor: pointer;
+  color: #005580;   
+}
+
+ul#month li a {
+  position: relative;   
+}
+
+ul#month li.selected h3.inner_day, ul#month li:hover h3.inner_day {
+  color: #003156;   
+}
+
+ul.jobslist {
+    list-style-type: none;
+    padding: 5%;
+    position: relative;
+    width: 90%;
+    height: 90%;
+    float: left;
+}
+
+ul#month li ul.jobslist li {
+  border: none;
+  float: none;
+  height: auto;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+}
+
+ul#month li ul.jobslist li a:hover {
+  text-decoration: underline;   
+}
+
+.popout {
+  display: none;   
+}
+
+li .popout {
+  position: relative;
+  display: block;
+  color: #333;
+  z-index:40;
+}
+
+.popout-inner {
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 15px #c1c1c1;
+    height: 160px;
+    left: 0px;
+    position: absolute;
+    top: 40px;
+    width: 460px;
+    z-index: 40;
+    border: 1px solid #999;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.popout.left {
+    left: -400px;
+}
+
+.popout.top {
+     top: -265px;   
+}
+
+/* this is the background of the arrow */
+.popout-inner:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid #a1a1a1;         
+        border-top: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        position: absolute;
+        top: -21px;
+        left: 29px;
+        z-index: 30;
+        margin-left: ;
+}
+
+/* this is the foreground of the arrow */
+.popout-inner:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid #fff;     
+        border-top: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        position: absolute;
+        top: -19px;
+        left: 30px;
+        z-index: 31;
+        margin-left: -1px;
+}
+
+.popout.top .popout-inner:before {
+  border-bottom: 0;
+  border-top: 20px solid #fff;
+  top: 199px 
+}
+
+.popout.top .popout-inner:after {
+  border-bottom: 0;
+  border-top: 20px solid #a1a1a1; 
+  top: 201px; 
+}
+
+.popout.left .popout-inner:before {
+  left: 420px;   
+}
+
+.popout.left .popout-inner:after {
+  left: 419px;   
+}
+
+.popout #loading {
+    left: 45%;
+    position: absolute;
+    top: 40%;   
+}
+
+
+.popout-inner .actions {
+  position: absolute;
+  bottom: 20px;
+  width: 92%;
+  float: left;   
+}
+
+.popout-inner .actions a {
+  width: 80px;
+  float: left; 
+  text-align: center;
+  margin: 0 10px 0 0; 
+}
+
+ul#month li .popout .actions .delete {
+    bottom: 0;
+    color: red;
+    float: right;
+    font-size: 12px;
+    padding: 4px 5px;
+    position: absolute;
+    right: 0;
+    width: auto;
+    margin: 0;
+}
+
+ul#month li .popout .actions .edit {
+    bottom: 0;
+    float: right;
+    font-size: 12px;
+    margin: 0;
+    padding: 4px 5px;
+    position: absolute;
+    right: 55px;
+    width: auto;
+    color: green;
+}
+
+ul#month li .popout .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;   
+}
+
+
+
+
+.popout-inner .left-content {
+  float:left;
+  width: 360px;   
+}
+
+#delete {
+  position: absolute;
+  top: 10px; 
+  right: 0px;  
+}
+
+.ui-draggable-dragging {
+  z-index: 200;   
 }
 

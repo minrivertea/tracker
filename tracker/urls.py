@@ -14,9 +14,8 @@ urlpatterns = patterns('',
     url(r'^$', home, name="home"),
     #url(r'^api/next-month/(?P<current>[\w-]+)/$', next_month, name="next_month"),
     
-    url(r'^load-stats/$', load_stats, name="load_stats"),
-    url(r'^load-jobs/$', load_jobs, name="load_jobs"),
-    url(r'^update-job/$', update_job, name="update_job"),
+    
+    
     url(r'^url/make/$', make_url, name="make_url"),
     url(r'^url/(?P<hashkey>[\w-]+)/$', view_url, name="view_url"),
     
@@ -29,14 +28,20 @@ urlpatterns = patterns('',
     url(r'^job/(?P<hashkey>[\w-]+)/done$', mark_job_as_done, name="job_done"),
     url(r'^job/(?P<hashkey>[\w-]+)/paid$', mark_job_as_paid, name="job_paid"),
     url(r'^job/(?P<hashkey>[\w-]+)/$', job, name="job"),
-    #url(r'^url/(?P<hashkey>[\w-]+)/$', views.url, name="url"),
     url(r'^add-job/$', addjob, name="addjob"),
     url(r'^anonymous-login/$', anonymous_login, name="anonymous_login"),
     
     url(r'^accounts/register/$', register,
-        {'backend': 'tracker.regbackend.RegBackend',},        
+        {'backend': 'tracker.regbackend.CustomBackend',},        
         name='registration_register'
     ),
+    
+    
+    # api-like urls
+    url(r'^load-stats/$', load_stats, name="load_stats"),
+    url(r'^load-jobs/$', load_jobs, name="load_jobs"),
+    url(r'^update-job/$', update_job, name="update_job"),
+    
 
     (r'^accounts/', include('registration.backends.default.urls')),
 

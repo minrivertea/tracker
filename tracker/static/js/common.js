@@ -292,6 +292,7 @@ function loadStats() {
 }
 
 
+
 /// a helper for CSRF protection in django when making ajax POSTs
 jQuery(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {

@@ -1,15 +1,17 @@
 
 <div class="popout-inner">
-<div class="left-content">
-    <h4>{{ job.name }} ({{ job.client }})</h4>
-    {{ job.start_date_time|time:"H:i" }} - {{ job.get_end_time|time:"H:i" }} ({{ job.length|floatformat }}hrs)
-    <br/>{{ job.rate }} {{ job.currency.code }}
+    <div class="left-content">
+        <a class="close" href="#" onclick="clearAll();">Close</a>
+        <h4>{{ job.name }} ({{ job.client }})</h4>
+        {{ job.start_date_time|time:"H:i" }} - {{ job.get_end_time|time:"H:i" }} ({{ job.length|floatformat }}hrs)
+        <br/>{{ job.rate }} {{ job.currency.code }}
+        
+    </div>
     
-</div>
-
-<div class="actions">
-    <a class="done button{% if job.completed %} filled{% endif %}" href="{% url job_done job.hashkey %}">Done</a>
-    <a class="paid button{% if job.paid %} filled{% endif %}" href="{% url job_paid job.hashkey %}">Paid</a>
-    <a class="delete button" href="{% url delete_job job.hashkey %}">Delete </a>
-</div>
+    <div class="actions">
+        <a class="done button{% if job.completed %} filled{% endif %}" href="{% url job_done job.hashkey %}">Done</a>
+        <a class="paid button{% if job.paid %} filled{% endif %}" href="{% url job_paid job.hashkey %}">Paid</a>
+        <a class="edit button" href="">Edit</a>
+        <a class="delete button" href="{% url delete_job job.hashkey %}">Delete </a>
+    </div>
 </div>

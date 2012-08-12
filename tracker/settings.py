@@ -136,6 +136,10 @@ BASE_TEMPLATE = 'base.html'
 BASE_TEMPLATE_MOBILE = 'base_mobile.html'
 BASE_TEMPLATE_ANON = 'base_anon.html'
 
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_PORT = '1025'
+
 
 #django-registration required:
 ACCOUNT_ACTIVATION_DAYS = 7
