@@ -61,10 +61,11 @@ def load_stats(request):
     total_money = 0
     paid = 0
     completed = 0
-    overdue = 0
-
     seen = {}
     clients = []
+    overdue = 0
+    
+    """
     
     overdues = Job.objects.filter(
         start_date_time__lt=date, 
@@ -75,8 +76,10 @@ def load_stats(request):
     
     for job in overdues:
         overdue += job.get_total()
+    """
     
     for job in my_jobs:
+        
         if job.completed and not job.paid:
             completed += job.get_total()
         elif job.paid:
@@ -96,16 +99,25 @@ def load_stats(request):
         
     av = total_money / 30
     
-    html = render_to_string('snippets/footer_inner.html', {
+    
+    percent = (float(completed)/float(total_money)) * 100
+    
+    print percent
+    
+    data = {
         'total_money': total_money,
         'paid': paid,
         'completed': completed,
         'overdue': overdue,
         'total_jobs': len(my_jobs),
         'clients': clients,
-    })
+        'percent': round(percent, 1),
+        'av': round(av, 0),
+    }
     
-    return HttpResponse(html)
+    html = render_to_string('snippets/footer_inner.html', data)
+    
+    return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 def load_jobs(request):
     

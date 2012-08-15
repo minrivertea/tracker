@@ -37,7 +37,7 @@ function buildCal() {
     $('#month').html(t);
     $('#thisMonthYear').html(mn[m-1]+' '+y);
     loadJobs(m, y);
-    loadStats();
+    loadToplineStats();
     $('#month li').not('.noday').bind('click', addJob);
     $('.noday').bind('click', clearAll);
 }
@@ -291,6 +291,20 @@ function loadStats() {
    $('#footer').load('/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1));
 }
 
+
+function loadToplineStats() {
+  $.ajax({
+     url: '/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1),
+     type: 'GET',
+     dataType: 'json',
+     success: function(data) {
+        $('#progress-inner').css('width', data.percent+'%');
+        $('#stats-percent').html(data.percent+'%');
+        $('#stats-total').html(data.total_money);
+        $('#stats-av').html(data.av);
+     }
+  });  
+}
 
 
 /// a helper for CSRF protection in django when making ajax POSTs
