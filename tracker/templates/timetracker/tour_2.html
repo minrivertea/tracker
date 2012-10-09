@@ -11,13 +11,13 @@
 }
 
 p {
-  margin: 0 0 30px 0;   
+  margin: 0 0 20px 0;   
 }
 
 a.button {
-  margin: 0 20px 0 0;
-  font-size: 22px;   
+  margin: 0 20px 0 0;   
 }
+
 </style>
 {% endblock %}
 
@@ -25,7 +25,7 @@ a.button {
 <div class="super">
 <h1>… knowing how much money you'll make this month!</h1>
 <p>How much did you earn last month? How much money will you earn next month? As well as making scheduling and planning your life easier, the Timetracker also tells you in an instant what your financial position was, is and will be in the future.</p> 
-<p><a href="{% url anonymous_login %}" class="button filled">Try the tool out right now (free, instant) &raquo;</a> or go back to the <a href="{% url home %}">homepage</a></p>
+<p><a href="{% url anonymous_login %}" class="button filled">Try the tool out right now (free, instant) &raquo;</a><a class="button" href="{% url home %}">…or go back to the homepage</a></p>
 
 </div>
 {% endblock %}

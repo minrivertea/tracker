@@ -18,25 +18,8 @@ p {
   margin: 0 0 20px 0;   
 }
 
-#screenshots {
-  width: 100%;
-  float: left;
-  margin: 30px 0 0;   
-}
-
-#screenshots div {
-  width: 270px;
-  background: #f1f1f1;
-  box-shadow: 0 0px 3px #c1c1c1 inset;
-  float: left;
-  height: 190px; 
-  margin-right: 30px;  
-}
-
-#screenshots div:hover {
-  cursor: pointer;
-  background: green; 
-  box-shadow: none;  
+a.button {
+  margin-right: 20px;   
 }
 
 </style>
@@ -47,7 +30,7 @@ p {
 <h1>I hate trying to keep track of appointments on pieces of paper</h1>
 <p>Agreed? This isn't another complicated time-tracking tool - we just want all of our appointments in one place, so we never miss another meeting, class, job or appointment again.</p> 
 
-<p><strong><a href="/tour/two/" class="button">And what is it you really, really love? &raquo;</a></strong></p>
+<p><a href="/tour/two/" class="button filled">And what is it you really, really love? &raquo;</a><a href="{% url anonymous_login %}" class="button">Looking for screenshots? Just try it out instead - it's free anyway!</a></p>
 
 
 

@@ -21,8 +21,6 @@ p {
 
 a.button {
   margin: 0 20px 0 0px;
-  font-size: 20px;
-  float: left; 
 }
 
 #header, #footer {
@@ -39,10 +37,10 @@ a.button {
     <p>Track your appointments, understand your financial position in a flash, and avoid the annoying admin-overheads of hourly working.</p>
 
     <p>
-        <strong><a href="{% url anonymous_login %}" class="button filled">Try it out right now (free, instant)</a></strong>
+        <a href="{% url anonymous_login %}" class="button filled">Try it out right now (free, instant)</a>
         <a href="{% url auth_login %}" class="button">Login</a>
         <a href="{% url registration_register %}" class="button">Register</a>
-        …or <a href="/tour/one/">take a quick tour &raquo;</a>
+        …or <a href="/tour/one/">take an extremely quick tour &raquo;</a>
     </p>
     
 </div>
