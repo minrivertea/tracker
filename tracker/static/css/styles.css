@@ -44,6 +44,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active, #navigation li a:hover {
+  text-decoration: underline;
   color: #005580;
 }
 
@@ -91,8 +92,6 @@ background: -o-linear-gradient(top,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,
 background: -ms-linear-gradient(top,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* IE10+ */
 background: linear-gradient(to bottom,  rgba(39,142,50,1) 0%,rgba(71,158,60,1) 50%,rgba(24,137,16,1) 51%,rgba(7,124,13,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#278e32', endColorstr='#077c0d',GradientType=0 ); /* IE6-9 */
-
-
 }
 
 .button.green:hover {
@@ -252,6 +251,7 @@ label.focus {
   font-weight: bold; 
   color: #333;
   font-weight: normal; 
+  display: none;
 }
 
 #header #progress {

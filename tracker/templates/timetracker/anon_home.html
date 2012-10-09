@@ -10,21 +10,25 @@
 {% block extracss %}
 <style type="text/css">
 .super {
-  margin-top: 17%;   
+  margin-top: 15%;   
 }
 
 p {
-  margin: 0 0 30px 0;   
+  margin: 10px 0 10px 0;
+  float: left;
+  width: auto;   
 }
 
 a.button {
-  margin: 0 20px 0 0;
-  font-size: 22px;   
+  margin: 0 20px 0 0px;
+  font-size: 20px;
+  float: left; 
 }
 
 #header, #footer {
   display: none;   
 }
+
 
 </style>
 {% endblock %}
@@ -33,14 +37,14 @@ a.button {
 <div class="super">
     <h1>A Calendar for People Who Get Paid by the Hour</h1>
     <p>Track your appointments, understand your financial position in a flash, and avoid the annoying admin-overheads of hourly working.</p>
-    
-    <p>
-    <a href="{% url anonymous_login %}" class="button">Try the tool out right now (free, instant)</a>
-    or you can <a href="{% url auth_login %}" class="">login</a> or
-    <a href="{% url registration_register %}" class="">register</a> or
-    <a href="/tour/one">take a quick tour</a>
-    </p>
 
+    <p>
+        <strong><a href="{% url anonymous_login %}" class="button filled">Try it out right now (free, instant)</a></strong>
+        <a href="{% url auth_login %}" class="button">Login</a>
+        <a href="{% url registration_register %}" class="button">Register</a>
+        …or <a href="/tour/one/">take a quick tour &raquo;</a>
+    </p>
+    
 </div>
 
 

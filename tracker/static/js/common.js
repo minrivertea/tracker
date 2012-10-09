@@ -238,73 +238,74 @@ function bindDroppable() {
     });    
 }
 
-
-function updateJob(job) {
-   var nD = job.parent().parent().attr('id');
-   $.ajax({
-      url: '/update-job/',
-      type: 'POST',
-      data: { date: nD, uid: job.attr('id') },
-      success: function() {
-        // shoudl I do something here to celebrate moving a job? a message?  
-      },
-      error: function() {},
-   });
-}
-
-
-function nextMonth(e) {
-        
-    if (tD.getMonth() == 11) {
-        nD = new Date(tD.getFullYear() + 1, 0, 1);
-    } else {
-        nD = new Date(tD.getFullYear(), tD.getMonth() + 1, 1);
+    // HAPPENS WHEN A JOB IS DRAGGED, AND THEN IT UPDATES THE SERVER
+    function updateJob(job) {
+       var nD = job.parent().parent().attr('id');
+       $.ajax({
+          url: '/update-job/',
+          type: 'POST',
+          data: { date: nD, uid: job.attr('id') },
+          success: function() {
+            // shoudl I do something here to celebrate moving a job? a message?  
+          },
+          error: function() {},
+       });
     }
-        
-    tD = nD;
-    buildCal();
-    e.preventDefault();
-}
 
+    // GETS THE NEXT MONTH 
+    function nextMonth(e) {
+            
+        if (tD.getMonth() == 11) {
+            nD = new Date(tD.getFullYear() + 1, 0, 1);
+        } else {
+            nD = new Date(tD.getFullYear(), tD.getMonth() + 1, 1);
+        }
+            
+        tD = nD;
+        buildCal();
+        e.preventDefault();
+    }
 
-function prevMonth(e) {
-        
-    if (tD.getMonth() == 0) {
-        nD = new Date(tD.getFullYear() - 1, 11, 1);
-    } else {
-        nD = new Date(tD.getFullYear(), tD.getMonth() - 1, 1);
+    // GETS THE PREVIOUS MONTH
+    function prevMonth(e) {
+        if (tD.getMonth() == 0) {
+            nD = new Date(tD.getFullYear() - 1, 11, 1);
+        } else {
+            nD = new Date(tD.getFullYear(), tD.getMonth() - 1, 1);
+        }
+        tD = nD;
+        buildCal();
+        e.preventDefault();
     }
     
-    tD = nD;
-    buildCal();
-    e.preventDefault();
-}
-
-function clearAll() {
-  $('.popout').hide();
-  $('#add-form').css({'display': 'none', 'top': '0' });
-  $('.selected').removeClass('selected');
-  $('#expandable').attr('class', '');
-}
-
-function loadStats() {
-   $('#footer').load('/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1));
-}
+    // CATCHALL TO CLEAR ALL OPEN POPUPS, DIALOGS OR REMINDERS
+    function clearAll() {
+      $('.popout').hide();
+      $('#add-form').css({'display': 'none', 'top': '0' });
+      $('.selected').removeClass('selected');
+      $('#expandable').attr('class', '');
+    }
 
 
-function loadToplineStats() {
-  $.ajax({
-     url: '/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1),
-     type: 'GET',
-     dataType: 'json',
-     success: function(data) {
-        $('#progress-inner').css('width', data.percent+'%');
-        $('#stats-percent').html(data.percent+'%');
-        $('#stats-total').html(data.total_money);
-        $('#stats-av').html(data.av);
-     }
-  });  
-}
+    // USED TO LOAD THE STATS PREVIEW IN THE MAIN HEADER FOR A LOGGED IN USER
+    function loadToplineStats() {
+      $.ajax({
+         url: '/load-stats/?year='+tD.getFullYear()+'&month='+(tD.getMonth()+1),
+         type: 'GET',
+         dataType: 'json',
+         success: function(data) {
+            if (data.total_money == '') {
+                $('#stats').hide();
+            } else {
+                $('#stats').show();
+                $('#progress-inner').css('width', data.percent+'%');
+                $('#stats-percent').html(data.percent+'%');
+                $('#stats-total').html(data.total_money);
+                $('#stats-av').html(data.av);
+            } 
+         }
+      });  
+    }
 
     // USED IN FORMS TO HAVE THE CUTE DISAPPEARING HELP TEXT / LABEL
     function clearInput() {		

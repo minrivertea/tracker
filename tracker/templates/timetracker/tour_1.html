@@ -1,7 +1,6 @@
 {% extends base_template %}
 
-{% load django_static %}
-
+{% block pagetitle %}I Hate Keeping Appointments on Pieces of Paper{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -15,13 +14,42 @@
   margin-top: 15%;   
 }
 
+p {
+  margin: 0 0 20px 0;   
+}
+
+#screenshots {
+  width: 100%;
+  float: left;
+  margin: 30px 0 0;   
+}
+
+#screenshots div {
+  width: 270px;
+  background: #f1f1f1;
+  box-shadow: 0 0px 3px #c1c1c1 inset;
+  float: left;
+  height: 190px; 
+  margin-right: 30px;  
+}
+
+#screenshots div:hover {
+  cursor: pointer;
+  background: green; 
+  box-shadow: none;  
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="super">
 <h1>I hate trying to keep track of appointments on pieces of paper</h1>
-<p>That's why this is an online calendar tool - you can view, edit and add jobs easily and set email reminders so you don't forget things. <a href="/tour/two/">And there's one more thing it does which you'll love &raquo;</a></p> 
+<p>Agreed? This isn't another complicated time-tracking tool - we just want all of our appointments in one place, so we never miss another meeting, class, job or appointment again.</p> 
+
+<p><strong><a href="/tour/two/" class="button">And what is it you really, really love? &raquo;</a></strong></p>
+
+
 
 
 </div>

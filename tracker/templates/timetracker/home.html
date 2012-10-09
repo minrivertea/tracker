@@ -1,7 +1,6 @@
 {% extends base_template %}
 
-{% load django_static %}
-
+{% block pagetitle %}{{ request.user.username }}'s Calendar{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -9,10 +8,8 @@
 $(document).ready(function() {
     
     buildCal();
-    
     $('#nextMonth').bind('click', nextMonth);
     $('#prevMonth').bind('click', prevMonth);
-    
     $('#add-form #tips').click( function() {   
         $('#tips-full').toggle();
         if ($(this).text() == 'Show tips') {

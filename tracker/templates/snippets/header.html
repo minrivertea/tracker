@@ -5,6 +5,7 @@
         <a class="button" id="user" onclick="expandHeader('user')" href="#" >Your account</a>
         <a class="button" id="share" onclick="expandHeader('share')" title="Share this calender" href="#">Share</a>
         <a class="button" href="{% url jobs_ical request.user.id %}">iCal</a>
+        
         <div class="" id="stats">
             <span id="progress"><span id="progress-inner"></span></span>
             done: <span id="stats-percent"></span> / total: <span id="stats-total"></span> / av. <span id="stats-av"></span>

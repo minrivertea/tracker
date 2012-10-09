@@ -63,20 +63,6 @@
 	{% block content %}{% endblock %}
 	</div>
 	
-	
-	
-	<div id="share-form" class="popout">
-        <form action="{% url make_url %}" method="post">
-            {% csrf_token %}
-            <h3>Make a public calendar URL</h3>
-            <p>Assign permissions for people viewing this calendar on this URL. People viewing this calendar can:</p>
-            <p><input id="id_can_write" type="checkbox" name="can_write"><label>Add new appointments?</label></p>
-            <p><input id="id_can_see_names" type="checkbox" name="can_see_names"><label>See the names of appointments?</label></p>
-            <p><input id="id_can_see_details" type="checkbox" name="can_see_details"><label>View details of appointments?</label></p>
-            <p><input type="submit" value="Save and create URL" class="button"/></p>
-        </form>
-    </div>
-    	
 	{% include 'snippets/footer.html' %}
 
 
