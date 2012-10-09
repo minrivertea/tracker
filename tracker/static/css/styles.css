@@ -160,6 +160,7 @@ label {
   left: 15px;
   top: 25px;
   color: #333;	
+  display: none;
 }
 
 label.focus {

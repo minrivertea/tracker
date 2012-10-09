@@ -309,6 +309,7 @@ function bindDroppable() {
 
     // USED IN FORMS TO HAVE THE CUTE DISAPPEARING HELP TEXT / LABEL
     function clearInput() {		
+    	
     	$('.clearMeFocus').each( function() {
     	   var id = $(this).attr('id');
     	   if ($(this).val() == '') {
@@ -318,15 +319,15 @@ function bindDroppable() {
     	   }
     	});
     	
+    	// ADD A CLASS TO THE LABEL IF THE USER CLICKS IN THE RELATED INPUT
     	$('.clearMeFocus').focus(function() {	
     		var id = $(this).attr('id');
     		$('label[for="'+id+'"]').addClass('focus');
     	});
     	
-    	// if field is empty afterward, add text again
+    	// IF FIELD IS EMPTY ON BLUR, REMOVE LABEL CLASS
     	$('.clearMeFocus').blur(function() {
     		var id = $(this).attr('id');
-    		
     		if($(this).val()=='') {
     			$('label[for="'+id+'"]').removeClass('focus');
     		}
