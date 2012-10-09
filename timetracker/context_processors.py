@@ -23,6 +23,7 @@ def common(request):
         context['clientnames'] = get_clients(request)
     
     context['today'] = datetime.datetime.now()
+    context['ga_is_on'] = settings.GA_IS_ON
         
     try:
         firsttime = request.session['firsttime']

@@ -140,6 +140,8 @@ EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = ''
 EMAIL_PORT = '1025'
 
+GA_IS_ON = True
+
 
 #django-registration required:
 ACCOUNT_ACTIVATION_DAYS = 7
