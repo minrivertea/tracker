@@ -12,23 +12,13 @@ form {
   margin: 10px 0 0;   
 }
 
-form input {
-  margin: 10px 20px 10px 0;
-  width: 300px;
-  color: #999;   
-}
-
-form input[type=submit] {
-  width: 100px;   
-}
-
 </style>
 {% endblock %}
 
 {% block content %}
 
 <div class="super">
-<h1>Login to the timetracker</h1>
+<h1><a href="/">&laquo; Home</a> \ Login to the timetracker</h1>
 
 <p>If you haven't got an account, <a href="{% url registration_register %}">register here</a> - or did you <a class="forgotten" href="{% url auth_password_reset %}">forget your password?</a>?</p>
 
@@ -38,7 +28,9 @@ form input[type=submit] {
 
 <form method="post" action="{% url django.contrib.auth.views.login %}">
 {% csrf_token %}
-<p><input id="id_username" type="text" name="username" title="Your email" class="clearMeFocus" maxlength="30" /> <input type="password" name="password" id="id_password" title="Your password" class="clearMeFocus" /><input type="submit" value="Login" class="login button" /></p>
+<p><input id="id_username" type="text" name="username" title="" class="clearMeFocus" maxlength="30" /><label for="id_username">Your email</label></p>
+<p><input type="password" name="password" id="id_password" title="" class="clearMeFocus" /><label for="id_password">Password</label></p>
+<p><input type="submit" value="Login" class="login button" /></p>
 
 <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}/{% endif %}" />
 </form>

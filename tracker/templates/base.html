@@ -1,11 +1,5 @@
-
-{% block doctype %}<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-{% endblock %}
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -22,7 +16,7 @@
 	<meta name="DC.type" content="Django Site" />
 	<meta name="robots" content="ALL" />
 	
-	<title>{% block pagetitle %}{% endblock %} TimeTracker</title>
+	<title>{% block pagetitle %}{% endblock %} | TimeTracker</title>
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 	{% block canonical %}{% endblock %}
 	
@@ -30,8 +24,11 @@
 	
     <link rel="stylesheet" href="{{ static_url }}css/styles.css" />
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>	
-	<script type="text/javascript" src="{{ static_url }}js/jquery-ui-1.8.22.custom.min.js"></script>
+	{% if ga_is_on %}
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	{% else %}
+		<script type="text/javascript" src="{{ static_url }}js/jquery-1.8.1.min.js"></script>
+	{% endif %}
 
 	<script type="text/javascript" src="{{ static_url }}js/common.js"></script> <!-- my scripts -->
 	   
@@ -85,35 +82,7 @@
 
 <script type="text/javascript">
 $(document).ready( function() {
-    
-    		// clear input on focus
-			var clearMePrevious = '';
-			$('.clearMeFocus').each( function() {
-				if ($(this).val() == '') {
-				    var title = $(this).attr('title');
-				    $(this).val(title);
-				}
-			});
-			
-			$('.clearMeFocus').focus(function()
-			{
-				if($(this).val()==$(this).attr('title'))
-				{
-					clearMePrevious = $(this).val();
-					$(this).val('');
-					$(this).css('color', '#333');
-				}
-			});
-			
-			// if field is empty afterward, add text again
-			$('.clearMeFocus').blur(function()
-			{
-				if($(this).val()=='')
-				{
-					$(this).val(clearMePrevious);
-					$(this).css('color', '#999');
-				}
-			});    
+    clearInput();  
 });
 </script>
 {% block extrajs %}{% endblock %}

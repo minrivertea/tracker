@@ -1,62 +1,20 @@
-{% extends "base.html" %}
+{% extends base_template %}
 
 {% block pagetitle %}Register{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
 
-$('#id_name').blur( function() {
-    $.ajax({  
-        type: "GET",  
-        data: $('#id_name').serialize(),  
-        url: "",  
-        cache: false,  
-        dataType: "html",  
-        success: function(data) {
-            if (data == "success") {
-            	$('#id_name').attr('style', 'border-color: #9acd9c; background-color: #def2df;');
-                $('#username_status .ok').toggle();
-                $('#username_status .notok').css('display', 'none');		
-            }
-            else {
-            	$('#id_name').attr('style', 'border-color: red; background-color: #f3dbdb;');
-                $('#username_status .ok').css('display', 'none');
-                $('#username_status .notok').toggle();	
-            }
-        },  
-        error: function (XMLHttpRequest, textStatus, errorThrown) {  
-            alert('error'); 
-        }  
-    }); 
-});
-
-
-
 </script>
 {% endblock %}
 
 
 {% block extracss %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/registration.css">
 
 <style type="text/css">
 
 .super {
   margin: 160px auto;   
-}
-
-form {
-  margin: 10px 0 0;   
-}
-
-form input {
-  margin: 10px 20px 10px 0;
-  width: 300px;
-  color: #999;   
-}
-
-form input[type=submit] {
-  width: 100px;   
 }
 
 #username_status {
@@ -101,7 +59,7 @@ form input[type=submit] {
 
 {% block content %}
 <div class="super">
-<h1>Signup</h1>
+<h1><a href="{% url home %}">&laquo; Home</a> \ Signup</h1>
 <p>We will <strong>never</strong> pass on your private information to any other individual or company. Your information is stored securely, your password encrypted, and your email will never be displayed publicly. We hate spam just as much as you do!</p>
 
 <div id="username_status">
@@ -113,10 +71,9 @@ form input[type=submit] {
 {{ form.errors }}
 
 <form method="post" action=".">
-	{% csrf_token %}
-  <p>{{ form.email }}<label>Your email address <span>(will never be made public)</span></label></p>
-  <p>{{ form.password1 }}<label>Choose a password</label></p>
-  
+  {% csrf_token %}
+  <p><input id="id_email" type="text" class="required clearMeFocus" name="email" maxlength="75" /><label for="id_email">Your email address <span>(will never be made public)</span></label></p>
+  <p><input id="id_password1" type="password" class="required clearMeFocus" name="password1" /><label for="id_password1">Choose a password</label></p>
   <input type="submit" value="Register" class="register button" />
 </form>
 

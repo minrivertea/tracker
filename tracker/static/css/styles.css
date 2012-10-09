@@ -11,8 +11,6 @@ sup{vertical-align:text-top;}
 
 sub{vertical-align:text-bottom;}
 
-input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}del,ins{text-decoration:none;}
-
 
 html {
   border: none;
@@ -54,7 +52,7 @@ a:hover, a:active, #navigation li a:hover {
     color:#0088CC;
     text-shadow: 0 1px 0px #fff;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 16px;
     border-radius: 3px;
     padding: 10px 15px;    
 	background: rgb(237,237,237); /* Old browsers */
@@ -142,7 +140,7 @@ h4 {
 
 
 input {
-  padding: 10px;
+  padding: 15px;
   font-size: 16px;
   font-family: Helvetica, Arial sans-serif;
   border: 1px solid #e1e1e1;
@@ -156,11 +154,17 @@ input:focus {
 }
 
 label {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   line-height: 1.2em;
-  position: relative;
-  top: 5px;	
+  position: absolute;
+  left: 15px;
+  top: 25px;
+  color: #333;	
+}
+
+label.focus {
+  color: #c1c1c1;   
 }
 
 
@@ -242,7 +246,8 @@ label {
 }
 
 #header #stats {
-  width: 200px; 
+  width: 200px;
+  float: left; 
   font-size: 11px;
   font-weight: bold; 
   color: #333;
@@ -372,6 +377,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', end
 
 }
 
+form p {
+  float: left;
+  width: 100%;  
+  position: relative; 
+}
+
+form input {
+  margin: 10px 20px 10px 0;
+  width: 500px;
+  color: #999;   
+}
+
+form input[type=submit] {
+  width: 150px;   
+}
 
 #add-form #loading {
  display: none ;
@@ -560,7 +580,7 @@ ul#month li:last-child {
 ul#month li h3.inner_day {
     bottom: 10px;
     color: #666;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 100;
     line-height: 1em;
     position: absolute;
