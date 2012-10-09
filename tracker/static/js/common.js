@@ -310,9 +310,11 @@ function bindDroppable() {
     // USED IN FORMS TO HAVE THE CUTE DISAPPEARING HELP TEXT / LABEL
     function clearInput() {		
     	$('.clearMeFocus').each( function() {
+    	   var id = $(this).attr('id');
     	   if ($(this).val() == '') {
-    	      var id = $(this).attr('id');
     	      $('label[for="'+id+'"]').show();
+    	   } else {
+    	      $('label[for="'+id+'"]').hide();   
     	   }
     	});
     	
