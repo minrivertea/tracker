@@ -463,6 +463,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 #add-form p {
   font-size: 13px;   
+  float: none;
 }
 
 #add-form #tips {
@@ -547,7 +548,7 @@ ul#month{
     margin: 10px 0 0px 2%;
     padding: 0;
     width: 96%;
-    height: 60%;
+    height: 100%;
     border-radius: 5px;
     position: relative;
     z-index: 1;

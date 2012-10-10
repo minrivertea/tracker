@@ -80,10 +80,8 @@ def load_stats(request):
     
     for job in my_jobs:
         
-        if job.completed and not job.paid:
+        if job.completed:
             completed += job.get_total()
-        elif job.paid:
-            paid += job.get_total()
         
         total_money += job.get_total()
         
