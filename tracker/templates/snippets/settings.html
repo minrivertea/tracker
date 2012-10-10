@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="left">
+        <h3>Your account</h3>
+    </div>
+    <div class="right">
+        <p>Currently logged in as: <strong>{{ user.username }}</strong> <span class="small">(<a class="" id="logout" href="{% url auth_logout %}">Logout</a>)</span></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="left">
+        <h3>Share</h3>
+    </div>
+    <div class="right">
+        <p>Your public calendar link is: <strong>{{ site_url }}{{ url }}</strong></p>
+        <p><a class="" href="{% url jobs_ical user.id %}">Download iCal</a> <span class="small">(useful for exporting events to Gmail)</span></p>
+    </div>
+</div>
+
+
