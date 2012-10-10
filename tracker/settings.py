@@ -138,9 +138,10 @@ BASE_TEMPLATE_ANON = 'base_anon.html'
 
 EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = ''
-EMAIL_PORT = '1025'
+EMAIL_PORT = '25'
 
 GA_IS_ON = True
+SITE_URL = 'http://tracker.westiseast.co.uk'
 
 
 #django-registration required:

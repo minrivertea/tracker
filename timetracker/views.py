@@ -454,6 +454,30 @@ def ical(request, owner_id):
     return response
 
 
+
+def usersettings(request):
+    user = get_object_or_404(User, pk=request.user.id)
+        
+    existing = URL.objects.filter(related_owner=user)
+    try:
+        new_url = existing[0]
+    except:
+        new_url = URL.objects.create(
+            related_owner = user,
+            hashkey = uuid.uuid1().hex,
+            can_write = False,
+            can_see_names = False,
+            can_see_details = False,
+        )
+        new_url.save()
+    
+    url = reverse('view_url', args=[new_url.hashkey])
+
+    html = render_to_string('snippets/settings.html', {'url': url, 'site_url': settings.SITE_URL, 'user': user,})
+    return HttpResponse(html)
+
+
+
 def update_job(request):
     
     if request.method == 'POST':

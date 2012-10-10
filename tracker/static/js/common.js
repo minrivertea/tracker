@@ -42,176 +42,131 @@ function buildCal() {
     $('.noday').bind('click', clearAll);
 }
 
-
-function addJob() {
-   if ($(this).hasClass('selected')) {
-      $('#add-form').css({'display': 'none',});
-      $(this).removeClass('selected');
-   } else {
-      clearAll();
-      $(this).addClass('selected');
-      $('#add-form').css({'display': 'block',});
-      $('#add-form input:text:visible:first').focus();
-      $('#add-form input#id_start_date').val($(this).attr('id'));
-      $('#add-form').unbind().bind('submit', saveJob);
-   }    
-}
-
-function saveJob(e) {
-      $.ajax({
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: "json",
-            type: "POST",
-            success: function(data) {
-                clearAll();
-                html = '<li id="'+data.hashkey+'"><div class="popout"></div><a href="'+data.url+'" class="draggable">'+data.name+'</a></li>';
-                $('li#'+data.date+' ul.jobslist').append(html);
-                $('li#'+data.hashkey+' a').unbind().bind('click', getDetails);
-                bindDraggable();
-                loadStats();
-            }
-      });
-      e.preventDefault();
-}
-     
-
-function getDetails(e) {
-         
-   clearAll();
-   
-   $(this).addClass('selected'); // select this
-        
-    // if it's already been loaded previously, don't load the ajax again, just make it visible
-   if ($(this).parent().children('.popout-inner').length) {
-        $(this).parent().children('.popout').show();
-    } 
-    
-   else {
-        $(this).parent().children('.popout').show();
-        $(this).parent().children('.popout').load($(this).attr('href'), function() {
-           markJob();   
-        });
-   }
-      
-   var cssclass = '';
-   
-   if (( $(window).width() - e.pageX ) < 500) {
-      $(this).parent().children('.popout').addClass('left');
-   }
-   if (($(window).height()-e.pageY) < 500) {
-      $(this).parent().children('.popout').addClass('top');
-   } 
-   
-   e.preventDefault();
-   e.stopPropagation();
-   e.stopImmediatePropagation();
-}
-
-
-function markJob(e) {
-   $('.popout a').click( function(e) {
-     var t = this;
-     $.ajax({
-          url: $(t).attr('href'),
-          dataType: 'html',
-          success: function(data) {
-              if ($(t).hasClass('delete')) {
-                 clearAll();
-                 $('li#'+data).remove();
-                 loadStats(); 
-              }
-              if ($(t).hasClass('filled')) {
-                $(t).removeClass('filled');
-              } else {
-                $(t).addClass('filled');
-              }
-          }
-      });
-      e.preventDefault();
-      e.stopPropagation();
-   });
-}
-
-var shareURL;
-function makeURL() {
-   if ($('#sharelink').text() == thisDomain) {
-        $.ajax({
-         url: '/url/make/',
-         type: "GET",
-         success: function(data) {
-            shareURL = data;
-            $('#sharelink').append(data); 
-         }
-      }); 
-      return false;
-   }
-}
- 
-
-function expandHeader(block) {
-   var currentBlock = $('#'+block);
-   
-   
-   
-   if ($('#expandable').hasClass('open')) {
-      if (currentBlock.hasClass('selected')) {
-         $('#expandable').removeClass('open');
-         $('#header a').removeClass('selected');
-      } else { 
-         $('#header a').removeClass('selected');
-         currentBlock.addClass('selected');
-         getHeaderContents(block);
-      }
-      
-   }
-   
-   else {
-      $('#expandable').addClass('open');
-      currentBlock.addClass('selected');
-      getHeaderContents(block);
-   }
-   
-   
-}
-
-function getHeaderContents(block) {
-  $('#expandable div').not('#'+block+'-full').hide()
-  $('#'+block+'-full').show();
-  if (block=='share') makeURL();
-}
-
-
-function expandFooter() {
-  if ($('#footer').hasClass('expanded')) {
-      $('#footer').css('height', '40px');
-      $('#footer').removeClass('expanded');  
-  } else {
-      $('#footer').css('height', '300px');
-      $('#footer').addClass('expanded');     
-  } 
-}
-
-
-
-
-function loadJobs(month, year) {
-  $.ajax({
-    url: '/load-jobs/?year='+year+'&month='+month,
-    method: 'GET',
-    dataType: 'json',
-    success: function(data) {
-        $(data).each( function() {
-           html = '<li class="" id="'+this.uid+'"><div class="popout"></div><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
-           $('li#'+this.date+' ul.jobslist').append(html); 
-        });
-        
-        $('ul.jobslist li a.draggable').bind('click', getDetails); 
-        bindDraggable();
-        bindDroppable();
+    // REVEALS AND SETS UP THE ADD-JOB FORM AT THE TOP OF THE PAGE
+    function addJob() {
+       if ($(this).hasClass('selected')) {
+          $('#add-form').css({'display': 'none',});
+          $(this).removeClass('selected');
+       } else {
+          clearAll();
+          $(this).addClass('selected');
+          $('#add-form').css({'display': 'block',});
+          $('#add-form input:text:visible:first').focus();
+          $('#add-form input#id_start_date').val($(this).attr('id'));
+          $('#add-form').unbind().bind('submit', saveJob);
+       }    
     }
-  });     	
-}
+
+    // DOES THE ACTUAL SAVING OF A JOB IN THE ADD-JOB FORM
+    function saveJob(e) {
+          $.ajax({
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: "json",
+                type: "POST",
+                success: function(data) {
+                    clearAll();
+                    html = '<li id="'+data.hashkey+'"><div class="popout"></div><a href="'+data.url+'" class="draggable">'+data.name+'</a></li>';
+                    $('li#'+data.date+' ul.jobslist').append(html);
+                    $('li#'+data.hashkey+' a').unbind().bind('click', getDetails);
+                    bindDraggable();
+                    loadStats();
+                }
+          });
+          e.preventDefault();
+    }
+     
+    // WHEN A USER CLICKS ON A JOB, IT FETCHES AND DISPLAYS DETAILS
+    function getDetails(e) {
+             
+       clearAll();
+       $(this).addClass('selected');
+            
+        // if it's already been loaded previously, don't load the ajax again, just make it visible
+       if ($(this).parent().children('.popout-inner').length) {
+            $(this).parent().children('.popout').show();
+        } 
+        
+       else {
+            $(this).parent().children('.popout').show();
+            $(this).parent().children('.popout').load($(this).attr('href'), function() {
+               markJob();   
+            });
+       }
+          
+       var cssclass = '';
+       
+       if (( $(window).width() - e.pageX ) < 500) {
+          $(this).parent().children('.popout').addClass('left');
+       }
+       if (($(window).height()-e.pageY) < 500) {
+          $(this).parent().children('.popout').addClass('top');
+       } 
+       
+       e.preventDefault();
+       e.stopPropagation();
+       e.stopImmediatePropagation();
+    }
+
+    // MARK A JOB AS EITHER PAID OR COMPLETED
+    function markJob(e) {
+       $('.popout a').click( function(e) {
+         var t = this;
+         $.ajax({
+              url: $(t).attr('href'),
+              dataType: 'html',
+              success: function(data) {
+                  if ($(t).hasClass('delete')) {
+                     clearAll();
+                     $('li#'+data).remove();
+                     loadStats(); 
+                  }
+                  if ($(t).hasClass('filled')) {
+                    $(t).removeClass('filled');
+                  } else {
+                    $(t).addClass('filled');
+                  }
+              }
+          });
+          e.preventDefault();
+          e.stopPropagation();
+       });
+    }
+ 
+    // WHEN YOU CLICK ON A HEADER NAV ITEM, IT EXPANDS IT
+    function expandHeader(block) {
+       var item = $('#'+block);
+       if (item.hasClass('selected')) {
+          item.removeClass('selected');
+          $('#settings').remove();
+          $('#content').animate({left:'0px', opacity:'1',}, 200);
+       } else {
+          item.addClass('selected');
+          $('#content').animate({left:'-3000px',opacity:'0'}, 200, function() {
+               $('#container').prepend('<div id="settings"></div>');
+               $('#settings').load('/usersettings/')
+          });
+         
+       }
+    }
+
+    // ONCE THE CALENDAR HAS BEEN BUILT, LOAD THE JOBS FOR THIS USER
+    function loadJobs(month, year) {
+      $.ajax({
+        url: '/load-jobs/?year='+year+'&month='+month,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $(data).each( function() {
+               html = '<li class="" id="'+this.uid+'"><div class="popout"></div><a href="'+this.url+'" class="draggable '+this.cssclass+'">'+this.name+'</a></li>';
+               $('li#'+this.date+' ul.jobslist').append(html); 
+            });
+            $('ul.jobslist li a.draggable').bind('click', getDetails); 
+            bindDraggable();
+            bindDroppable();
+        }
+      });     	
+    }
 
 function bindDraggable() { 
     $('.draggable').draggable({
@@ -254,7 +209,7 @@ function bindDroppable() {
 
     // GETS THE NEXT MONTH 
     function nextMonth(e) {
-            
+        slideCalLeft();
         if (tD.getMonth() == 11) {
             nD = new Date(tD.getFullYear() + 1, 0, 1);
         } else {
@@ -268,6 +223,7 @@ function bindDroppable() {
 
     // GETS THE PREVIOUS MONTH
     function prevMonth(e) {
+        slideCalRight();
         if (tD.getMonth() == 0) {
             nD = new Date(tD.getFullYear() - 1, 11, 1);
         } else {
@@ -277,6 +233,25 @@ function bindDroppable() {
         buildCal();
         e.preventDefault();
     }
+    
+    // SLIDES MAIN CONTENT DIV OUT OF THE LEFT OF THE SCREEN
+    function slideCalLeft() {
+        $('#content').animate({left:'-3000px',opacity:'0',}, 200, function() {
+            reviveContent();
+        });
+    }
+    
+    // SLIDES MAIN CONTENT DIV OUT OF THE RIGHT OF THE SCREEN
+    function slideCalRight() {
+        $('#content').animate({left:'3000px',opacity:'0',}, 200, function() {
+            reviveContent();
+        });
+    }
+    
+    function reviveContent() {
+        $('#content').css('left', '0').animate({opacity: '1',}, 200);
+    }
+
     
     // CATCHALL TO CLEAR ALL OPEN POPUPS, DIALOGS OR REMINDERS
     function clearAll() {

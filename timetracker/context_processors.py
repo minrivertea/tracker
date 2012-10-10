@@ -9,6 +9,7 @@ def common(request):
     context = {}
     context['static_url'] = settings.STATIC_URL
     context['flavour'] = django_mobile.get_flavour(request)
+    context['site_url'] = settings.SITE_URL
     
     if request.user.is_authenticated():
         context['base_template'] = settings.BASE_TEMPLATE

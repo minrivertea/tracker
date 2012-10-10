@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     
     url(r'^url/make/$', make_url, name="make_url"),
     url(r'^url/(?P<hashkey>[\w-]+)/$', view_url, name="view_url"),
-    
+    url(r'^usersettings/$', usersettings, name="usersettings"),
     url(r'^tour/one/$', direct_to_template, {'template': 'timetracker/tour_1.html',}),
     url(r'^tour/two/$', direct_to_template, {'template': 'timetracker/tour_2.html',}),
 

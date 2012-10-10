@@ -175,6 +175,14 @@ label.focus {
   margin: 60px auto;  	
 }
 
+#container {
+  overflow: hidden;   
+}
+
+#content {
+  position: absolute;
+  width: 100%;
+}
 
 
 /* footer and header divs */
@@ -309,7 +317,6 @@ label.focus {
 #header a.button.selected {
   background: #fff;
   border: 1px solid transparent;
-  padding-bottom: 30px;
 }
 
 #footer .inner, #header .inner {
@@ -819,3 +826,43 @@ ul#month li .popout .close {
   z-index: 200;   
 }
 
+#settings {
+  width: 90%;
+  margin-left: 5%;   
+  margin-top: 50px;
+}
+
+#settings .row {
+  width: 100%;
+  float: left; 
+  border-bottom: 1px solid #c1c1c1;
+  padding-bottom: 0px;
+}
+
+#settings .row .left {
+    float: left;
+    padding: 10px 30px 10px 15px;
+    width: 100px;
+    height: 100%;
+    text-align: right;
+}
+
+#settings .row .left h3 {
+  font-size: 16px; 
+  text-shadow: 1px 1px 0 #fff;
+  color: #444;
+}
+
+#settings .row .right {
+   float: left;
+   width: auto;
+   padding: 10px 15px 10px 30px;
+   border-left: 1px solid #c1c1c1;
+   height: 100%;
+   font-size: 15px;
+}
+
+#settings .row .right .small {
+  font-size: 13px;
+  color: #444;   
+}

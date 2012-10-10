@@ -3,8 +3,6 @@
       
       {% if request.user.is_authenticated %}        
         <a class="button" id="user" onclick="expandHeader('user')" href="#" >Your account</a>
-        <a class="button" id="share" onclick="expandHeader('share')" title="Share this calender" href="#">Share</a>
-        <a class="button" href="{% url jobs_ical request.user.id %}">iCal</a>
         
         <div class="" id="stats">
             <span id="progress"><span id="progress-inner"></span></span>
@@ -28,15 +26,6 @@
         </div>
       
       {% include 'snippets/add-form.html' %}
-       
-      <div id="expandable" class="">
-        <div id="share-full">
-            <h3>Your public calendar link is:</h3><p><span id="sharelink">http://tracker.westiseast.co.uk</span></p>
-        </div>
-        <div id="user-full">
-            <p>Currently logged in as: <strong>{{ request.user.username }}</strong> <a class="button" id="logout" href="{% url auth_logout %}">Logout</a></p>
-        </div>
-      </div>
       
    </div>
 </div>
