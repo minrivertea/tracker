@@ -263,7 +263,7 @@ label.focus {
   display: none;
 }
 
-#header #progress {
+#header .progress {
   width: 100%; 
   height: 15px;
   border: 1px solid #c1c1c1;
@@ -271,6 +271,17 @@ label.focus {
   background: #fff; 
   display: block; 
   margin: 0 0 5px 0;
+  position: relative;
+}
+
+#header .progress .text {
+    float: left;
+    font-weight: bold;
+    left: 210px;
+    position: absolute;
+    text-align: left;
+    top: 0;
+    width: 100px;
 }
 
 #header #stats #stats-percent, #header #stats #stats-total, #header #stats #stats-av {
@@ -283,6 +294,10 @@ label.focus {
   height: 100%;
   display: block;
   width: 0%;
+}
+
+#header #paid #progress-inner {
+  background: none repeat scroll 0 0 #E55C12;
 }
 
 #header #next_previous {

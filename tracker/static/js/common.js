@@ -273,8 +273,11 @@ function bindDroppable() {
                 $('#stats').hide();
             } else {
                 $('#stats').show();
-                $('#progress-inner').css('width', data.percent+'%');
-                $('#stats-percent').html(data.percent+'%');
+                $('#completed #progress-inner').css('width', data.completed_percent+'%');
+                $('#completed .text').append(' ('+data.completed_percent+'%)');
+                $('#paid #progress-inner').css('width', data.paid_percent+'%');
+                $('#paid .text').append(' ('+data.paid_percent+'%)');
+                $('#stats-percent').html(data.paid_percent+'%');
                 $('#stats-total').html(data.total_money);
                 $('#stats-av').html(data.av);
             } 

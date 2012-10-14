@@ -83,6 +83,9 @@ def load_stats(request):
         if job.completed:
             completed += job.get_total()
         
+        if job.paid:
+            paid += job.get_total()
+            
         total_money += job.get_total()
         
         marker = job.client
@@ -97,11 +100,9 @@ def load_stats(request):
         
     av = total_money / 30
     
-    
-    percent = (float(completed)/float(total_money)) * 100
-    
-    print percent
-    
+    completed_percent = (float(completed)/float(total_money)) * 100
+    paid_percent = (float(paid)/float(total_money)) * 100
+        
     data = {
         'total_money': total_money,
         'paid': paid,
@@ -109,16 +110,14 @@ def load_stats(request):
         'overdue': overdue,
         'total_jobs': len(my_jobs),
         'clients': clients,
-        'percent': round(percent, 1),
+        'completed_percent': round(completed_percent, 1),
+        'paid_percent': round(paid_percent, 1),
         'av': round(av, 0),
     }
-    
-    html = render_to_string('snippets/footer_inner.html', data)
     
     return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 def load_jobs(request):
-    
     
     try:
         year = int(request.GET['year'])
