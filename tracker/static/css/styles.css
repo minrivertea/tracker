@@ -284,6 +284,31 @@ label.focus {
     width: 100px;
 }
 
+#stats-container #brace {
+    color: #F59600;
+    float: left;
+    font-family: Lucida Grande;
+    font-size: 39px;
+    margin: 0 0 0 80px;
+    position: relative;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    top: -6px;
+}
+
+#stats-container #total {
+    color: #F59600;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1em;
+    margin: 0 0 0 10px;
+    position: relative;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    top: 5px;
+    width: auto;
+}
+
 #header #stats #stats-percent, #header #stats #stats-total, #header #stats #stats-av {
   color: #000;
   font-weight: bold;   

@@ -274,12 +274,12 @@ function bindDroppable() {
             } else {
                 $('#stats').show();
                 $('#completed #progress-inner').css('width', data.completed_percent+'%');
-                $('#completed .text').append(' ('+data.completed_percent+'%)');
+                $('.progress .text').html('');
+                $('#completed .text').append('Done ('+data.completed_percent+'%)');
                 $('#paid #progress-inner').css('width', data.paid_percent+'%');
-                $('#paid .text').append(' ('+data.paid_percent+'%)');
+                $('#paid .text').append('Paid ('+data.paid_percent+'%)');
                 $('#stats-percent').html(data.paid_percent+'%');
-                $('#stats-total').html(data.total_money);
-                $('#stats-av').html(data.av);
+                $('#total').html(data.total_money+' / month <br/>'+data.av+' / day');
             } 
          }
       });  

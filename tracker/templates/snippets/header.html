@@ -4,9 +4,13 @@
       {% if request.user.is_authenticated %}        
         <a class="button" id="user" onclick="expandHeader('user')" href="#" >Your account</a>
         
+        <div id="stats-container">
         <div class="" id="stats">
             <span id="completed" class="progress"><span id="progress-inner"></span> <span class="text">Done</span></span>
             <span id="paid" class="progress"><span id="progress-inner"></span> <span class="text">Paid</span></span>
+        </div>
+             <span id="brace">&#125</span>
+             <div id="total"></div>
         </div>
       {% endif %}
         
