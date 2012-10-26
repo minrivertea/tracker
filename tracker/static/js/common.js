@@ -81,7 +81,7 @@ function buildCal() {
          $('#show a').click( function() {
             if ($(this).hasClass('selected')) {
               $(this).removeClass('selected');
-              $('a.bold').removeClass('bold');   
+              $('ul#month li a.'+$(this).attr('rel')).removeClass('bold');   
             } else {
               $(this).addClass('selected');
               $('ul#month li a.'+$(this).attr('rel')).addClass('bold');
