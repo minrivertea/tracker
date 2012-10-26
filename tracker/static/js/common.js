@@ -75,6 +75,20 @@ function buildCal() {
           });
           e.preventDefault();
     }
+    
+    // SHOW OR HIDE THE ITEMS WHICH HAVE BEEN PAID OR COMPLETED
+    function showHidePaidComplete() {
+         $('#show a').click( function() {
+            if ($(this).hasClass('selected')) {
+              $(this).removeClass('selected');
+              $('a.bold').removeClass('bold');   
+            } else {
+              $(this).addClass('selected');
+              $('ul#month li a.'+$(this).attr('rel')).addClass('bold');
+            }
+            return false;
+         });   
+    }
      
     // WHEN A USER CLICKS ON A JOB, IT FETCHES AND DISPLAYS DETAILS
     function getDetails(e) {
@@ -168,30 +182,33 @@ function buildCal() {
       });     	
     }
 
-function bindDraggable() { 
-    $('.draggable').draggable({
-       'opacity': 0.8,
-	   'snap': true,
-	   start: function(event, ui) {
-	       $(this).unbind('click');
-	   }
-     });
-}
+    // BINDS ITEMS SO THEY CAN BE DRAGGED
+    function bindDraggable() { 
+        $('.draggable').draggable({
+           'opacity': 0.8,
+    	   'snap': true,
+    	   start: function(event, ui) {
+    	       $(this).unbind('click');
+    	   }
+         });
+    }
 
-function bindDroppable() {
-    $('.droppable').droppable({
-		drop: function(event, ui) {
-		    var newLI = ui.draggable.parent().clone();
-		    ui.draggable.parent().remove();
-			$(this).append(newLI);
-			newLI.children('a').attr('style', '');
-			bindDraggable();
-			newLI.children('a').bind('click', getDetails);
-			updateJob(newLI);
-			
-		}
-    });    
-}
+
+    // BINDS ITEMS DO THAT THEY CAN BE DROPPED AND DATA UPDATES
+    function bindDroppable() {
+        $('.droppable').droppable({
+    		drop: function(event, ui) {
+    		    var newLI = ui.draggable.parent().clone();
+    		    ui.draggable.parent().remove();
+    			$(this).append(newLI);
+    			newLI.children('a').attr('style', '');
+    			bindDraggable();
+    			newLI.children('a').bind('click', getDetails);
+    			updateJob(newLI);
+    			
+    		}
+        });    
+    }
 
     // HAPPENS WHEN A JOB IS DRAGGED, AND THEN IT UPDATES THE SERVER
     function updateJob(job) {
@@ -248,6 +265,7 @@ function bindDroppable() {
         });
     }
     
+    // BRINGS CONTENT BACK TO CENTRE
     function reviveContent() {
         $('#content').css('left', '0').animate({opacity: '1',}, 200);
     }
@@ -321,6 +339,7 @@ function bindDroppable() {
     	    }
     	});  
     }
+
 
 
 /// a helper for CSRF protection in django when making ajax POSTs

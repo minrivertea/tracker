@@ -221,30 +221,6 @@ label.focus {
   font-size: 16px;   
 }
 
-#expandable {
-  height: auto;
-  width: 96%;
-  float: left;
-  margin: 10px 0 40px 0;
-  background: #fff;
-  display: none;
-  padding: 20px 2%;   
-}
-
-#expandable.open {
-   display: block; 
-   position: relative;
-   top: -20px;  
-}
-
-#expandable #user-full a#logout {
-  float: right;   
-}
-
-#expandable #user-full, #expandable #share-full {
-  display: none;   
-}
-
 #footer {
   float: left;
   width: 100%;
@@ -252,6 +228,8 @@ label.focus {
   margin: 0 0 100px 0; 
   display: none;
 }
+
+/* HEADER AREA */
 
 #header #stats {
   width: 200px;
@@ -282,6 +260,11 @@ label.focus {
     text-align: left;
     top: 0;
     width: 100px;
+}
+
+#stats-container {
+  float: left;
+  width: auto;   
 }
 
 #stats-container #brace {
@@ -325,6 +308,50 @@ label.focus {
   background: none repeat scroll 0 0 #E55C12;
 }
 
+#show {
+  float: left;
+  margin: 0 0 0 20px;
+  width: 60px;   
+}
+
+#header #show a {
+  width: 60px;
+  float: left; 
+  color: #999;  
+}
+
+#show a .tick {
+  color: green;  
+  display: none; 
+  float: left;
+  margin: 0 10px 0 0;   
+}
+
+#show a .cross {
+  color: #999;
+  text-shadow: 0 1px 1px #fff;
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;   
+}
+
+#header #show a.selected {
+  color: green; 
+  font-weight: bold;  
+}
+
+#show a.selected .tick {
+  display: block;   
+}
+
+#show a.selected .cross {
+  display: none;   
+}
+
+
+
+
+
 #header #next_previous {
   float: right;
   width: 200px; 
@@ -358,6 +385,10 @@ label.focus {
   background: #fff;
   border: 1px solid transparent;
 }
+
+
+
+/* FOOTER STYLES */
 
 #footer .inner, #header .inner {
  width: 96%;
@@ -683,6 +714,10 @@ li span.link:hover {
 
 ul#month li a {
   position: relative;   
+}
+
+ul#month li a.bold {
+  font-weight: bold;   
 }
 
 ul#month li.selected h3.inner_day, ul#month li:hover h3.inner_day {
